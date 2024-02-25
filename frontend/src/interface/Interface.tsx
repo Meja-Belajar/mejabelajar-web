@@ -1,25 +1,51 @@
-export interface User {
-  userid: string;
-  name: string;
-  age: number;
-  email: string;
+// sub interface 
+interface Social {
   linkedin: string;
-  description: string;
-  course: string[];
-  available: boolean;
-  teach_history: {
-    course: string;
-    duration: string;
-  }[];
-  account_type: string;
+  whatsapp: string;
 }
 
+interface AccountDetail {
+  name: string;
+  profile_picture: string;
+  bod: string; 
+  social: Social;
+  description: string;
+}
+
+interface Course {
+  name: string;
+  price_per_hours: number;
+}
+
+interface TeachHistory {
+  name: string;
+  total_hours: string;
+}
+
+interface MentorDetail {
+  course: Course[];
+  available: boolean;
+  teach_history: TeachHistory[]; 
+  review: string; 
+  total_teaching_hours: string; 
+  teaching_frequent: string;
+}
+
+// export 
+export interface User {
+  userid: string;
+  account_type: string;
+  email: string;
+  password: string;
+  account_detail: AccountDetail;
+  mentor_detail: MentorDetail;
+}
 export interface Live {
+  userid: string;
   thumbnail: string;
   startTime: string;
   expired: boolean;
   name: string;
   title: string;
-  userId: string;
-  totalWatchers: number;
+  total_watchers: number;
 }
