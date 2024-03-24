@@ -11,6 +11,7 @@ import { loginService } from '@src/apis/services/userService';
 import { UserContext } from '@contexts/UserContext';
 import Logo from '@src/components/Logo';
 import '@assets/global.css';
+
 import { LoginUserSchema } from '@src/models/zod/user_zod';
 import { LoginUserErrorValidation, LoginUserRequest } from '@src/models/requests/user_request';
 
@@ -22,6 +23,7 @@ const FormReducer = (state: LoginUserRequest, action: any) => {
 };
 
 const Login = () => {
+
   const { setUser } = useContext(UserContext);
 
   const [formData, setFormData] = useReducer(FormReducer, {} as LoginUserRequest);
@@ -31,7 +33,9 @@ const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const [isFail, setFail] = useState<boolean>(false);
+
   const [warn, setWarn] = useState<string>('');
+
 
   const navigate = useNavigate();
   
@@ -47,15 +51,17 @@ const Login = () => {
     e.preventDefault();
 
     const handleLogin = async () => {
+
       try {
         setLoading(true);
+
 
         const loginResponse = await loginService({ email: formData.email, password: formData.password });
         
         // error validation already handled by loginResponse
         setUser!(loginResponse);
         navigate('/');
-        
+
       } catch (error) {
         if(error instanceof Error){
           setFail(true);
@@ -79,8 +85,10 @@ const Login = () => {
       }
       setFormDataError(newErrors as LoginUserErrorValidation);
     } else {
+
       setFormDataError({} as LoginUserErrorValidation);
       handleLogin();
+
     }
 
   }
@@ -158,7 +166,9 @@ const Login = () => {
           <ModalContent>
             <ModalBody className='flex items-center text-red-500'>
               <FontAwesomeIcon icon={faCircleExclamation} className='text-5xl'/>
+
               {warn && <h2 className='text-sm mt-6'>{warn}</h2>}
+
             </ModalBody>
           </ModalContent>
         </Modal>

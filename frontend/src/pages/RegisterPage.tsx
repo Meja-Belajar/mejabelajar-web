@@ -8,11 +8,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { registerService } from '@src/apis/services/userService'
 import '@assets/global.css';
 import Logo from '@src/components/Logo'
+
 import { RegisterUserSchema } from '@src/models/zod/user_zod'
 import { RegisterUserErrorValidation, RegisterUserRequest } from '@src/models/requests/user_request'
 import { RegisterUserResponse } from '@src/models/responses/user_response'
 import { maxDateUtil } from '@src/utils/dateUtil'
 import { register } from 'module'
+
 
 const FormReducer = (state: RegisterUserRequest, action: any) => {
   return {
@@ -32,6 +34,7 @@ const Register = () => {
   
   const navigate = useNavigate();
   
+
   const handleRegister = async () => {
     try {
       setLoading(true);
@@ -46,6 +49,7 @@ const Register = () => {
         created_by: formData.created_by
       });
 
+
       // error validation already handled by registerService
       navigate('/login');
 
@@ -53,6 +57,7 @@ const Register = () => {
       if(error instanceof Error) {
         window.scrollTo(0, 0);
         setWarn(error.toString());
+
       }
     } finally {
       setLoading(false);
@@ -74,19 +79,23 @@ const Register = () => {
           [issue.path[0]]: issue.message,
         };
       }
+
       console.log(newErrors);
       setFormDataError(newErrors as RegisterUserErrorValidation);
       setLoading(false);
     } else {
       setFormDataError({} as RegisterUserErrorValidation);
       handleRegister();
+
     }
   }
 
   return (  
     <>
       <motion.div
+
         className='w-full flex items-center flex-col pb-36'
+
         initial={ initial }
         animate={ animate }
         exit={ exit }
@@ -117,7 +126,9 @@ const Register = () => {
                 className='mt-3 lato-regular' 
                 label='Name'
                 value={formData.user_name}
+
                 errorMessage={formDataError.user_name && formDataError.user_name}
+
                 onChange={(e) => {
                   setFormData({type: 'change', value: e.target.value, name: 'user_name'})
                   setFormData({type: 'change', value: e.target.value, name: 'created_by'})
@@ -130,7 +141,9 @@ const Register = () => {
                 className='lato-regular mt-3' 
                 label='Email'
                 value={formData.email}
+
                 errorMessage={formDataError.email && formDataError.email}
+
                 onChange={(e) => setFormData({type: 'change', value: e.target.value, name: 'email'})}
               />
               <Input 
@@ -140,6 +153,7 @@ const Register = () => {
                 className='lato-regular mt-3' 
                 label='Phone Number'
                 value={formData.phone_number}
+
                 errorMessage={formDataError.phone_number && formDataError.phone_number}
                 onChange={(e) => setFormData({type: 'change', value: e.target.value, name: 'phone_number'})}
               />
@@ -200,6 +214,7 @@ const Register = () => {
                   </button>
                 }      
               />
+
             </div>
 
             <div className='m-3 pt-2 pb-2 flex items-end justify-end'>

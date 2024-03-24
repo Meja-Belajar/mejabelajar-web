@@ -1,9 +1,9 @@
 package main
 
 import (
-	// "github.com/meja_belajar/controllers"
 	"github.com/meja_belajar/configs"
 	"github.com/meja_belajar/models/database"
+	"github.com/meja_belajar/routers"
 )
 
 func init() {
@@ -11,10 +11,11 @@ func init() {
 	configs.ConnectToDB()
 }
 
+// @BasePath /api/v1
 func main() {
-	configs.DB.AutoMigrate(&database.Users{}, &database.Mentors{}, &database.Courses{}, &database.MentorCourses{}, &database.Bookings{})
-
-	// r := gin.Default()
-	// r.POST("/posts", controllers.PostsCreate)
-	// r.Run()
+	configs.DB.AutoMigrate(&database.Users{}, &database.Mentors{}, &database.Courses{}, &database.MentorCourses{}, &database.Bookings{}, &database.MentorReviews{}, &database.Invoices{})
+	//r := gin.Default()
+	//services.UserService(r)
+	r := routers.ConfigureRouter()
+	r.Run(":3000")
 }
