@@ -7,6 +7,7 @@ import { useContext, useState } from 'react'
 import {AnimatePresence, motion} from 'framer-motion'
 import Logo from '@src/components/Logo'
 import { UserContext } from '@contexts/UserContext'
+import { useSelector } from 'react-redux'
 
 const navigationList = [
   "Announcement",
@@ -33,10 +34,10 @@ const Navigation: React.FC = () => {
     }
   }
 
-  const { login } = useContext(UserContext);
-
   const location = useLocation();
+  const currentUser = useSelector((state: any) => state.user.currentUser);
 
+  console.log(currentUser);
   if(['/login', '/register'].includes(location.pathname)) return null;
   else return (
     <>
@@ -90,21 +91,12 @@ const Navigation: React.FC = () => {
               <FontAwesomeIcon icon={faSearch} className='text-blue-accent-300' />
             } 
           />
-          <div className='gap-3 flex items-center'>
-            {
-              login?.status !== 200 ? (
-                <>
-                  <Button variant='bordered' className='border-blue-accent-300 text-blue-accent-300 open-sans-600 text-xs w-16 h-8 sm:w-24 sm:h-10' onClick={() => navigate('/login')}>Login</Button>
-                  <Button variant='shadow' className='hidden sm:flex bg-blue-accent-300 text-white open-sans-600  text-xs w-16 h-8 sm:w-24 sm:h-10' onClick={() => navigate('/register')}>Register</Button>
-                </>
-              ) : (
-                <>
-                  <Link to='/profile' className='relative w-10 overflow-hidden rounded-full mr-4'>
-                    <img src={login?.user?.account_detail?.profile_picture} alt="" className='w-full h-full' />
-                  </Link>
-                </>
-              )
-            }
+          <div className='gap-3 flex items-center'>          
+            <>
+              <Link to='/profile' className='relative w-10 overflow-hidden rounded-full mr-4 border aspect-square'>
+                <img src={currentUser?.profile_picture} alt="" className='w-full h-full' />
+              </Link>
+            </>  
           </div>
         </form>
 

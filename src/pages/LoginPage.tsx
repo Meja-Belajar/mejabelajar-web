@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useReducer, useState } from 'react';
-import { Button, Input, Modal, ModalBody, ModalContent } from '@nextui-org/react';
+import { Button, Input, Modal, ModalBody, ModalContent, useSelect } from '@nextui-org/react';
 import { motion }from 'framer-motion';
 
 import { exit, animate, initial } from '@assets/PageTransition';
@@ -14,8 +14,14 @@ import '@assets/global.css';
 
 import { LoginUserSchema } from '@src/models/zod/user_zod';
 import { LoginUserErrorValidation, LoginUserRequest } from '@src/models/requests/user_request';
+import { useDispatch, useSelector } from 'react-redux';
+import { set } from 'zod';
+import { useAppDispath } from '@src/redux/store';
+import { userSlice } from '@src/redux/user/userSlice';
+import { setCurrentUser, setUserError, setUserLoading } from '@src/redux/user/userSelectors';
+import { error } from 'console';
 
-const FormReducer = (state: LoginUserRequest, action: any) => {
+const FormReducer = (state: LoginUserRequest, action: { type: string, name: string; value: string; }) => {
   return {  
     ...state,
     [action.name]: action.value
@@ -24,28 +30,26 @@ const FormReducer = (state: LoginUserRequest, action: any) => {
 
 const Login = () => {
 
-  const { setUser } = useContext(UserContext);
-
   const [formData, setFormData] = useReducer(FormReducer, {} as LoginUserRequest);
   const [formDataError, setFormDataError] = useState<LoginUserErrorValidation>({} as LoginUserErrorValidation);
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
 
-  const [isFail, setFail] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
-  const [warn, setWarn] = useState<string>('');
-
-
+  const dispath = useDispatch();
+  const userErrorMessage = useSelector((state: any) => state.user.userError);  
+  const isUserLoading = useSelector((state: any) => state.user.isUserLoading);
+  
   const navigate = useNavigate();
   
   useEffect(() => {
-    if(isFail){
+    if(isError) {
       setTimeout(() => {
-        setFail(false);
+        setIsError(false)
       }, 1500);
     }
-  }, [isFail]);
+  }, [isError]);
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -53,22 +57,22 @@ const Login = () => {
     const handleLogin = async () => {
 
       try {
-        setLoading(true);
-
+        dispath(setUserLoading(true)); 
 
         const loginResponse = await loginService({ email: formData.email, password: formData.password });
         
         // error validation already handled by loginResponse
-        setUser!(loginResponse);
+        dispath(setCurrentUser(loginResponse));
+        console.log(loginResponse);
         navigate('/');
 
       } catch (error) {
         if(error instanceof Error){
-          setFail(true);
-          setWarn(error.toString());
+          dispath(setUserError(error.toString()));
+          setIsError(true);
         }
       } finally {
-        setLoading(false);
+        dispath(setUserLoading(false));
       }
     }
 
@@ -124,7 +128,7 @@ const Login = () => {
               variant='bordered'
               label='Email / Username'
               value={formData.email}
-              onChange={(e) => setFormData({type: 'change', value: e.target.value, name: 'email'})}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({type: 'change', value: e.target.value, name: 'email'})}
               required
             />
             {formDataError.email && <p className='text-red-600 text-xs m-3'>{formDataError.email}</p>}
@@ -136,7 +140,7 @@ const Login = () => {
               className='mt-3'
               required
               value={formData.password}
-              onChange={(e) => setFormData({type: 'change', value: e.target.value, name: 'password'})}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({type: 'change', value: e.target.value, name: 'password' })}
               endContent={
                 <button className="focus:outline-none" type="button" onClick={() => setIsVisible(!isVisible)}>
                   { 
@@ -154,25 +158,28 @@ const Login = () => {
           </div>
 
           <div className='m-3 pt-2 pb-2 flex items-end justify-end'>
-            <Link to="/" className='text-xs underline-offset-2 underline decoration-transparent hover:decoration-black'>Forget Password ?</Link>
+            <Link to="/" className='text-xs underline-offset-2 underline decoration-transparent hover:decoration-black'>
+              Forget Password ?
+            </Link>
           </div>
           <div className='m-3 flex items-center justify-center flex-col'>
-            <Button type='submit' color='default' variant='solid' className='bg-blue-accent-300 text-black w-full' isLoading={loading}>Login</Button>
+            <Button type='submit' color='default' variant='solid' className='bg-blue-accent-300 text-black w-full' isLoading={isUserLoading}>
+              Login
+            </Button>
           </div>
         </form>
 
-
-        <Modal isOpen={isFail} backdrop={"blur"}  hideCloseButton className='py-14'>
+        {/* if error not empty show modal */}
+        <Modal isOpen={isError} backdrop={"blur"}  hideCloseButton className='py-14'>
           <ModalContent>
             <ModalBody className='flex items-center text-red-500'>
               <FontAwesomeIcon icon={faCircleExclamation} className='text-5xl'/>
 
-              {warn && <h2 className='text-sm mt-6'>{warn}</h2>}
+              {userErrorMessage && <h2 className='text-sm mt-6'>{userErrorMessage}</h2>}
 
             </ModalBody>
           </ModalContent>
         </Modal>
-
       </motion.div>
     </>
   )

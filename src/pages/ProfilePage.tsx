@@ -4,22 +4,37 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '@contexts/UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faCamera, faSignOut } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faCamera, faSave, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { Button, Input, Textarea } from '@nextui-org/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { current } from '@reduxjs/toolkit';
+import { logoutService } from '@src/apis/services/userService';
+import { setCurrentUser } from '@src/redux/user/userSelectors';
 
 const Profile = () => {
-  const { login } = useContext(UserContext);
-
+  const currentUser = useSelector((state: any) => state.user.currentUser);
   const navigate = useNavigate();
   
-  const [name, setName] = useState<string>(login?.user?.account_detail?.name || '');
-  const [email, setEmail] = useState<string>(login?.user?.email || ''); 
-  const [profile, setProfile] = useState<string>(login?.user?.account_detail?.profile_picture || '');
-  const [description, setDescription] = useState<string>(login?.user?.account_detail?.description || '');
+  console.log(currentUser);
+  const [name, setName] = useState<string>(currentUser?.data?.name || '');
+  const [email, setEmail] = useState<string>(currentUser?.data?.email || ''); 
+  const [profile, setProfile] = useState<string>(currentUser?.data?.profile_picture || '');
+  const [description, setDescription] = useState<string>(currentUser?.data?.description || '');
+  
+  const dispatch = useDispatch();
 
   const handleImageChange = async (e: any) => {
 
   }
+
+  const handleLogout = () => {
+    dispatch(setCurrentUser(logoutService()));
+    navigate('/login');
+  }
+
+  const handleUpdateProfile = async (e: any) => {
+      
+  } 
 
   return (
     <>
@@ -27,7 +42,7 @@ const Profile = () => {
         <Button className='w-[70%] sm:w-1/4 flex items-center justify-center text-white p-3' variant='bordered'
           startContent={<FontAwesomeIcon icon={faBook} className='text-md p-2'/>}
         >
-          {login?.user?.account_type === 'MENTOR' ? 'FILL YOUR LOG BOOK' : 'VERIFY YOUR SESSION'}
+          {/* {login?.user?.account_type === 'MENTOR' ? 'FILL YOUR LOG BOOK' : 'VERIFY YOUR SESSION'} */}
         </Button>
       </div>
       <motion.div
@@ -46,10 +61,10 @@ const Profile = () => {
               </div>
               <input 
                 type="file"
-                className='absolute top-0 w-20 sm:w-40 h-20 sm:h-40 opacity-0 cursor-pointer ' 
+                className='absolute top-0 w-20 sm:w-40 h-20 sm:h-40 opacity-0 cursor-pointer' 
                 onInput={(e) => handleImageChange(e) }
               />
-              <img src={profile} alt="profile" className='cursor-pointer '/>
+              <img src={profile} alt="profile" className='cursor-pointer border aspect-square'/>
             </div>
 
             <p className='lato-regular text-xs sm:text-md mt-2'>Update Picture</p>
@@ -91,13 +106,19 @@ const Profile = () => {
 
         <div className='w-full mt-20 flex justify-end pr-10 mb-10'>
           <Button 
+            color="success"
+            variant="bordered" 
+            startContent={<FontAwesomeIcon icon={faSave} className='text-md'/>}
+            onClick={ handleUpdateProfile }
+            className='mr-5'
+          >
+            Save Changes
+          </Button>
+          <Button 
             color="danger"
             variant="bordered" 
             startContent={<FontAwesomeIcon icon={faSignOut} className='text-md'/>}
-            onClick={() => {
-              // handleLogout
-              navigate('/login')
-            }}
+            onClick={ handleLogout }
           >
             Log Out
           </Button>

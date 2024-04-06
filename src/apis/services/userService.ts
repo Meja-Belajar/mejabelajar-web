@@ -1,13 +1,13 @@
-import { userServiceApi } from "@src/configs/envConfig";
+import { userServiceApi } from "@apis/envConfig";
 import { LoginUserRequest, RegisterUserRequest } from "@src/models/requests/user_request";
 import Cookies from 'universal-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { decode } from "punycode";
-import { LoginUserResponse, RegisterUserResponse } from "@src/models/responses/user_response";
+import { LoginUserResponse, RegisterUserResponse, UserReponse } from "@src/models/responses/user_response";
 
 const cookies = new Cookies();
 
-export const registerService = async (requestData: RegisterUserRequest): Promise<RegisterUserResponse> => {
+export const registerService = async (requestData: RegisterUserRequest): Promise<UserReponse> => {
   const { user_name, email, password, phone_number, bod, confirm_password, created_by } = requestData;
   const apiurl = userServiceApi.register;
 
@@ -43,7 +43,7 @@ export const registerService = async (requestData: RegisterUserRequest): Promise
   }
 }
 
-export const loginService = async ( requestData : LoginUserRequest): Promise<LoginUserResponse> => {
+export const loginService = async ( requestData : LoginUserRequest): Promise<UserReponse> => {
   const { email, password } = requestData;
   const apiurl = userServiceApi.login;
 
@@ -71,7 +71,7 @@ export const loginService = async ( requestData : LoginUserRequest): Promise<Log
     // });
 
     // Store user data in local storage
-    localStorage.setItem('user', JSON.stringify(loginResponse.data));
+    localStorage.setItem('user', JSON.stringify(loginResponse));
 
     return loginResponse as LoginUserResponse;
   } catch (error) {
@@ -100,4 +100,6 @@ export const logoutService = () => {
     localStorage.removeItem('user');
   }
   return null;
+
+  
 }

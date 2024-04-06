@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer, useState } from 'react'
+import React, { useReducer, useState } from 'react'
 import { motion }from 'framer-motion'
 import { exit, animate, initial } from '@assets/PageTransition'
 import { Button, Input } from '@nextui-org/react'
@@ -11,12 +11,10 @@ import Logo from '@src/components/Logo'
 
 import { RegisterUserSchema } from '@src/models/zod/user_zod'
 import { RegisterUserErrorValidation, RegisterUserRequest } from '@src/models/requests/user_request'
-import { RegisterUserResponse } from '@src/models/responses/user_response'
 import { maxDateUtil } from '@src/utils/dateUtil'
-import { register } from 'module'
 
 
-const FormReducer = (state: RegisterUserRequest, action: any) => {
+const FormReducer = (state: RegisterUserRequest, action: { type: string, value: string, name: string }) => {
   return {
     ...state,
     [action.name]: action.value
@@ -34,7 +32,6 @@ const Register = () => {
   
   const navigate = useNavigate();
   
-
   const handleRegister = async () => {
     try {
       setLoading(true);
@@ -57,7 +54,6 @@ const Register = () => {
       if(error instanceof Error) {
         window.scrollTo(0, 0);
         setWarn(error.toString());
-
       }
     } finally {
       setLoading(false);

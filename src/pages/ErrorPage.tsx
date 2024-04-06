@@ -4,6 +4,8 @@ import img from '@assets/images/image-removebg-preview.png'
 import { Button } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import peopleConfuse from '@assets/lotties/people-confuse.json';
+import Lottie from 'react-lottie';
 
 const ErrorPage: React.FC = () => {
   return (
@@ -12,24 +14,24 @@ const ErrorPage: React.FC = () => {
         initial={initial}
         animate={animate}
         exit={exit}
-        className='mt-3 p-10 flex items-center justify-center bg-gradient-to-t from-purple-500 via-purple-400 to-pink-500'
+        className='mt-3 p-10 flex items-center justify-center'
       >
-        <div className='w-3/4 h-[80vh] flex flex-col-reverse sm:flex-row items-center justify-between'>
-          <div className='flex flex-col items-start text-white'>
-            <h1 className='text-6xl open-sans-600 mb-10'>404 ERROR</h1>
-            <h2 className='text-4xl open-sans-300'>Seem like you get lost</h2>
-            <Button
-              className='bg-white drop-shadow-md shadow-md text-black mt-10 w-1/2 sm:w-1/3'
-              startContent={
-                <FontAwesomeIcon icon={faArrowLeft} className='mr-3' fade/>
-              }
-              onClick={() => window.history.back()}
-            >
-              BACK
-            </Button>
+        <div className='mt-5 sm:mt-2 w-3/4 flex flex-col items-center justify-between'>
+          <div className='w-full sm:w-1/2 flex flex-row items-center justify-center p-5'>
+            <Lottie
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: peopleConfuse,
+                rendererSettings: {
+                  preserveAspectRatio: 'xMidYMid slice'
+                }
+              }}
+            />
           </div>
-          <div className='mt-10'>
-            <img src={img} alt="img" width="200"/>
+          <div className='w-full text-center flex flex-col items-center p-3 mt-3 '>
+            <h1 className='text-3xl sm:text-6xl open-sans-600'>404 ERROR</h1>
+            <p className='mt-5 text-xl open-sans-500 opacity-80 text-center'>Ooops! Something's missing .... </p>
           </div>
         </div>
       </motion.div>

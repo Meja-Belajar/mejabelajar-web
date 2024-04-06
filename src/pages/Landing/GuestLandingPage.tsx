@@ -37,11 +37,7 @@ const GuestLanding = () => {
         exit={exit}
         className='bg-white-accent-1 pb-32'
       >  
-        <main className='relative overflow-hidden'> 
-          <div className='absolute top-0 -z-6 hidden lg:block'>
-            <img src={image} alt="images" className='w-[100vw]' />
-          </div>
-
+        <main className='relative md:bg-teacher bg-cover min-h-[45vw]'> 
           <Navbar 
             className='w-full border-none bg-transparent blur-none flex flex-row justify-around items-center p-3 px-12'
             onMenuOpenChange={setIsMenuOpen}
@@ -91,7 +87,7 @@ const GuestLanding = () => {
           </Navbar>
 
           <form 
-            className='w-full flex flex-col items-center justify-center py-20'
+            className='w-full flex flex-col items-center justify-center py-20 mt-10'
             onSubmit={ handleSearch }
           >
             <div className='text-center z-10'>
@@ -114,7 +110,7 @@ const GuestLanding = () => {
               }}
               radius='full'
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
               startContent={
                 <FontAwesomeIcon icon={faSearch} className='text-blue-accent-300 mr-3' />
               } 

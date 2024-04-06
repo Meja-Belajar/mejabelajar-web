@@ -41,6 +41,9 @@ module.exports = {
       },
       fontFamily: {
         openSans: ['Open Sans', 'sans-serif'],
+      },
+      backgroundImage: {
+        'teacher': "url('/src/assets/images/teacher.png')",
       }
     },
   },
