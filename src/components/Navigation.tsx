@@ -84,13 +84,19 @@ const Navigation: React.FC = () => {
             type='text'
             placeholder='search courses'
             variant='bordered'
-            className='hidden md:flex p-3 w-full'
+            className='hidden md:flex p-3 w-full '
+            classNames={{
+              inputWrapper: [
+                'border-2 rounded-full focus:border-blue-accent-300',
+              ],
+            }}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             startContent={
-              <FontAwesomeIcon icon={faSearch} className='text-blue-accent-300' />
+              <FontAwesomeIcon icon={faSearch} className='text-gray-300' />
             } 
           />
+                    
           <div className='gap-3 flex items-center'>          
             <>
               <Link to='/profile' className='relative w-10 overflow-hidden rounded-full mr-4 border aspect-square'>

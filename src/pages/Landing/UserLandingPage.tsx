@@ -4,10 +4,9 @@ import Navigation from '@components/Navigation'
 import { exit, animate, initial } from '@assets/PageTransition'
 import '@assets/global.css';
 import icon from '@public/logo.svg'
-import { faArrowLeft, faArrowRight, faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faArrowUpRightFromSquare, faClock, faLocation, faPerson } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import BecomeMentor from '@components/BecomeMentor';
-import Mentor from '@components/Mentor';
 import { UserContext } from '@contexts/UserContext';
 import Carousel from '@components/Carousel';
 import { Button, Skeleton } from '@nextui-org/react';
@@ -15,11 +14,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import Guest from '@src/pages/Landing/GuestLandingPage';
 import Footer from '@components/Footer';
 import { useSelector } from 'react-redux';
+import booking from '@assets/dummy/bookingDummy.json';
+import { dateDiff, dateFormat } from '@src/utils/dateUtil';
+import { faMapLocation } from '@fortawesome/free-solid-svg-icons/faMapLocation';
+import BookingCard from '@src/components/BookingCard';
+import PopularMentor from '@src/components/PopularMentor';
 
 // landing page for user
 const UserLanding = () => {
   const navigate = useNavigate();
-
+  
   return (  
     <>
       <Navigation />
@@ -69,55 +73,50 @@ const UserLanding = () => {
           </section>
 
 
-          <Carousel />
-          <BecomeMentor />
-          <Mentor />
+          <section>
+            <div className='w-full flex items-center justify-start mt-10'>
+              <h1 className='text-2xl open-sans-600 ml-8 mb-5'>Your Schedule</h1>
+            </div>
+            {
+              booking.length > 0 ?
+                booking.map((book) => (
+                  <BookingCard key={book?.booking?.id} booking={book} />
+                ))
+              :
+              <section>
+                <h1>There's no bookings</h1>
+              </section> 
+            }
 
-          <div className='mt-10 w-full flex items-center justify-center'>
-            <div className='w-full m-5 sm:m-10 p-8 flex flex-col sm:flex-row justify-between shadow-md drop-shadow-lg sm:h-96 rounded-3xl sm:gap-10 bg-gradient-to-r from-purple-500 via-purple-400 to-blue-accent-300'>
-              <div className='p-3 w-full h-44 sm:h-auto mb-10 sm:mb-0 sm:w-1/3 rounded-2xl bg-white-accent-1 drop-shadow-md shadow-md'>
-                <Skeleton className="w-full flex flex-col rounded-lg">
-                  <div className="h-[5vh] rounded-lg bg-default-200" />
-                </Skeleton>
-                <Skeleton className="w-3/4 flex flex-col mt-3 rounded-lg">
-                  <div className="h-[5vh] rounded-lg bg-default-200" />
-                </Skeleton>
-                <Skeleton className="w-3/4 flex flex-col mt-3 rounded-lg">
-                  <div className="h-[5vh] rounded-lg bg-default-200" />
-                </Skeleton>
-                <Skeleton className="w-1/2 flex flex-col mt-3 rounded-lg">
-                  <div className="h-[5vh] rounded-lg bg-default-200" />
-                </Skeleton>
-              </div>
-              <div className='p-1 sm:p-3 w-full text-white-accent-1 sm:w-2/3 flex justify-center flex-col sm:pr-10'>
-                <h1 className='text-3xl p-3'>Enhance Academic Performance</h1>
-                <h1 className='text-xl sm:text-justify p-2 pl-3'>Meja Belajar assists university students in enhancing their academic performance with the aid of our mentors. Whenever you're ready, our mentors are always prepared to provide assistance.</h1>
-                <div className='mt-10 flex items-center'>
-                  <Link to='/announcement' className='peer p-3 underline-offset-4 underline decoration-transparent transition ease-linear duration-300 hover:decoration-white-accent-1'>
-                    learn more 
-                  </Link>
-                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} fade className='peer-hover:scale-110'/>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='mt-32'>
-            <div className='w-full flex items-center justify-center mb-14'>
-              <h1 className='text-5xl text-purple-500 open-sans-300 text-center'>What are you waiting for?</h1>
-            </div>
-            <div className='pb-28 mt-10 p-2 pt-8 bg-gradient-to-t from-purple-500 via-purple-400 to-white-accent-1'>
-              <div className='w-full  flex items-center justify-center'>
-                <Button 
-                  className='w-1/2 sm:w-1/6 h-14 rounded-xl text-purple-500 bg-white-accent-1 drop-shadow-lg shadow-sm'
-                  endContent={<FontAwesomeIcon icon={faArrowRight} className='ml-1' fade />}
-                  onClick={() => navigate('/register')}
+            {
+              booking.length > 0 && (
+                <section className='w-full flex items-center justify-center mt-10'>
+                  <Button
+                    className='w-1/2 sm:w-1/6 h-10 rounded-full text-white-accent-1 bg-blue-accent-300 drop-shadow-lg shadow-sm'
+                    onClick={() => {
+
+                    }}
                   >
-                  Get started for free
-                </Button>
-              </div>
+                    VIEW ALL
+                  </Button>
+                </section>
+              )
+            }
+          </section>
+
+
+          <section className='mt-20'>
+            <div className='w-full p-3 open-sans-600 text-2xl flex items-center flex-row'>
+
+              <h1 className='ml-8'>Popular Mentor This Week</h1>
+              <FontAwesomeIcon icon={faArrowRight} className="z-[99] text-black ml-3 mt-1" fade/>
             </div>
 
-          </div>
+            <PopularMentor />
+          </section>
+          <BecomeMentor />
+
+          
         </main>    
 
 

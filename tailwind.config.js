@@ -21,6 +21,7 @@ module.exports = {
         'blue-accent-200': '#b6ccd8',
         'blue-accent-300': '#71c4ef',
         'blue-accent-400': '#00668c',
+        'purple-accent-500': '#B46EFB'
       },
       keyframes: {
         carousel: {

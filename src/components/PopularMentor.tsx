@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faRightLong } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
-const Mentor = () => {
+const PopularMentor = () => {
   const [mentorList, setMentorList] = useState<any>();
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -27,11 +27,6 @@ const Mentor = () => {
   return (
     <>
       <div className='relative w-full p-3'>
-        <div className='w-full p-3 open-sans-600 text-2xl flex items-center flex-row'>
-
-          <h1 className='ml-3'>Find Your Mentor</h1>
-          <FontAwesomeIcon icon={faArrowRight} className="z-[99] text-black ml-3 mt-1" fade/>
-        </div>
       
         <div className="w-full p-4 flex flex-row overflow-x-auto mt-3 no-scrollbar scroll-smooth">
           <div className="relative flex flex-row gap-6 sm:gap-8">
@@ -91,10 +86,10 @@ const Mentor = () => {
             
           </div>
         </div>
-        <div className="absolute top-16 right-1 bg-white-accent-1 blur-md w-10 h-80 z-[99]" />
+        
       </div> 
     </>
   )
 }
 
-export default Mentor;
+export default PopularMentor;
