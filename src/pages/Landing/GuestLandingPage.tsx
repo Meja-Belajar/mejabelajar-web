@@ -121,7 +121,7 @@ const GuestLanding = () => {
         
         <section className='mt-20 w-full flex items-center justify-center'>
           <div className='w-full m-5 sm:m-10 p-8 flex flex-col sm:flex-row justify-between shadow-md drop-shadow-lg sm:h-96 rounded-3xl sm:gap-10 bg-gradient-to-r from-purple-500 via-purple-400 to-blue-accent-300'>
-            <div className='p-3 w-full sm:h-auto mb-10 sm:mb-0 sm:w-1/3 rounded-2xl bg-white-accent-1 drop-shadow-md shadow-md'>
+            <div className='p-3 overflow-hidden w-full sm:h-auto mb-10 sm:mb-0 sm:w-1/3 rounded-2xl bg-white-accent-1 drop-shadow-md shadow-md'>
               <Skeleton className="w-full flex flex-col rounded-lg">
                 <div className="h-[5vh] rounded-lg bg-default-200" />
               </Skeleton>
@@ -171,8 +171,8 @@ const GuestLanding = () => {
           <div className='flex flex-col md:flex-row w-full items-center justify-between gap-14 sm:gap-8 lg:px-14'>
             {
               UserReviews.map((item, index) => (
-                <div key={index} className=' w-3/4 lg:max-w-[25%] bg-blue-accent-300 shadow-xl drop-shadow-md shadow-blue-accent-300 p-5 rounded-3xl'>
-                  <div className='flex flex-row justify-around items-center gap-5 p-2'>
+                <div key={index} className='aspect-square w-3/4 lg:max-w-[25%] bg-blue-accent-300 shadow-xl drop-shadow-md shadow-blue-accent-300 p-5 rounded-3xl flex flex-col justify-between'>
+                  <div className='flex flex-row justify-between items-center gap-5 p-2'>
                     <div className='overflow-hidden w-14 h-14 bg-gray-200 rounded-full'>
                       <img src={item.image} alt={item.name} />
                     </div>

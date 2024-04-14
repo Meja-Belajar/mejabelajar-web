@@ -17,6 +17,7 @@ import SearchResult from '@pages/Search/SearchResult'
 import AdminLandingPage from '@pages/Admin/AdminLandingPage'
 import AdminOverview from './pages/Admin/AdminOverview'
 import AdminAnnouncement from './pages/Admin/AdminAnnouncement'
+import ConstructionPage from './pages/ConstructionPage'
 
 const Router: React.FC = () => {
 
@@ -64,7 +65,20 @@ const Router: React.FC = () => {
                 <Route index element={<AdminOverview />}/>
                 <Route path=':announcement' element={<AdminAnnouncement />}/>
               </Route>
-
+              
+              {/* future enchancement routes */}
+              <Route path='/about' element={<ConstructionPage />}/>
+              <Route path='/overview' element={<ConstructionPage />}/>
+              <Route path='/idea' element={<ConstructionPage />}/>
+              <Route path='/mentor' element={<ConstructionPage />}/>
+              <Route path='/tutor' element={<ConstructionPage />}/>
+              <Route path='/investors' element={<ConstructionPage />}/>
+              <Route path='/universities' element={<ConstructionPage />}/>
+              <Route path='/supports' element={<ConstructionPage />}/>
+              <Route path='/mobileapps' element={<ConstructionPage />}/>
+              <Route path='/faq' element={<ConstructionPage />}/>
+              {/* <Route path='/announcement' element={<ConstructionPage />}/> */}
+              <Route path='/appstutorial' element={<ConstructionPage />}/>
             </Routes>
 
           </AnimatePresence>

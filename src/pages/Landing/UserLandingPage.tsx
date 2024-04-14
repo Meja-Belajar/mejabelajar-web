@@ -1,22 +1,15 @@
-import React, { useContext } from 'react'
 import { motion } from 'framer-motion'
 import Navigation from '@components/Navigation'
 import { exit, animate, initial } from '@assets/PageTransition'
 import '@assets/global.css';
 import icon from '@public/logo.svg'
-import { faArrowLeft, faArrowRight, faArrowUpRightFromSquare, faClock, faLocation, faPerson } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import BecomeMentor from '@components/BecomeMentor';
-import { UserContext } from '@contexts/UserContext';
-import Carousel from '@components/Carousel';
-import { Button, Skeleton } from '@nextui-org/react';
-import { Link, useNavigate } from 'react-router-dom';
-import Guest from '@src/pages/Landing/GuestLandingPage';
+import { Button } from '@nextui-org/react';
+import { useNavigate } from 'react-router-dom';
 import Footer from '@components/Footer';
-import { useSelector } from 'react-redux';
-import booking from '@assets/dummy/bookingDummy.json';
-import { dateDiff, dateFormat } from '@src/utils/dateUtil';
-import { faMapLocation } from '@fortawesome/free-solid-svg-icons/faMapLocation';
+import booking from '@assets/data/bookingDummy.json';
 import BookingCard from '@src/components/BookingCard';
 import PopularMentor from '@src/components/PopularMentor';
 
