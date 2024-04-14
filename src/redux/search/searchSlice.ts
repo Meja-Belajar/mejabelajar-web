@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-interface InitialState {
+type InitialState = {
   searchQuery: string;
   isSearchLoading: boolean;
   searchError: string;

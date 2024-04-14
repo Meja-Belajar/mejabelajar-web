@@ -3,11 +3,11 @@ import { LoginUserRequest, RegisterUserRequest } from "@src/models/requests/user
 import Cookies from 'universal-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { decode } from "punycode";
-import { LoginUserResponse, RegisterUserResponse, UserReponse } from "@src/models/responses/user_response";
+import { LoginUserResponse, RegisterUserResponse } from "@src/models/responses/user_response";
 
 const cookies = new Cookies();
 
-export const registerService = async (requestData: RegisterUserRequest): Promise<UserReponse> => {
+export const registerService = async (requestData: RegisterUserRequest): Promise<RegisterUserResponse> => {
   const { user_name, email, password, phone_number, bod, confirm_password, created_by } = requestData;
   const apiurl = userServiceApi.register;
 
@@ -43,7 +43,7 @@ export const registerService = async (requestData: RegisterUserRequest): Promise
   }
 }
 
-export const loginService = async ( requestData : LoginUserRequest): Promise<UserReponse> => {
+export const loginService = async ( requestData : LoginUserRequest): Promise<LoginUserResponse> => {
   const { email, password } = requestData;
   const apiurl = userServiceApi.login;
 

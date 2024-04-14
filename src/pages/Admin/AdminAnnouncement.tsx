@@ -3,7 +3,7 @@ import { PopOverComponent } from "./AdminOverview";
 import BookingLists from '@assets/data/BookingLists.json';
 
 
-const AdminAnnounce = () => {
+const AdminAnnouncement = () => {
   return (
     <>
       <div className="px-8 mt-5 mb-10">
@@ -23,4 +23,4 @@ const AdminAnnounce = () => {
   )
 }
 
-export default AdminAnnounce;
+export default AdminAnnouncement;

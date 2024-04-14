@@ -4,11 +4,11 @@ import { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-interface LoginAuthProps {
-  mustLogin: boolean;
+type LoginAuthProps = {
+  isLogin: boolean;
 }
 
-const AuthRedirector = ({ mustLogin }: LoginAuthProps) => {
+const AuthRedirector = ({ isLogin }: LoginAuthProps) => {
 
   const { user } = useContext(UserContext);
   const currentUser = useSelector((state: any) => state.user.currentUser);
@@ -19,14 +19,12 @@ const AuthRedirector = ({ mustLogin }: LoginAuthProps) => {
     // console.log(login?.status, mustLogin);
 
     // if user already login and want to access authentication page then navigate to home
-
-    if(currentUser && mustLogin === false) {
+    if(currentUser && isLogin === false) {
       navigate('/');
     } 
   
     // if user not login and want to access protected page then navigate to login
-
-    if(!currentUser && mustLogin === true) {
+    if(!currentUser && isLogin === true) {
       navigate('/login');
     }
   }, []);

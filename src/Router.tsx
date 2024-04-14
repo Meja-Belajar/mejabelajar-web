@@ -16,9 +16,9 @@ import SearchDefault from '@pages/Search/SearchDefault'
 import SearchResult from '@pages/Search/SearchResult'
 import AdminLandingPage from '@pages/Admin/AdminLandingPage'
 import AdminOverview from './pages/Admin/AdminOverview'
-import AdminAnnounce from './pages/Admin/AdminAnnounce'
+import AdminAnnouncement from './pages/Admin/AdminAnnouncement'
 
-const App: React.FC = () => {
+const Router: React.FC = () => {
 
   return (
     <>
@@ -45,23 +45,24 @@ const App: React.FC = () => {
                 <Route path=':query' element={<SearchResult />} />
               </Route>
 
-              {/* routes that can't be accessed after logging in. */}
-              <Route element={<AuthRedirector mustLogin={false}/>} >
+              {/* routes that can't be accessed by user after login. */}
+              <Route element={<AuthRedirector isLogin={false}/>} >
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
               </Route>
 
-              {/* routes that require login */}
-              <Route element={<AuthRedirector mustLogin={true}/>} >
+              {/* routes that require user to login */}
+              <Route element={<AuthRedirector isLogin={true}/>} >
                 <Route path="/profile" element={<Profile />} />
                 <Route path='/history' />
 
                 <Route path='/tutoring'/>
               </Route>
-
+              
+              {/* exclusive to admin */}
               <Route path='/admin' element={<AdminLandingPage />}>
                 <Route index element={<AdminOverview />}/>
-                <Route path=':announcement' element={<AdminAnnounce />}/>
+                <Route path=':announcement' element={<AdminAnnouncement />}/>
               </Route>
 
             </Routes>
@@ -73,4 +74,4 @@ const App: React.FC = () => {
   )
 }
 
-export default App
+export default Router;

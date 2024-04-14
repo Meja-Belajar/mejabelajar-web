@@ -41,3 +41,24 @@ export const RegisterUserSchema = z.object({
   message: 'Passwords do not match',
   path: ['confirm_password']
 })
+
+
+// schema for user profile update
+export const UpdateProfileSchema = z.object({
+  user_name: z.string(),
+  email: z.string().email(),
+  phone_number: z.string(),
+  bod: z.string(),
+})
+
+// schema for user password update
+export const UpdatePasswordSchema = z.object({
+  old_password: z.string(),
+  new_password: z.string()
+      .min(8, { message: 'Password must be at least 8 characters' })
+      .max(15, { message: 'Password must be at most 15 characters' }),
+  confirm_password: z.string()
+      .min(8, { message: 'Password must be at least 8 characters' })
+      .max(15, { message: 'Password must be at most 15 characters' }),
+})
+
