@@ -14,6 +14,9 @@ import { QueryProvider } from '@contexts/SearchQueryContext'
 import Search from '@pages/Search/SearchPage'
 import SearchDefault from '@pages/Search/SearchDefault'
 import SearchResult from '@pages/Search/SearchResult'
+import AdminLandingPage from '@pages/Admin/AdminLandingPage'
+import AdminOverview from './pages/Admin/AdminOverview'
+import AdminAnnounce from './pages/Admin/AdminAnnounce'
 
 const App: React.FC = () => {
 
@@ -54,6 +57,11 @@ const App: React.FC = () => {
                 <Route path='/history' />
 
                 <Route path='/tutoring'/>
+              </Route>
+
+              <Route path='/admin' element={<AdminLandingPage />}>
+                <Route index element={<AdminOverview />}/>
+                <Route path=':announcement' element={<AdminAnnounce />}/>
               </Route>
 
             </Routes>
