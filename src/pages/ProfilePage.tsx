@@ -11,7 +11,7 @@ import { current } from '@reduxjs/toolkit';
 import { logoutService } from '@src/apis/services/userService';
 import { setCurrentUser } from '@src/redux/user/userSelectors';
 
-const Profile = () => {
+const ProfilePage = () => {
   const currentUser = useSelector((state: any) => state.user.currentUser);
   const navigate = useNavigate();
   
@@ -127,4 +127,4 @@ const Profile = () => {
     </>
   )
 }
-export default Profile
+export default ProfilePage

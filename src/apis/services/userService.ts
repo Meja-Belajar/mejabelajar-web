@@ -1,9 +1,9 @@
-import { userServiceApi } from "@apis/envConfig";
-import { LoginUserRequest, RegisterUserRequest } from "@src/models/requests/user_request";
+import { userServiceApi } from "@src/apis/envConfig";
+import { LoginUserRequest, RegisterUserRequest } from "@src/models/requests/userRequest";
 import Cookies from 'universal-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { decode } from "punycode";
-import { LoginUserResponse, RegisterUserResponse } from "@src/models/responses/user_response";
+import { LoginUserResponse, RegisterUserResponse } from "@src/models/responses/userResponse";
 
 const cookies = new Cookies();
 
@@ -36,10 +36,10 @@ export const registerService = async (requestData: RegisterUserRequest): Promise
     }
     
     return registerResponse as RegisterUserResponse;
-  } catch (error) {
+  } catch (e) {
 
-    console.error('Error registering user:', error);
-    throw new Error('Failed to register user. You may have entered used data. Please try again.');
+    console.error('Error registering user:', e);
+    throw new Error(`Failed to register user. Please try again.`);
   }
 }
 
@@ -74,9 +74,9 @@ export const loginService = async ( requestData : LoginUserRequest): Promise<Log
     localStorage.setItem('user', JSON.stringify(loginResponse));
 
     return loginResponse as LoginUserResponse;
-  } catch (error) {
+  } catch (e) {
 
-    console.error('Error logging in:', error);
+    console.error('Error login user:', e);
     throw new Error('Failed to login. Please try again.');
   }
 }
@@ -100,6 +100,4 @@ export const logoutService = () => {
     localStorage.removeItem('user');
   }
   return null;
-
-  
 }

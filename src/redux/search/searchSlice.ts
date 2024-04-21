@@ -12,7 +12,7 @@ const initialState = <InitialState>{
   searchError: "",
 };
 
-export const searchSlice = createSlice({
+const searchSlice = createSlice({
   name: "search",
   initialState,
   reducers: {
@@ -27,3 +27,5 @@ export const searchSlice = createSlice({
     },
   },
 });
+
+export { searchSlice };

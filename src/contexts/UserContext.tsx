@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import Loading from '@src/components/Loading';
-import { LoginUserResponse } from '@src/models/responses/user_response';
+import { LoginUserResponse } from '@src/models/responses/userResponse';
 import { isLoggedService } from '@src/apis/services/userService';
 
 interface Children {

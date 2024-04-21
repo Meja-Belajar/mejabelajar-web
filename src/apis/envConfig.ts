@@ -1,17 +1,27 @@
+export const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 // userService
 export const userServiceApi = {
-  login     : import.meta.env.VITE_API_LOGIN,
-  register  : import.meta.env.VITE_API_REGISTER,
-  logout    : import.meta.env.VITE_API_LOGOUT,
+  login     : `${baseUrl}/user/login`,
+  register  : `${baseUrl}/user/register`,
+  logout    : `${baseUrl}/user/logout`,
 };
 
 // tokenService
 export const tokenServiceApi = {
-  refreshToken : import.meta.env.VITE_API_REFRESH_TOKEN,
+  refreshToken : `${baseUrl}/token/refresh`,
 };
 
 // mentorService
 export const mentorServiceApi = {
-  getMentors : import.meta.env.VITE_API_GET_MENTORS,
-  getMentor  : import.meta.env.VITE_API_GET_MENTOR, 
+  getMentors : `${baseUrl}/mentor/getAllMentors`,
+  getMentor  : `${baseUrl}/mentor/getMentor`, 
+};
+
+// bookingService
+export const bookingServiceApi = {
+  getAllBookings : `${baseUrl}/booking/getAllBookings`,
+  getBooking     : `${baseUrl}/booking/getBooking`,
+  bookMentor     : `${baseUrl}/booking/bookMentor`,
+  cancelBooking  : `${baseUrl}/booking/cancelBooking`,
 };

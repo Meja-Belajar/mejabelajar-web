@@ -1,6 +1,6 @@
 import { faClock, faMapLocation, faPerson } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { dateDiff, dateFormat } from "@src/utils/dateUtil";
+import { DateUtil } from "@src/utils/dateUtil";
 
 const BookingCard = (booking: any) => {
   const book = booking.booking;
@@ -29,7 +29,7 @@ const BookingCard = (booking: any) => {
                 {
                   book?.booking?.isActive 
                   ? 
-                  dateDiff(book?.booking?.date, new Date().toISOString())
+                  DateUtil.diff(book?.booking?.date, new Date().toISOString())
                   :
                   'LATE'
                 }
@@ -47,7 +47,7 @@ const BookingCard = (booking: any) => {
               <p className='text-gray-400 text-sm'>Date</p>
 
             </div>
-            <p className='text-gray-400 text-sm'>{dateFormat(book?.booking?.date)}</p>
+            <p className='text-gray-400 text-sm'>{DateUtil.format(book?.booking?.date)}</p>
           </div>
 
           <div className='flex flex-col sm:flex-row items-start sm:items-center p-1 w-full md:w-1/2 flex-wrap'>
