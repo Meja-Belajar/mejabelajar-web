@@ -17,6 +17,7 @@ import AdminAnnouncement from "@src/pages/Admin/AdminAnnouncement";
 import ConstructionPage from "@src/pages/ConstructionPage";
 import { useSelector } from "react-redux";
 import UserLanding from "@src/pages/Landing/UserLandingPage";
+import AdminReport from "@src/pages/Admin/AdminReport";
 
 const AuthRouter = () => {
   return (
@@ -47,9 +48,10 @@ const AuthRouter = () => {
       {/* exclusive to admin */}
       <Route path="/admin" element={<AdminLandingPage />}>
         <Route index element={<AdminOverview />} />
-        <Route path=":announcement" element={<AdminAnnouncement />} />
+        <Route path="announcement" element={<AdminAnnouncement />} />
+        <Route path="report" element={<AdminReport />} />
       </Route>
-
+      
       {/* future enchancement routes */}
       <Route path="/about/*" element={<ConstructionPage />} />
       <Route path="/overview/*" element={<ConstructionPage />} />

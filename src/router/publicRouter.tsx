@@ -17,6 +17,7 @@ import ConstructionPage from "@src/pages/ConstructionPage";
 import { useSelector } from "react-redux";
 import LoginPage from "@src/pages/LoginPage";
 import GuestLanding from "@src/pages/Landing/GuestLandingPage";
+import AdminReport from "@src/pages/Admin/AdminReport";
 
 const PublicRouter = () => {
   return (
@@ -36,7 +37,8 @@ const PublicRouter = () => {
 
       <Route path="/admin" element={<AdminLandingPage />}>
         <Route index element={<AdminOverview />} />
-        <Route path=":announcement" element={<AdminAnnouncement />} />
+        <Route path="announcement" element={<AdminAnnouncement />} />
+        <Route path="report" element={<AdminReport />} />
       </Route>
 
       {/* future enchancement routes */}

@@ -4,6 +4,43 @@ import {
 } from "@src/models/responses/bookingReponse";
 import { bookingServiceApi } from "../envConfig";
 
+export class BookingService {
+  static async getAllBookingsByUserId() {
+    try {
+      const response = await fetch(bookingServiceApi.getAllBookings);
+
+      const bookings = await response.json();
+
+      if (bookings.code !== 200) {
+        throw new Error(bookings.message);
+      }
+
+      return bookings as getAllBookingsResponse;
+    } catch (e) {
+      console.error("Error fetching bookings:", e);
+      throw new Error("Failed to fetch bookings");
+    }
+  
+  }
+
+  static async getBookingById(id: string) {
+    try {
+      const response = await fetch(`${bookingServiceApi.getBooking}/${id}`);
+
+      const booking = await response.json();
+
+      if (booking.code !== 200) {
+        throw new Error(booking.message);
+      }
+
+      return booking as getBookingResponse;
+    } catch (e) {
+      console.error("Error fetching booking:", e);
+      throw new Error("Failed to fetch booking");
+    }
+  }
+}
+
 export const getAllBookings = async (page: number) => {
   const apiUrl = bookingServiceApi.getAllBookings;
 

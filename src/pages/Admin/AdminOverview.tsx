@@ -36,7 +36,6 @@ import mentors from "../../../__tests__/GET_mentor.json";
 import { useNavigate } from "react-router-dom";
 
 const AdminOverview = () => {
-  const [isBell, setIsBell] = useState<boolean>(false);
   const [isMentorsView, setIsMentorView] = useState<boolean>(false);
 
   const navigate = useNavigate();

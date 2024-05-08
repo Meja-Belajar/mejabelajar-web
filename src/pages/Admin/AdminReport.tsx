@@ -5,13 +5,14 @@ import BookingLists from "@src/assets/data/BookingLists.json";
 import "@src/assets/global.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBell
+  faBell,
+  faWarning
 } from "@fortawesome/free-solid-svg-icons";
 
-const AnnoucementLists = [
+const ReportLists = [
   {
     "id": 1,
-    "title": "New Booking",
+    "title": "New Report Booking",
     "description": "New booking from John Doe",
   },
   {
@@ -21,17 +22,18 @@ const AnnoucementLists = [
   }
 ];
 
-const AdminAnnouncement = () => {
+const AdminReport = () => {
+  
   return (
     <>
       <Accordion>
         {
-          AnnoucementLists.map((announcement) => (
+          ReportLists.map((announcement) => (
             <AccordionItem 
               key={announcement.id} 
               title={announcement.title} 
               startContent={
-                <FontAwesomeIcon icon={faBell} />
+                <FontAwesomeIcon icon={faWarning} />
               }
             >
               <p>{announcement.description}</p>
@@ -43,4 +45,4 @@ const AdminAnnouncement = () => {
   );
 };
 
-export default AdminAnnouncement;
+export default AdminReport;

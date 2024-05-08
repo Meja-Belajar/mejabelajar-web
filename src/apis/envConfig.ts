@@ -1,3 +1,5 @@
+import { getAllBookings } from "./services/bookingService";
+
 export const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 // userService
@@ -24,4 +26,10 @@ export const bookingServiceApi = {
   getBooking: `${baseUrl}/booking/getBooking`,
   bookMentor: `${baseUrl}/booking/bookMentor`,
   cancelBooking: `${baseUrl}/booking/cancelBooking`,
+};
+
+// admin
+export const adminServiceApi = {
+  verify: `${baseUrl}/admin/verify`,
+  getAllBookings: `${baseUrl}/admin/getAllBookings`,
 };

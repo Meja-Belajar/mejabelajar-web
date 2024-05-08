@@ -7,7 +7,7 @@ type useFormProps<T> = {
   onSubmit: () => void;
 }
 
-export const useForm = <T>({
+export const useForm = <T extends object>({
   initialValues,
   validationSchema,
   onSubmit,

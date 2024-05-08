@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import { initial, animate, exit } from "@src/assets/PageTransition";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,39 +16,32 @@ import Logo from "@src/components/Logo";
 import { current } from "@reduxjs/toolkit";
 import Lottie from "react-lottie";
 import screenProblem from "@src/assets/lotties/screen-problem.json";
-
-const adminData = {
-  name: "John Doe",
-  email: "",
-  role: "admin",
-  status: "active",
-  createdAt: "2021-01-01",
-  updatedAt: "2021-01-01",
-};
-
-const allBookings = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "",
-    status: "active",
-    createdAt: "2021-01-01",
-    updatedAt: "2021-01-01",
-  },
-];
+import { AdminService } from "@src/apis/services/adminService";
 
 const AdminLandingPage = () => {
-  const { announcement } = useParams();
   const navigate = useNavigate();
-
-  // get current path
   const currentPath =
-    window.location.pathname === "/admin"
-      ? "Dashboard"
-      : window.location.pathname.split("/")[2];
+    window.location.pathname.split("/")[2] ? window.location.pathname.split("/")[2] : "Dashboard";
+  
+  const [adminStatus, setAdminStatus] = useState<boolean>(false);
+    
+  const checkAdmin = async () => {
+    if(!adminStatus) {
+      const adminId = window.prompt("Enter your admin ID");
 
+      if(adminId) {
+        try {
+          const response: boolean = await AdminService.verify(adminId) as boolean;
+          
+          setAdminStatus(response);
+        } catch(e) {
+          navigate("/");
+        }
+      } 
+    }
+  }
 
-  if(window.innerWidth < 1000) {
+  const adminErrorLoad = () => {
     return (
       <motion.div
         initial={initial}
@@ -57,28 +50,34 @@ const AdminLandingPage = () => {
         className="w-full flex items-center justify-center"
       >
         <div className="mt-8 flex w-3/4 flex-col items-center justify-between sm:mt-2">
-            <div className="flex w-full flex-row items-center justify-center p-5 sm:w-1/2">
-              <Lottie
-                options={{
-                  loop: true,
-                  autoplay: true,
-                  animationData: screenProblem,
-                  rendererSettings: {
-                    preserveAspectRatio: "xMidYMid slice",
-                  },
-                }}
-              />
-            </div>
-            <div className="mt-8 flex w-full flex-col items-center p-3 text-center ">
-              <h1 className="open-sans-600 text-3xl sm:text-6xl">500 ERROR</h1>
-              <p className="open-sans-500 mt-5 text-center text-xl opacity-80">
-                Admin Page can only be accessed from screens with a minimum width of 1000px. ....{" "}
-              </p>
-            </div>
+          <div className="flex w-full flex-row items-center justify-center p-5 sm:w-1/2">
+            <Lottie
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: screenProblem,
+                rendererSettings: {
+                  preserveAspectRatio: "xMidYMid slice",
+                },
+              }}
+            />
           </div>
+          <div className="mt-8 flex w-full flex-col items-center p-3 text-center ">
+            <h1 className="open-sans-600 text-3xl sm:text-6xl">500 ERROR</h1>
+            <p className="open-sans-500 mt-5 text-center text-xl opacity-80">
+              Admin Page can only be accessed by admin from min-screens width 1000px. ....
+            </p>
+          </div>
+        </div>
       </motion.div>
     )
   }
+  
+  useEffect(() => {
+    checkAdmin();
+  }, []);
+
+  if(window.innerWidth < 1000 || !adminStatus) return adminErrorLoad();
 
   return (
     <>
@@ -86,7 +85,7 @@ const AdminLandingPage = () => {
         initial={initial}
         animate={animate}
         exit={exit}
-        className="w-full border border-black"
+        className="w-full"
       >
         <nav className="text-black">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -97,26 +96,43 @@ const AdminLandingPage = () => {
                 </div>
                 <div className="">
                   <div className="ml-10 flex items-baseline space-x-4">
-                    {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
-                    <Link
-                      to="/admin"
-                      className="open-sans-600 rounded-md bg-purple-accent-500 px-3 py-2 text-sm font-medium text-white"
+                    <NavLink
+                      to="/admin/"
+                      className="open-sans-600 rounded-md  px-3 py-2 text-sm font-medium"
+                      style={() => {
+                        return {
+                          backgroundColor: currentPath === "Dashboard" ? "#B46EFB" : "white",
+                          color: currentPath === "Dashboard" ? "white" : "black",
+                        }
+                      }}
                       aria-current="page"
                     >
                       Dashboard
-                    </Link>
-                    <Link
+                    </NavLink>
+                    <NavLink
                       to="/admin/Announcement"
-                      className="open-sans-600 rounded-md px-3 py-2 text-sm font-medium hover:bg-purple-accent-500 hover:text-white"
+                      className="open-sans-600 rounded-md px-3 py-2 text-sm font-medium"
+                      style={({ isActive }) => {
+                        return {
+                          backgroundColor: isActive ? "#B46EFB" : "white",
+                          color: isActive ? "white" : "black",
+                        }
+                      }}
                     >
                       Announcement
-                    </Link>
-                    <Link
+                    </NavLink>
+                    <NavLink
                       to="/admin/Report"
-                      className="open-sans-600 rounded-md px-3 py-2 text-sm font-medium hover:bg-purple-accent-500 hover:text-white"
+                      className="open-sans-600 rounded-md px-3 py-2 text-sm font-medium"
+                      style={({ isActive }) => {
+                        return {
+                          backgroundColor: isActive ? "#B46EFB" : "white",
+                          color: isActive ? "white" : "black",
+                        }
+                      }}
                     >
                       Report
-                    </Link>
+                    </NavLink>
                   </div>
                 </div>
               </div>
