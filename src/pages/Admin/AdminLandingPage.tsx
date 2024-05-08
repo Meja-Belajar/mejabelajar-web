@@ -14,6 +14,8 @@ import { Button } from "@nextui-org/react";
 import "@src/assets/global.css";
 import Logo from "@src/components/Logo";
 import { current } from "@reduxjs/toolkit";
+import Lottie from "react-lottie";
+import screenProblem from "@src/assets/lotties/screen-problem.json";
 
 const adminData = {
   name: "John Doe",
@@ -35,65 +37,6 @@ const allBookings = [
   },
 ];
 
-// const AdminLandingPage = () => {
-//   const { announcement } = useParams();
-//   const navigate = useNavigate();
-
-//   return (
-//     <>
-//       <motion.div
-//         initial={initial}
-//         animate={animate}
-//         exit={exit}
-//         classNameName='w-full border border-black'
-//       >
-
-//         <nav className='w-[calc(100% - 1%)] m-[1%]'>
-//           <div className='flex flex-row items-center'>
-//             <div className='m-1 px-3 rounded-2xl py-2  w-fit'>
-//               <Button
-//                 className='m-1 text-white mr-3'
-//                 startContent={<FontAwesomeIcon icon={faCalendar} />}
-//                 style={{
-//                   backgroundColor: announcement !== 'announcement' ? '#B46EFB' : '#cccbc8',
-//                 }}
-//                 onClick={() => {
-//                   navigate('/admin/');
-//                 }}
-//               >
-//                 Overview
-//               </Button>
-//               <Button
-//                 className='m-1 text-white'
-//                 startContent={<FontAwesomeIcon icon={faBullhorn} />}
-//                 style={{
-//                   backgroundColor: announcement === 'announcement' ? '#B46EFB' : '#cccbc8',
-//                 }}
-//                 onClick={() => {
-//                   navigate('/admin/announcement');
-//                 }}
-//               >
-//                 Announcement
-//               </Button>
-//               <Button
-//                 className='m-1 text-white bg-red-500 ml-3'
-//                 startContent={<FontAwesomeIcon icon={faRightFromBracket} />}
-//                 onClick={() => {
-
-//                 }}
-//               >
-//                 Logout
-//               </Button>
-//             </div>
-//           </div>
-//         </nav>
-
-//         <Outlet />
-//       </motion.div>
-//     </>
-//   )
-// }
-
 const AdminLandingPage = () => {
   const { announcement } = useParams();
   const navigate = useNavigate();
@@ -103,6 +46,39 @@ const AdminLandingPage = () => {
     window.location.pathname === "/admin"
       ? "Dashboard"
       : window.location.pathname.split("/")[2];
+
+
+  if(window.innerWidth < 1000) {
+    return (
+      <motion.div
+        initial={initial}
+        animate={animate}
+        exit={exit}
+        className="w-full flex items-center justify-center"
+      >
+        <div className="mt-8 flex w-3/4 flex-col items-center justify-between sm:mt-2">
+            <div className="flex w-full flex-row items-center justify-center p-5 sm:w-1/2">
+              <Lottie
+                options={{
+                  loop: true,
+                  autoplay: true,
+                  animationData: screenProblem,
+                  rendererSettings: {
+                    preserveAspectRatio: "xMidYMid slice",
+                  },
+                }}
+              />
+            </div>
+            <div className="mt-8 flex w-full flex-col items-center p-3 text-center ">
+              <h1 className="open-sans-600 text-3xl sm:text-6xl">500 ERROR</h1>
+              <p className="open-sans-500 mt-5 text-center text-xl opacity-80">
+                Admin Page can only be accessed from screens with a minimum width of 1000px. ....{" "}
+              </p>
+            </div>
+          </div>
+      </motion.div>
+    )
+  }
 
   return (
     <>

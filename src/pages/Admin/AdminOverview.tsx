@@ -7,8 +7,10 @@ import {
   faBellSlash,
   faCheck,
   faEllipsisVertical,
+  faEye,
   faMessage,
   faMoneyBill,
+  faPencil,
   faPhone,
   faSortDown,
   faSortUp,
@@ -21,6 +23,13 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+  Tooltip,
 } from "@nextui-org/react";
 import "@src/assets/global.css";
 import mentors from "../../../__tests__/GET_mentor.json";
@@ -133,20 +142,58 @@ const AdminOverview = () => {
         <section className="mt-20">
           <div>
             <span className="open-sans-600 mr-1 text-3xl">Transactions</span>
-            <sup className="-top-3">23</sup>
+            <sup className="-top-3">{BookingLists.length}</sup>
           </div>
-          <div className="mt-5">
-            {BookingLists.map((booking, index) => (
-              <PopOverComponent key={index} index={index} booking={booking} />
-            ))}
-          </div>
+
+          <Table removeWrapper aria-label="Collection Transaction" className="mt-10">
+            <TableHeader>
+              <TableColumn>User</TableColumn>
+              <TableColumn>Mentor</TableColumn>
+              <TableColumn>Course</TableColumn>
+              <TableColumn>Time</TableColumn>
+              <TableColumn>Location</TableColumn>
+              <TableColumn>Status</TableColumn>
+              <TableColumn>Action</TableColumn>
+            </TableHeader>
+
+            <TableBody>
+              {BookingLists.map((booking, index) => (
+                <TableRow key={index}>
+                  <TableCell>{booking.userId}</TableCell>
+                  <TableCell>{booking.courseId}</TableCell>
+                  <TableCell>{booking.courseId}</TableCell>
+                  <TableCell>{booking.createdAt}</TableCell>
+                  <TableCell>{booking.createdAt}</TableCell>
+                  <TableCell>{booking.createdAt}</TableCell>
+                  <TableCell>
+                    <Tooltip content="Details">
+                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                        <FontAwesomeIcon icon={faEye}/>
+                      </span>
+                    </Tooltip>
+                    <Tooltip content="Update Booking">
+                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                        <FontAwesomeIcon icon={faPencil} className="ml-3"/>
+                      </span>
+                    </Tooltip>
+                    <Tooltip color="danger" content="Remove Booking">
+                      <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                        <FontAwesomeIcon icon={faTrash} className="ml-3"/>
+                      </span>
+                    </Tooltip>
+
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </section>
       </motion.div>
     </>
   );
 };
 
-export const PopOverComponent = ({ index, booking }: any) => {
+const PopOverComponent = ({ index, booking }: any) => {
   const [isPopOver, setIsPopOver] = useState<boolean>(false);
 
   const handleCancel = () => {
@@ -199,4 +246,5 @@ export const PopOverComponent = ({ index, booking }: any) => {
   );
 };
 
+export { PopOverComponent };
 export default AdminOverview;
