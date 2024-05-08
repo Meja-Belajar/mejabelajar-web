@@ -1,74 +1,121 @@
-import React from 'react';
-import Instagram from '@assets/images/social/instagram.svg';
-import Twitter from '@assets/images/social/twitter.svg';
-import Facebook from '@assets/images/social/facebook.svg';
+import React from "react";
+import Instagram from "@src/assets/images/social/instagram.svg";
+import Twitter from "@src/assets/images/social/twitter.svg";
+import Facebook from "@src/assets/images/social/facebook.svg";
+import "@src/assets/global.css";
 
 const Footer: React.FC = () => {
   return (
     <>
-      <footer className='pb-10 p-2 pt-8 bg-gradient-to-t from-blue-accent-300 via-purple-400 to-purple-500'>
-        <div className='p-6 sm:p-8 flex flex-col gap-10 sm:gap-0 sm:flex-row flex-wrap items-start justify-between drop-shadow-md shadow-md m-2 sm:m-10 bg-white-accent-1 rounded-xl text-black mb-10 sm:mb-5'>
-          <div className='flex flex-start flex-col'>
-            <h1 className='mb-2 open-sans-600'>Company</h1>
-            <ul className='opacity-80'>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/about">About</a></li>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/overview">Overview</a></li>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/idea">Idea</a></li>
+      <footer className="bg-gradient-to-t from-blue-accent-300 via-purple-400 to-purple-500 p-2 pb-10 pt-8">
+        <div className="m-2 mb-10 flex flex-col flex-wrap items-start justify-between gap-10 rounded-xl bg-white-accent-1 p-6 text-black shadow-md drop-shadow-md sm:m-10 sm:mb-5 sm:flex-row sm:gap-0 sm:p-8">
+          <div className="flex-start flex flex-col">
+            <h1 className="open-sans-600 mb-2">Company</h1>
+            <ul className="opacity-80">
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/about">About</a>
+              </li>
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/overview">Overview</a>
+              </li>
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/idea">Idea</a>
+              </li>
             </ul>
           </div>
-          <div className=''>
-            <h1 className='mb-2 open-sans-600'>Communities</h1>
-            <ul className='opacity-80'>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/mentor">For Mentor</a></li>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/mentee">For Mentee</a></li>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/tutor">For Tutor</a></li>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/investors">Investors</a></li>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/universities">Universities</a></li>
+          <div className="">
+            <h1 className="open-sans-600 mb-2">Communities</h1>
+            <ul className="opacity-80">
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/mentor">For Mentor</a>
+              </li>
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/mentee">For Mentee</a>
+              </li>
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/tutor">For Tutor</a>
+              </li>
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/investors">Investors</a>
+              </li>
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/universities">Universities</a>
+              </li>
             </ul>
           </div>
           <div>
-            <h1 className='mb-2 open-sans-600'>Resources</h1>
-            <ul className='opacity-80'>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/supports">Supports</a></li>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/mobileapps">Mobile App</a></li>
+            <h1 className="open-sans-600 mb-2">Resources</h1>
+            <ul className="opacity-80">
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/supports">Supports</a>
+              </li>
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/mobileapps">Mobile App</a>
+              </li>
             </ul>
           </div>
           <div>
-            <h1 className='mb-2 open-sans-600'>Useful links</h1>
-            <ul className='opacity-80'>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/faq">FaQ</a></li>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/announcement">Announcement</a></li>
-              <li className='mb-2 ease-in-out duration-300 hover:underline'><a href="/appstutorial">Tutorial</a></li>
+            <h1 className="open-sans-600 mb-2">Useful links</h1>
+            <ul className="opacity-80">
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/faq">FaQ</a>
+              </li>
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/announcement">Announcement</a>
+              </li>
+              <li className="mb-2 duration-300 ease-in-out hover:underline">
+                <a href="/appstutorial">Tutorial</a>
+              </li>
             </ul>
           </div>
-          <div className='flex flex-row gap-4 mt-10 sm:mt-0'>
-            <div className='p-3 w-10 h-10 flex items-center justify-center rounded-full border border-black transition ease-linear hover:border-purple-500'>
-              <a href="/instagram" target='_blank' rel='noreferrer' className='w-full cursor-pointer'>
-                <img src={Instagram} alt="instagram" className='w-full h-full' />
+          <div className="mt-10 flex flex-row gap-4 sm:mt-0">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-black p-3 transition ease-linear hover:border-purple-500">
+              <a
+                href="/instagram"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full cursor-pointer"
+              >
+                <img
+                  src={Instagram}
+                  alt="instagram"
+                  className="h-full w-full"
+                />
               </a>
             </div>
-            <div className='p-3 w-10 h-10 flex items-center justify-center rounded-full border border-black transition ease-linear hover:border-purple-500'>
-              <a href="/twitter" target='_blank'  rel='noreferrer' className='w-full cursor-pointer'>
-                <img src={Twitter} alt="twitter" className='w-full h-full' />
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-black p-3 transition ease-linear hover:border-purple-500">
+              <a
+                href="/twitter"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full cursor-pointer"
+              >
+                <img src={Twitter} alt="twitter" className="h-full w-full" />
               </a>
             </div>
-            <div className='p-3 w-10 h-10 flex items-center justify-center rounded-full border border-black transition ease-linear hover:border-purple-500'>
-              <a href="/facebook" target='_blank'  rel='noreferrer' className='w-full cursor-pointer'>
-                <img src={Facebook} alt="facebook" className='w-full h-full' />
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-black p-3 transition ease-linear hover:border-purple-500">
+              <a
+                href="/facebook"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full cursor-pointer"
+              >
+                <img src={Facebook} alt="facebook" className="h-full w-full" />
               </a>
             </div>
           </div>
         </div>
-        <div className='mt-10 sm:mt-10 sm:m-7'>
-
-          <div className='mt-2 flex flex-col gap-0'>
-            <h1 className='opacity-80 ml-3'>© 2024 Meja Belajar | All Rights Reserved </h1>
-            <small className='ml-3'>Jakarta, Indonesia 11480</small>
+        <div className="mt-10 sm:m-7 sm:mt-10">
+          <div className="mt-2 flex flex-col gap-0">
+            <h1 className="ml-3 opacity-80">
+              © 2024 Meja Belajar | All Rights Reserved{" "}
+            </h1>
+            <small className="ml-3">Jakarta, Indonesia 11480</small>
           </div>
         </div>
       </footer>
     </>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

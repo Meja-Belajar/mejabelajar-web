@@ -1,25 +1,21 @@
-import { UserContext } from "@src/contexts/UserContext";
-import { useContext } from "react";
 import GuestLanding from "./GuestLandingPage";
 import UserLanding from "./UserLandingPage";
 import { useSelector } from "react-redux";
+import "@src/assets/global.css";
 
 const Landing = () => {
-  const { user } = useContext(UserContext);
-  
   const currentUser = useSelector((state: any) => state.user.currentUser);
   const isUserLoading = useSelector((state: any) => state.user.isUserLoading);
 
-  if(isUserLoading){
-    return <></>
+  if (isUserLoading) {
+    return <></>;
   }
 
-  if(currentUser){
-    return <UserLanding />
+  if (currentUser) {
+    return <UserLanding />;
   }
 
-  return <GuestLanding />
-}
+  return <GuestLanding />;
+};
 
-
-export default Landing
+export default Landing;

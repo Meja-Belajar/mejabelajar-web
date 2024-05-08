@@ -1,5 +1,8 @@
-import { getAllBookingsResponse, getBookingResponse } from "@src/models/responses/bookingReponse";
-import { bookingServiceApi } from "../envConfig"
+import {
+  getAllBookingsResponse,
+  getBookingResponse,
+} from "@src/models/responses/bookingReponse";
+import { bookingServiceApi } from "../envConfig";
 
 export const getAllBookings = async (page: number) => {
   const apiUrl = bookingServiceApi.getAllBookings;
@@ -14,12 +17,11 @@ export const getAllBookings = async (page: number) => {
     }
 
     return bookings as getAllBookingsResponse;
-  } catch(e) {
-    console.error('Error fetching bookings:', e);
-    throw new Error('Failed to fetch bookings');
+  } catch (e) {
+    console.error("Error fetching bookings:", e);
+    throw new Error("Failed to fetch bookings");
   }
-
-}
+};
 
 export const getBooking = async (query: string) => {
   const apiUrl = bookingServiceApi.getBooking;
@@ -29,14 +31,13 @@ export const getBooking = async (query: string) => {
 
     const booking = await response.json();
 
-    if(booking.code !== 200) {
+    if (booking.code !== 200) {
       throw new Error(booking.message);
     }
 
     return booking as getBookingResponse;
-  } catch(e) {
-    console.error('Error fetching booking:', e);
-    throw new Error('Failed to fetch booking');
+  } catch (e) {
+    console.error("Error fetching booking:", e);
+    throw new Error("Failed to fetch booking");
   }
-}
-
+};

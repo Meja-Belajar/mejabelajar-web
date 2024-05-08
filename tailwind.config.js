@@ -11,43 +11,43 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'white': '#fffefb',
-        'white-accent-1': '#f5f4f1',
-        'white-accent-2': '#cccbc8',
-        'black': '#1d1c1c',
-        'black-accent-1': '#3b3c3d',
-        'black-accent-2': '#313d44',
-        'blue-accent-100': '#d4eaf7',
-        'blue-accent-200': '#b6ccd8',
-        'blue-accent-300': '#71c4ef',
-        'blue-accent-400': '#00668c',
-        'purple-accent-500': '#B46EFB'
+        white: "#fffefb",
+        "white-accent-1": "#f5f4f1",
+        "white-accent-2": "#cccbc8",
+        black: "#1d1c1c",
+        "black-accent-1": "#3b3c3d",
+        "black-accent-2": "#313d44",
+        "blue-accent-100": "#d4eaf7",
+        "blue-accent-200": "#b6ccd8",
+        "blue-accent-300": "#71c4ef",
+        "blue-accent-400": "#00668c",
+        "purple-accent-500": "#B46EFB",
       },
       keyframes: {
         carousel: {
-          '0%, 18%, 85%, 100%': {
-            transform: 'translateX(0%)',
-            transitionDelay: '1s'
+          "0%, 18%, 85%, 100%": {
+            transform: "translateX(0%)",
+            transitionDelay: "1s",
           },
-          '20%, 38%, 70%, 83%': {
-            transform: 'translateX(-33.333%)',
+          "20%, 38%, 70%, 83%": {
+            transform: "translateX(-33.333%)",
           },
-          '40%, 68%': {
-            transform: 'translateX(-66.666%)',
+          "40%, 68%": {
+            transform: "translateX(-66.666%)",
           },
-        }
+        },
       },
       animation: {
-        'carousel': 'carousel 15s linear infinite',
+        carousel: "carousel 15s linear infinite",
       },
       fontFamily: {
-        openSans: ['Open Sans', 'sans-serif'],
+        openSans: ["Open Sans", "sans-serif"],
       },
       backgroundImage: {
-        'teacher': "url('/src/assets/images/teacher.png')",
-      }
+        teacher: "url('/src/assets/images/page/landing/teacher.png')",
+      },
     },
   },
   darkMode: "class",
-  plugins: [nextui()]
-}
+  plugins: [nextui()],
+};

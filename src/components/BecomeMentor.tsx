@@ -1,13 +1,13 @@
+import "@src/assets/global.css";
+
 const BecomeMentor: React.FC = () => {
   return (
     <>
-      <div className='w-full p-3'>
-        <div className='w-full p-3 lato-bold text-2xl'>
-          
-        </div>
-      </div> 
+      <div className="w-full p-3">
+        <div className="lato-bold w-full p-3 text-2xl"></div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default BecomeMentor
+export default BecomeMentor;

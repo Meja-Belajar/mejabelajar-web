@@ -1,11 +1,12 @@
-import { motion } from 'framer-motion';
-import { animate, exit, initial } from '@assets/PageTransition';
-import img from '@assets/images/image-removebg-preview.png'
-import { Button } from '@nextui-org/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import peopleConfuse from '@assets/lotties/people-confuse.json';
-import Lottie from 'react-lottie';
+import { motion } from "framer-motion";
+import { animate, exit, initial } from "@src/assets/PageTransition";
+import img from "@src/assets/images/image-removebg-preview.png";
+import { Button } from "@nextui-org/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import peopleConfuse from "@src/assets/lotties/people-confuse.json";
+import Lottie from "react-lottie";
+import "@src/assets/global.css";
 
 const ErrorPage: React.FC = () => {
   return (
@@ -14,29 +15,31 @@ const ErrorPage: React.FC = () => {
         initial={initial}
         animate={animate}
         exit={exit}
-        className='mt-3 p-10 flex items-center justify-center'
+        className="mt-3 flex items-center justify-center p-10"
       >
-        <div className='mt-5 sm:mt-2 w-3/4 flex flex-col items-center justify-between'>
-          <div className='w-full sm:w-1/2 flex flex-row items-center justify-center p-5'>
+        <div className="mt-5 flex w-3/4 flex-col items-center justify-between sm:mt-2">
+          <div className="flex w-full flex-row items-center justify-center p-5 sm:w-1/2">
             <Lottie
               options={{
                 loop: true,
                 autoplay: true,
                 animationData: peopleConfuse,
                 rendererSettings: {
-                  preserveAspectRatio: 'xMidYMid slice'
-                }
+                  preserveAspectRatio: "xMidYMid slice",
+                },
               }}
             />
           </div>
-          <div className='w-full text-center flex flex-col items-center p-3 mt-3 '>
-            <h1 className='text-3xl sm:text-6xl open-sans-600'>404 ERROR</h1>
-            <p className='mt-5 text-xl open-sans-500 opacity-80 text-center'>Ooops! Something's missing .... </p>
+          <div className="mt-3 flex w-full flex-col items-center p-3 text-center ">
+            <h1 className="open-sans-600 text-3xl sm:text-6xl">404 ERROR</h1>
+            <p className="open-sans-500 mt-5 text-center text-xl opacity-80">
+              Ooops! Something's missing ....{" "}
+            </p>
           </div>
         </div>
       </motion.div>
     </>
-  )
-}
+  );
+};
 
-export default ErrorPage
+export default ErrorPage;

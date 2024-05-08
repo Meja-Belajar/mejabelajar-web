@@ -14,7 +14,7 @@ export interface getAllBookingsResponse extends BaseResponse {
     updatedBy: string;
     createdAt: string;
     updatedAt: string;
-  }[];  
+  }[];
 }
 
 export interface getBookingResponse extends BaseResponse {
@@ -31,5 +31,5 @@ export interface getBookingResponse extends BaseResponse {
     updatedBy: string;
     createdAt: string;
     updatedAt: string;
-  };  
+  };
 }

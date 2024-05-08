@@ -1,5 +1,6 @@
-import { initial, animate, exit } from '@src/assets/PageTransition';
-import { motion } from 'framer-motion';
+import { initial, animate, exit } from "@src/assets/PageTransition";
+import { motion } from "framer-motion";
+import "@src/assets/global.css";
 
 // landing page for mentor
 const MentorLanding = () => {
@@ -9,15 +10,14 @@ const MentorLanding = () => {
         initial={initial}
         animate={animate}
         exit={exit}
-        className='bg-white-accent-1'
+        className="bg-white-accent-1"
       >
         <div>
           <h1>MentorLanding</h1>
         </div>
       </motion.div>
     </>
+  );
+};
 
-  )
-}
-
-export default MentorLanding
+export default MentorLanding;

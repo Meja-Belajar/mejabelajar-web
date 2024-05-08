@@ -12,4 +12,4 @@ export const isUserAlreadyLogin = () => {
   console.log(response);
 
   return response;
-} 
+};

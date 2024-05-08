@@ -1,6 +1,7 @@
-import { Outlet } from "react-router-dom"
-import { motion } from "framer-motion"
-import { initial, animate, exit } from '@src/assets/PageTransition';
+import { Outlet } from "react-router-dom";
+import { motion } from "framer-motion";
+import { initial, animate, exit } from "@src/assets/PageTransition";
+import "@src/assets/global.css";
 
 const Search = () => {
   return (
@@ -9,7 +10,7 @@ const Search = () => {
         initial={initial}
         animate={animate}
         exit={exit}
-        className='bg-white-accent-1'
+        className="bg-white-accent-1"
       >
         <div>
           <h1>Search Page</h1>
@@ -18,11 +19,10 @@ const Search = () => {
       <div>
         <h1>Search</h1>
       </div>
-  
+
       <Outlet />
-
     </>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;

@@ -1,13 +1,16 @@
 export class DateUtil extends Date {
-  
   static minAge() {
     const today = new Date();
 
-    const minDate = new Date(today.getFullYear() - 15, today.getMonth(), today.getDate());
+    const minDate = new Date(
+      today.getFullYear() - 15,
+      today.getMonth(),
+      today.getDate(),
+    );
 
-    const minDateString = minDate.toISOString().split('T')[0];
+    const minDateString = minDate.toISOString().split("T")[0];
 
-    return minDateString
+    return minDateString;
   }
 
   static diff(date1: string, date2: string) {
@@ -19,7 +22,7 @@ export class DateUtil extends Date {
 
     const days = Math.floor(diffDays / 1);
     const hours = Math.floor((diffDays % 1) * 24);
-    
+
     return `${days}d ${hours}h`;
   }
 
@@ -27,6 +30,13 @@ export class DateUtil extends Date {
     const dateObj = new Date(date);
 
     // return to format 01 January 2023, 00:00 AM
-    return dateObj.toLocaleString('en-GB', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true });
+    return dateObj.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
   }
 }
