@@ -7,7 +7,7 @@ export class MentorService {
   static async getPopularMentors(): Promise<MentorDTO[]> {
     try {
       // const response = await fetch(`${mentorServiceApi.getPopularMentors}`);
-      
+
       // const mentors: MentorDTO[] = await response.json();
 
       // if (mentors.length === 0) {
@@ -16,10 +16,9 @@ export class MentorService {
 
       // return mentors;
 
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       return PopularMentors as unknown as MentorDTO[];
-
     } catch (e) {
       console.error(`Error fetching mentors: ${e}`);
       throw new Error("Failed to fetch mentors");
@@ -29,7 +28,7 @@ export class MentorService {
   static async getMentorById(userId: string): Promise<MentorDTO> {
     try {
       // const response = await fetch(`${mentorServiceApi.getMentor}${userId}`);
-      
+
       // const mentor: MentorDTO = await response.json();
 
       // if (!mentor) {
@@ -38,13 +37,12 @@ export class MentorService {
 
       // return mentor;
 
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       return PopularMentors[0] as unknown as MentorDTO;
-    } catch(e) {
+    } catch (e) {
       console.error(`Error fetching mentor: ${e}`);
       throw new Error(`Error: ${e}`);
     }
-  
   }
 }

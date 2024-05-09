@@ -19,7 +19,7 @@ type MentorState = {
   isLoading: boolean;
   mentor: MentorDTO;
   error: string;
-}
+};
 
 // landing page for mentor
 const MentorLanding = () => {
@@ -27,36 +27,35 @@ const MentorLanding = () => {
   const [mentorState, setMentorState] = useState<MentorState>({
     isLoading: false,
     mentor: {} as MentorDTO,
-    error: ""
+    error: "",
   });
 
   const currentUser = useSelector((state: any) => state.user.currentUser);
-  
+
   const fetchMentor = async () => {
     try {
       setMentorState({ ...mentorState, isLoading: true });
 
       const mentor = await MentorService.getMentorById(currentUser.user_id);
-      
-      setMentorState({ ...mentorState, isLoading: false, mentor });
 
-    } catch(e) {
-      if(e instanceof Error){
+      setMentorState({ ...mentorState, isLoading: false, mentor });
+    } catch (e) {
+      if (e instanceof Error) {
         setMentorState({ ...mentorState, isLoading: false, error: e.message });
       }
     }
-  }
+  };
 
   useEffect(() => {
     fetchMentor();
   }, []);
 
   if (mentorState.isLoading) {
-    return <LoadingPage message="Validating your Credential as Mentor"/>
+    return <LoadingPage message="Validating your Credential as Mentor" />;
   }
 
   if (mentorState.error) {
-    return <ErrorPage code={404} message={mentorState.error} />
+    return <ErrorPage code={404} message={mentorState.error} />;
   }
 
   return (
@@ -83,7 +82,7 @@ const MentorLanding = () => {
               {`Total Revenue: Rp. ${mentorState.mentor.revenue}`}
             </h1>
             <div className="flex w-full flex-col items-center gap-3 p-3 sm:flex-row sm:justify-between sm:p-5 md:mr-10 lg:w-3/4">
-              <div 
+              <div
                 className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50"
                 onClick={() => navigate("/tutoring")}
               >
@@ -95,7 +94,7 @@ const MentorLanding = () => {
                   className="absolute right-10 sm:hidden"
                 />
               </div>
-              <div 
+              <div
                 className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50"
                 onClick={() => navigate("/")}
               >
@@ -113,8 +112,7 @@ const MentorLanding = () => {
           {/* user schedule section  */}
           <BookingsWrapper userId={mentorState.mentor.mentor_id} />
 
-
-          <div className="pb-20"/>
+          <div className="pb-20" />
         </main>
       </motion.div>
       <Footer />

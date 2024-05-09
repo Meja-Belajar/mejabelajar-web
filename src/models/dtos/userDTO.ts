@@ -22,7 +22,9 @@ export const toUserDTO = (
     email: data.data.email,
     phone_number: data.data.phone_number,
     description: data.data.description,
-    profile_picture: data.data.profile_picture,
+    profile_picture:
+      data.data.profile_picture ||
+      "https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg",
     bod: data.data.bod,
-  }
+  };
 };

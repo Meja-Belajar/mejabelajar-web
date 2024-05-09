@@ -15,7 +15,12 @@ const PublicRouter = () => {
     <Routes key="public-routes">
       {/* route that don't require login */}
       <Route path="/" element={<GuestLanding />} />
-      <Route path="*" element={<ErrorPage code={404} message="Ooops! Something's missing ...." />} />
+      <Route
+        path="*"
+        element={
+          <ErrorPage code={404} message="Ooops! Something's missing ...." />
+        }
+      />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<Register />} />
 

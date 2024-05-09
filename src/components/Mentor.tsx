@@ -33,14 +33,12 @@ const MentorCard = (props: MentorCardProps) => {
         <div className="line-clamp-1 max-w-[240px] overflow-hidden text-ellipsis text-default-500">
           <small>{mentor?.courses[0]?.name}</small>
         </div>
-        <h4 className="open-sans-600 text-large">
-          {mentor?.username}
-        </h4>
+        <h4 className="open-sans-600 text-large">{mentor?.username}</h4>
       </CardHeader>
       <CardBody className="flex items-center overflow-visible py-2">
         <Image
           alt="Card background"
-          className="max-h-36 rounded-xl object-cover  cursor-pointer"
+          className="max-h-36 cursor-pointer rounded-xl  object-cover"
           src={mentor?.profile_picture}
           width={270}
           onClick={() => {
@@ -49,16 +47,12 @@ const MentorCard = (props: MentorCardProps) => {
         />
       </CardBody>
     </Card>
-  )
-
-}
+  );
+};
 
 const SkeletonMentorCard = () => {
   return (
-    <Card
-      className="w-[200px] space-y-5 border-2 p-4 shadow-none"
-      radius="lg"
-    >
+    <Card className="w-[200px] space-y-5 border-2 p-4 shadow-none" radius="lg">
       <div className="space-y-3">
         <Skeleton className="w-3/5 rounded-lg">
           <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
@@ -74,8 +68,8 @@ const SkeletonMentorCard = () => {
         </Skeleton>
       </div>
     </Card>
-  )
-}
+  );
+};
 
 const WeeklyPopularMentorWrapper = () => {
   const navigate = useNavigate();
@@ -83,41 +77,49 @@ const WeeklyPopularMentorWrapper = () => {
   const [popularMentors, setPopularMentors] = useState<MentorState>({
     isLoading: false,
     items: [],
-    error: ''
+    error: "",
   });
 
   const fetchPopularMentors = async () => {
     try {
       setPopularMentors({ ...popularMentors, isLoading: true });
       const response: MentorDTO[] = await MentorService.getPopularMentors();
-      
-      setPopularMentors({ ...popularMentors, isLoading: false, items: response });
+
+      setPopularMentors({
+        ...popularMentors,
+        isLoading: false,
+        items: response,
+      });
     } catch (e) {
-      if(e instanceof Error){
-        setPopularMentors({ ...popularMentors, isLoading: false, error: e.message });
+      if (e instanceof Error) {
+        setPopularMentors({
+          ...popularMentors,
+          isLoading: false,
+          error: e.message,
+        });
       }
     }
-  }
+  };
 
   const renderPopularMentors = () => {
     if (popularMentors.isLoading) {
-      return <SkeletonMentorCard />
+      return <SkeletonMentorCard />;
     }
 
     if (popularMentors.items.length === 0) {
       return (
-        <section className="w-full mx-8">
+        <section className="mx-8 w-full">
           <h1 className="text-center text-2xl">
-            { popularMentors.error ? popularMentors.error : "No mentors found" }
+            {popularMentors.error ? popularMentors.error : "No mentors found"}
           </h1>
         </section>
-      )
+      );
     }
 
     return popularMentors.items.map((mentor: MentorDTO) => (
       <MentorCard key={mentor.mentor_id} mentor={mentor} />
-    ))
-  }
+    ));
+  };
 
   useEffect(() => {
     fetchPopularMentors();
@@ -126,9 +128,12 @@ const WeeklyPopularMentorWrapper = () => {
   return (
     <section className="mt-16">
       <div className="open-sans-600 flex w-full flex-row items-center p-3 text-2xl">
-        <h1 className="ml-8 underline-offset-4 decoration-transparent hover:decoration-solid hover:underline cursor-pointer hover:decoration-black ease-in-out transition-all duration-300"
-            onClick={() => navigate("/search")}
-          >Popular Mentor This Week</h1>
+        <h1
+          className="ml-8 cursor-pointer decoration-transparent underline-offset-4 transition-all duration-300 ease-in-out hover:underline hover:decoration-black hover:decoration-solid"
+          onClick={() => navigate("/search")}
+        >
+          Popular Mentor This Week
+        </h1>
         <FontAwesomeIcon
           icon={faArrowRight}
           className="z-[99] ml-3 mt-1 text-black"
@@ -138,18 +143,13 @@ const WeeklyPopularMentorWrapper = () => {
 
       <div className="relative w-full p-3">
         <div className="no-scrollbar mt-3 flex w-full flex-row overflow-x-auto scroll-smooth p-4">
-          <div className="relative flex flex-row gap-6 sm:gap-8 ml-4">
-            { renderPopularMentors() }
+          <div className="relative ml-4 flex flex-row gap-6 sm:gap-8">
+            {renderPopularMentors()}
           </div>
         </div>
       </div>
-
     </section>
-  )
-}
+  );
+};
 
-export {
-  MentorCard,
-  SkeletonMentorCard,
-  WeeklyPopularMentorWrapper
-}
+export { MentorCard, SkeletonMentorCard, WeeklyPopularMentorWrapper };

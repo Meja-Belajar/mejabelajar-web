@@ -3,7 +3,11 @@ import {
   getBookingsByUserIdResponse,
 } from "@src/models/responses/bookingReponse";
 import { bookingServiceApi } from "../envConfig";
-import { bookingDTO, toBookingDTO, toBookingsDTO } from "@src/models/dtos/bookingDTO";
+import {
+  bookingDTO,
+  toBookingDTO,
+  toBookingsDTO,
+} from "@src/models/dtos/bookingDTO";
 
 import { BookingLists } from "@src/assets/data/userLandingData";
 
@@ -19,8 +23,8 @@ export class BookingService {
       // }
 
       // return toBookingsDTO(bookings);
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       return BookingLists;
     } catch (e) {
       console.error("Error fetching bookings:", e);
@@ -32,7 +36,7 @@ export class BookingService {
     try {
       const response = await fetch(`${bookingServiceApi.getBooking}/${userId}`);
 
-      const booking: getBookingByIdResponse  = await response.json();
+      const booking: getBookingByIdResponse = await response.json();
 
       if (booking.code !== 200) {
         throw new Error(booking.message);
@@ -45,4 +49,3 @@ export class BookingService {
     }
   }
 }
-

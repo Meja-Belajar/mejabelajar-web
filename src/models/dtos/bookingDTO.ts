@@ -1,4 +1,7 @@
-import { getBookingByIdResponse, getBookingsByUserIdResponse } from "../responses/bookingReponse";
+import {
+  getBookingByIdResponse,
+  getBookingsByUserIdResponse,
+} from "../responses/bookingReponse";
 
 export interface bookingDTO {
   id: string;
@@ -57,12 +60,10 @@ export const toBookingsDTO = (
     },
     date: booking.date,
     location: booking.location,
-  }))
+  }));
 };
 
-export const toBookingDTO = (
-  data: getBookingByIdResponse,
-): bookingDTO => {
+export const toBookingDTO = (data: getBookingByIdResponse): bookingDTO => {
   return {
     id: data.data.id,
     user: {
@@ -89,5 +90,5 @@ export const toBookingDTO = (
     },
     date: data.data.date,
     location: data.data.location,
-  }
+  };
 };

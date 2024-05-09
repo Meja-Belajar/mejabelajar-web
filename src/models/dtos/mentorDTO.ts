@@ -28,9 +28,7 @@ export interface MentorDTO {
   }[];
 }
 
-export const toMentorDTO = (
-  data: getPopularMentorsResponse,
-): MentorDTO[] => {
+export const toMentorDTO = (data: getPopularMentorsResponse): MentorDTO[] => {
   return data.data.map((mentor) => ({
     mentor_id: mentor.mentor_id,
     username: mentor.username,

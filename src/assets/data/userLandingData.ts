@@ -14,9 +14,9 @@
 
 // guest User
 export const Header = {
-  "title": "Discover Your Perfect <br /> Mentor Today!",
-  "desc": "Meja Belajar now is your gateway to <br /> connecting with experienced mentors who <br /> are eager to share their knowledge and <br /> expertise with you."
-}
+  title: "Discover Your Perfect <br /> Mentor Today!",
+  desc: "Meja Belajar now is your gateway to <br /> connecting with experienced mentors who <br /> are eager to share their knowledge and <br /> expertise with you.",
+};
 
 export const NavigationLists = [
   {
@@ -67,8 +67,9 @@ export const OurProgram = {
 };
 
 export const Reviews = {
-  "title": "View some reviews <br /> from <a className='special-font'>Meja Belajar'</a> users",
-  "reviews": [
+  title:
+    "View some reviews <br /> from <a className='special-font'>Meja Belajar'</a> users",
+  reviews: [
     {
       name: "John Ilham",
       status: "Student at BINUS",
@@ -90,7 +91,7 @@ export const Reviews = {
       image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Tom_Holland_MTV_2018_%2802%29.jpg/330px-Tom_Holland_MTV_2018_%2802%29.jpg",
     },
-  ]
+  ],
 };
 
 export const BestMentors = {
@@ -138,110 +139,114 @@ export const PopularCourses = {
 
 // auth User
 export const CDNIcon = {
-  "tutoring": "https://cdn-icons-png.flaticon.com/512/7189/7189988.png",
-  "mentoring": "https://cdn-icons-png.flaticon.com/512/4681/4681580.png",
-  "for_mentor": "https://cdn-icons-png.flaticon.com/512/9473/9473007.png",
-  "logbook": "https://cdn-icons-png.flaticon.com/512/6347/6347299.png",
-  "back_user": "https://cdn-icons-png.flaticon.com/512/4825/4825038.png"
+  tutoring: "https://cdn-icons-png.flaticon.com/512/7189/7189988.png",
+  mentoring: "https://cdn-icons-png.flaticon.com/512/4681/4681580.png",
+  for_mentor: "https://cdn-icons-png.flaticon.com/512/9473/9473007.png",
+  logbook: "https://cdn-icons-png.flaticon.com/512/6347/6347299.png",
+  back_user: "https://cdn-icons-png.flaticon.com/512/4825/4825038.png",
 };
 
 export const PopularMentors = [
   {
-	  "mentor_id": "1",
-	  "username": "John Doe",
-	  "university": "University of California, Berkeley",
-	  "email": "john@mail.com",
-	  "phone": "080-1234-5678",
-	  "description": "I am a student at UC Berkeley. I am studying computer science and I am interested in machine learning and artificial intelligence.",
-	  "profile_picture": "https://www.w3schools.com/howto/img_avatar.png",
-	  "bod": "2021-01-01T00:00:00.000Z",
-	  "revenue": 121.2,
-	  "rating": 4.5,
-	  "total_teaching_hours": 10,
-	  "teaching_frequency": 2,
-	  "courses": [
-	    {
-	      "course_id": "1",
-	      "name": "Introduction to Machine Learning",
-	      "detail": "This course is an introduction to machine learning. It covers the basic concepts of machine learning and its applications.",
-	      "rating": "4.5",
-	      "hourly_rate": 12.1,
-	      "course_start_time": "2021-01-01T00:00:00.000Z",
-	      "course_end_time": "2021-01-01T00:00:00.000Z" 
-	    },
+    mentor_id: "1",
+    username: "John Doe",
+    university: "University of California, Berkeley",
+    email: "john@mail.com",
+    phone: "080-1234-5678",
+    description:
+      "I am a student at UC Berkeley. I am studying computer science and I am interested in machine learning and artificial intelligence.",
+    profile_picture: "https://www.w3schools.com/howto/img_avatar.png",
+    bod: "2021-01-01T00:00:00.000Z",
+    revenue: 121.2,
+    rating: 4.5,
+    total_teaching_hours: 10,
+    teaching_frequency: 2,
+    courses: [
       {
-        "course_id": "2",
-        "name": "Introduction to Artificial Intelligence",
-        "detail": "This course is an introduction to artificial intelligence. It covers the basic concepts of artificial intelligence and its applications.",
-        "rating": "4.5",
-        "hourly_rate": 12.1,
-        "course_start_time": "2021-01-01T00:00:00.000Z",
-        "course_end_time": "2021-01-01T00:00:00.000Z" 
-      }
-	  ],
-	  "reviews": [
-	    {
-	      "review_id": "1",
-	      "description": "John is a great mentor. He is very knowledgeable and helpful. I would recommend him to anyone who is interested in machine learning."
-	    }
-	  ]
-	},
+        course_id: "1",
+        name: "Introduction to Machine Learning",
+        detail:
+          "This course is an introduction to machine learning. It covers the basic concepts of machine learning and its applications.",
+        rating: "4.5",
+        hourly_rate: 12.1,
+        course_start_time: "2021-01-01T00:00:00.000Z",
+        course_end_time: "2021-01-01T00:00:00.000Z",
+      },
+      {
+        course_id: "2",
+        name: "Introduction to Artificial Intelligence",
+        detail:
+          "This course is an introduction to artificial intelligence. It covers the basic concepts of artificial intelligence and its applications.",
+        rating: "4.5",
+        hourly_rate: 12.1,
+        course_start_time: "2021-01-01T00:00:00.000Z",
+        course_end_time: "2021-01-01T00:00:00.000Z",
+      },
+    ],
+    reviews: [
+      {
+        review_id: "1",
+        description:
+          "John is a great mentor. He is very knowledgeable and helpful. I would recommend him to anyone who is interested in machine learning.",
+      },
+    ],
+  },
 ];
 
-export const BookingLists =  [
+export const BookingLists = [
   {
-    "id": "2",
-    "user": {
-      "id": "2",
-      "name": "Mentee"
+    id: "2",
+    user: {
+      id: "2",
+      name: "Mentee",
     },
-    "mentor": {
-      "id": "2",
-      "name": "Jane Doe"
+    mentor: {
+      id: "2",
+      name: "Jane Doe",
     },
-    "course": {
-      "id":" 2",
-      "name": "Introduction to Design",
-      "detail": "Learn the basic of design"
+    course: {
+      id: " 2",
+      name: "Introduction to Design",
+      detail: "Learn the basic of design",
     },
-    "invoice": {
-      "id": "2",
-      "payment_method": "credit_card",
-      "payment_name": "John Doe",
-      "payment_status": "paid",
-      "payment_amount": 1000000,
-      "payment_fee": 10000,
-      "payment_total": 1010000
+    invoice: {
+      id: "2",
+      payment_method: "credit_card",
+      payment_name: "John Doe",
+      payment_status: "paid",
+      payment_amount: 1000000,
+      payment_fee: 10000,
+      payment_total: 1010000,
     },
-    "date": "2024-06-12T00:00:00.000Z",
-    "location": "Bina Nusantara University"
+    date: "2024-06-12T00:00:00.000Z",
+    location: "Bina Nusantara University",
   },
   {
-    "id": "1",
-    "user": {
-      "id": "1",
-      "name": "Mentee"
+    id: "1",
+    user: {
+      id: "1",
+      name: "Mentee",
     },
-    "mentor": {
-      "id": "1",
-      "name": "John Doe"
+    mentor: {
+      id: "1",
+      name: "John Doe",
     },
-    "course": {
-      "id": "1",
-      "name": "Introduction to Programming",
-      "detail": "Learn the basic of programming"
+    course: {
+      id: "1",
+      name: "Introduction to Programming",
+      detail: "Learn the basic of programming",
     },
-    "invoice": {
-      "id": "1",
-      "payment_method": "credit_card",
-      "payment_name": "John Doe",
-      "payment_status": "paid",
-      "payment_amount": 1000000,
-      "payment_fee": 10000,
-      "payment_total": 1010000
+    invoice: {
+      id: "1",
+      payment_method: "credit_card",
+      payment_name: "John Doe",
+      payment_status: "paid",
+      payment_amount: 1000000,
+      payment_fee: 10000,
+      payment_total: 1010000,
     },
-    "date": "2024-04-12T00:00:00.000Z",
-    "location": "Bina Nusantara University"
+    date: "2024-04-12T00:00:00.000Z",
+    location: "Bina Nusantara University",
   },
 ];
 
@@ -280,5 +285,5 @@ export const WeeklyPopularCourses = [
     id: "3",
     name: "Human and Reseource Management",
     image: "https://cdn-icons-png.flaticon.com/256/4359/4359881.png",
-  }
+  },
 ];

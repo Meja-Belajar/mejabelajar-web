@@ -3,6 +3,7 @@ import { UserDTO, toUserDTO } from "@src/models/dtos/userDTO";
 import {
   LoginUserRequest,
   RegisterUserRequest,
+  UpdateUserRequest,
 } from "@src/models/requests/userRequest";
 import {
   LoginUserResponse,
@@ -101,5 +102,44 @@ export class UserService {
     }
 
     return null;
+  }
+
+  static async update(request: UpdateUserRequest) {
+    try {
+      const {
+        user_name,
+        email,
+        phone_number,
+        description,
+        profile_picture,
+        bod,
+      } = request;
+
+      const response = await fetch(userServiceApi.update, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_name,
+          email,
+          phone_number,
+          description,
+          profile_picture,
+          bod,
+        }),
+      });
+
+      const updateResponse = await response.json();
+
+      if (updateResponse.code !== 200) {
+        throw new Error(updateResponse.message);
+      }
+
+      return updateResponse;
+    } catch (e) {
+      console.error("Error updating user:", e);
+      throw new Error("Failed to update user. Please try again.");
+    }
   }
 }

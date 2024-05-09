@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import ErrorPage from "@src/pages/ErrorPage";
-import Profile from "@src/pages/ProfilePage";
+import Profile from "@src/pages/Profile/ProfilePage";
 
 import Search from "@src/pages/Search/SearchPage";
 import SearchDefault from "@src/pages/Search/SearchDefault";
@@ -12,6 +12,8 @@ import ConstructionPage from "@src/pages/ConstructionPage";
 import UserLanding from "@src/pages/Landing/UserLandingPage";
 import AdminReport from "@src/pages/Admin/AdminReport";
 import MentorLanding from "@src/pages/Landing/MentorLanding";
+import PublicPage from "@src/pages/Profile/PublicPage";
+import NotificationPage from "@src/pages/Profile/NotificationPage";
 
 const AuthRouter = () => {
   return (
@@ -19,7 +21,12 @@ const AuthRouter = () => {
       {/* routes that don't require login */}
       <Route path="/" element={<UserLanding />} />
       <Route path="/mentor" element={<MentorLanding />} />
-      <Route path="*" element={<ErrorPage code={404} message="Ooops! Something's missing ...." />} />
+      <Route
+        path="*"
+        element={
+          <ErrorPage code={404} message="Ooops! Something's missing ...." />
+        }
+      />
       <Route path="/login" element={<Navigate to="/" />} />
       <Route path="/register" element={<Navigate to="/login" />} />
 
@@ -29,8 +36,11 @@ const AuthRouter = () => {
         <Route path=":query" element={<SearchResult />} />
       </Route>
 
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/history" element={<ConstructionPage />}/>
+      <Route path="/profile" element={<Profile />}>
+        <Route index element={<PublicPage />} />
+        <Route path="notification" element={<NotificationPage />} />
+      </Route>
+      <Route path="/history" element={<ConstructionPage />} />
       <Route path="/tutoring" element={<ConstructionPage />} />
 
       {/* exclusive to admin */}

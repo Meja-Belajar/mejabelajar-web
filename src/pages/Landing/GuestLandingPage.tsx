@@ -199,9 +199,7 @@ const GuestLanding = () => {
         {/* review from user  */}
         <section className="flex w-full flex-col items-center justify-center p-10">
           <div className="mb-20 text-center text-4xl text-blue-accent-400">
-            <h1>
-              {parse(Reviews.title)}
-            </h1>
+            <h1>{parse(Reviews.title)}</h1>
           </div>
           <div className="flex w-full flex-col items-center justify-between gap-14 sm:gap-8 md:flex-row lg:px-14">
             {Reviews.reviews.map((item, index) => (
@@ -264,7 +262,12 @@ const GuestLanding = () => {
           </div>
           <div className="mt-20 flex flex-col items-center justify-center gap-3 px-2 sm:flex-row  sm:gap-10 ">
             {PopularCourses.courses.map((item, index) => (
-              <CourseCard key={index} id={index.toString()} name={item.name} image={item.image}/>
+              <CourseCard
+                key={index}
+                id={index.toString()}
+                name={item.name}
+                image={item.image}
+              />
             ))}
           </div>
         </section>
@@ -293,7 +296,8 @@ const GuestLanding = () => {
         <section className="mt-32 flex w-full flex-col items-center justify-center">
           <div className="open-sans-600 p-4 text-center text-3xl text-blue-accent-400 sm:w-1/2">
             <h1>
-              Let’s enhance your academic journey with the guidance of our top mentor
+              Let’s enhance your academic journey with the guidance of our top
+              mentor
             </h1>
           </div>
           <div className="mt-10 flex w-1/2 items-center justify-center">

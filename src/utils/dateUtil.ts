@@ -45,7 +45,7 @@ export class DateUtil extends Date {
     const date2Obj = new Date(date2);
 
     console.log(date1Obj.getTime(), date2Obj.getTime());
-    
+
     return date1Obj.getTime() > date2Obj.getTime();
   }
 }

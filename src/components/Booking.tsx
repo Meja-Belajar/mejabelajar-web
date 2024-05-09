@@ -25,7 +25,7 @@ type BookingState = {
   isLoading: boolean;
   items: bookingDTO[];
   error: string;
-}
+};
 
 const BookingCard = (props: BookingCardProps) => {
   const { book } = props;
@@ -42,9 +42,7 @@ const BookingCard = (props: BookingCardProps) => {
               </h2>
             </div>
             <div>
-              <h1 className="open-sans-600 text-xl">
-                {book.course.name}
-              </h1>
+              <h1 className="open-sans-600 text-xl">{book.course.name}</h1>
             </div>
           </div>
           <div className="flex items-center">
@@ -98,9 +96,7 @@ const BookingCard = (props: BookingCardProps) => {
               />
               <p className="text-sm text-gray-400">Mentor</p>
             </div>
-            <p className="text-sm text-gray-400">
-              {book.mentor.name}
-            </p>
+            <p className="text-sm text-gray-400">{book.mentor.name}</p>
           </div>
         </section>
       </section>
@@ -116,17 +112,17 @@ const SkeletonBookingCard = () => {
           <Skeleton className="w-1/5 rounded-lg">
             <div className="h-10 w-1/5 rounded-lg bg-default-200"></div>
           </Skeleton>
-          <Skeleton className="w-full rounded-lg mt-5">
+          <Skeleton className="mt-5 w-full rounded-lg">
             <div className="h-2 w-full rounded-lg bg-default-200"></div>
           </Skeleton>
-          <Skeleton className="w-1/3 rounded-lg mt-5">
+          <Skeleton className="mt-5 w-1/3 rounded-lg">
             <div className="h-20 w-1/3 rounded-lg bg-default-200"></div>
           </Skeleton>
         </section>
       </section>
     </section>
-  )
-}
+  );
+};
 
 const BookingsWrapper = (props: BookingsWrapperProps) => {
   const { userId } = props;
@@ -135,57 +131,60 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
     onShow: 1,
     isLoading: false,
     items: [],
-    error: ''
+    error: "",
   } as BookingState);
 
   const fetchBookings = async () => {
     try {
       setBookings({ ...bookings, isLoading: true });
-      const response: bookingDTO[] = await BookingService.getAllBookingsByUserId(userId);
+      const response: bookingDTO[] =
+        await BookingService.getAllBookingsByUserId(userId);
 
       setBookings({ ...bookings, isLoading: false, items: response });
-    } catch(e) {
-      if(e instanceof Error){
+    } catch (e) {
+      if (e instanceof Error) {
         setBookings({ ...bookings, isLoading: false, error: e.message });
       }
     }
   };
 
   const renderBookings = useCallback(() => {
-    if(bookings.isLoading) {
-      return <SkeletonBookingCard />
+    if (bookings.isLoading) {
+      return <SkeletonBookingCard />;
     }
 
-    if(bookings.items.length === 0) {
+    if (bookings.items.length === 0) {
       return (
-        <section className="w-full mx-8">
-          <h1>
-            { bookings.error ? bookings.error : "No bookings found" }
-          </h1>
+        <section className="mx-8 w-full">
+          <h1>{bookings.error ? bookings.error : "No bookings found"}</h1>
         </section>
-      )
+      );
     }
 
-    return bookings.items.slice(0, bookings.onShow).map((book) => (
-      <BookingCard key={book.id} book={book} />
-    ));  
-
+    return bookings.items
+      .slice(0, bookings.onShow)
+      .map((book) => <BookingCard key={book.id} book={book} />);
   }, [bookings]);
 
   const renderShowBookingsButton = () => {
-    if(bookings.items.length === 0) return null;
-      
+    if (bookings.items.length === 0) return null;
+
     return (
       <section className="mt-10 flex w-full items-center justify-center">
         <Button
           className="h-10 w-1/2 rounded-full bg-blue-accent-300 text-white-accent-1 shadow-sm drop-shadow-lg sm:w-1/6"
-          onClick={() => setBookings({ ...bookings, onShow: bookings.onShow === 1 ? bookings.items.length : 1 })}
+          onClick={() =>
+            setBookings({
+              ...bookings,
+              onShow: bookings.onShow === 1 ? bookings.items.length : 1,
+            })
+          }
         >
-          { bookings.onShow === 1 ? 'VIEW ALL' : 'VIEW LESS' }
+          {bookings.onShow === 1 ? "VIEW ALL" : "VIEW LESS"}
         </Button>
       </section>
-    )
-  }
+    );
+  };
 
   useEffect(() => {
     fetchBookings();
@@ -194,19 +193,13 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
   return (
     <section>
       <div className="mt-10 flex w-full items-center justify-start">
-        <h1 className="open-sans-600 mb-5 ml-8 text-2xl">
-          Your Schedule
-        </h1>
+        <h1 className="open-sans-600 mb-5 ml-8 text-2xl">Your Schedule</h1>
       </div>
 
-      { renderBookings() }
-      { renderShowBookingsButton() }
+      {renderBookings()}
+      {renderShowBookingsButton()}
     </section>
-  )
+  );
 };
 
-export { 
-  BookingCard, 
-  SkeletonBookingCard, 
-  BookingsWrapper,
-};
+export { BookingCard, SkeletonBookingCard, BookingsWrapper };

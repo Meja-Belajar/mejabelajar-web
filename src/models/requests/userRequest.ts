@@ -12,3 +12,12 @@ export interface LoginUserRequest {
   email: string;
   password: string;
 }
+
+export interface UpdateUserRequest {
+  user_name: string;
+  email: string;
+  phone_number: string;
+  description: string;
+  profile_picture: string;
+  bod: Date | string;
+}

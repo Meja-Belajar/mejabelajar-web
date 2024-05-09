@@ -7,14 +7,16 @@ import { useNavigate } from "react-router-dom";
 import Footer from "@src/components/Footer";
 import { BookingsWrapper } from "@src/components/Booking";
 import "@src/assets/global.css";
-import { CDNIcon, WeeklyPopularCourses } from "@src/assets/data/userLandingData";
+import {
+  CDNIcon,
+  WeeklyPopularCourses,
+} from "@src/assets/data/userLandingData";
 import { useSelector } from "react-redux";
 import { WeeklyPopularMentorWrapper } from "@src/components/Mentor";
 import { WeeklyPopularCoursesWrapper } from "@src/components/Course";
 
 // landing page for user
 const UserLanding = () => {
-
   const currentUser = useSelector((state: any) => state.user.currentUser);
   const navigate = useNavigate();
 
@@ -43,7 +45,7 @@ const UserLanding = () => {
               <span className="text-blue-accent-300"> FOR YOU🫰 </span>
             </h1>
             <div className="flex w-full flex-col items-center gap-3 p-3 sm:flex-row sm:justify-between sm:p-5 md:mr-10 lg:w-3/4">
-              <div 
+              <div
                 className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50"
                 onClick={() => navigate("/tutoring")}
               >
@@ -55,7 +57,7 @@ const UserLanding = () => {
                   className="absolute right-10 sm:hidden"
                 />
               </div>
-              <div 
+              <div
                 className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50"
                 onClick={() => navigate("/search")}
               >
@@ -67,11 +69,15 @@ const UserLanding = () => {
                   className="absolute right-10 sm:hidden"
                 />
               </div>
-              <div  
+              <div
                 className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50"
-                onClick={() => navigate("/mentor")}  
+                onClick={() => navigate("/mentor")}
               >
-                <img src={CDNIcon.for_mentor} alt="icon tutor" className="w-8" />
+                <img
+                  src={CDNIcon.for_mentor}
+                  alt="icon tutor"
+                  className="w-8"
+                />
                 <h1>For Mentor</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}
@@ -91,7 +97,7 @@ const UserLanding = () => {
           {/* popular mentors section */}
           <WeeklyPopularMentorWrapper />
 
-          <div className="pb-20"/>
+          <div className="pb-20" />
         </main>
       </motion.div>
       <Footer />

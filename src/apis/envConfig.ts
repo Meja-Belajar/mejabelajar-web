@@ -1,4 +1,3 @@
-
 export const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 // userService
@@ -6,6 +5,7 @@ export const userServiceApi = {
   login: `${baseUrl}/user/login`,
   register: `${baseUrl}/user/register`,
   logout: `${baseUrl}/user/logout`,
+  update: `${baseUrl}/user/update`,
 };
 
 // tokenService
