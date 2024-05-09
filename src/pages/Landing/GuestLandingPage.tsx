@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { animate, exit, initial } from "@src/assets/PageTransition";
+import { animate, exit, initial } from "@src/assets/pageTransition";
 import Footer from "@src/components/Footer";
 import Logo from "@src/components/Logo";
 import {
@@ -9,7 +9,6 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-  Skeleton,
 } from "@nextui-org/react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,16 +17,18 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import image from "@src/assets/images/img/teacher.png";
 import star from "@src/assets/images/icon/star.svg";
 
-import BestMentors from "@src/assets/data/BestMentors.json";
-import Programs from "@src/assets/data/Programs.json";
-import UserReviews from "@src/assets/data/UserReviews.json";
-import PopularCourses from "@src/assets/data/PopularCourses.json";
-import NavigationLists from "@src/assets/data/NavigationLists.json";
-
 import "@src/assets/global.css";
+
+import {
+  Information,
+  OurProgram,
+  BestMentors,
+  Reviews,
+  PopularCourses,
+  NavigationLists,
+} from "@src/assets/data/userLanding";
 
 // Landing page for guest
 const GuestLanding = () => {
@@ -49,6 +50,7 @@ const GuestLanding = () => {
         exit={exit}
         className="bg-white-accent-1 pb-32"
       >
+        {/* main heading */}
         <main className="relative min-h-[45vw] bg-cover md:bg-teacher">
           <Navbar
             className="flex w-full flex-row items-center justify-around border-none bg-transparent p-3 px-12 blur-none"
@@ -147,29 +149,20 @@ const GuestLanding = () => {
           </form>
         </main>
 
+        {/* information section */}
         <section className="mt-20 flex w-full items-center justify-center">
           <div className="m-5 flex w-full flex-col justify-between rounded-3xl bg-gradient-to-r from-purple-500 via-purple-400 to-blue-accent-300 p-8 shadow-md drop-shadow-lg sm:m-10 sm:h-96 sm:flex-row sm:gap-10">
-            <div className="mb-10 w-full overflow-hidden rounded-2xl bg-white-accent-1 p-3 shadow-md drop-shadow-md sm:mb-0 sm:h-auto sm:w-1/3">
-              <Skeleton className="flex w-full flex-col rounded-lg">
-                <div className="h-[5vh] rounded-lg bg-default-200" />
-              </Skeleton>
-              <Skeleton className="mt-3 flex w-3/4 flex-col rounded-lg">
-                <div className="h-[5vh] rounded-lg bg-default-200" />
-              </Skeleton>
-              <Skeleton className="mt-3 flex w-3/4 flex-col rounded-lg">
-                <div className="h-[5vh] rounded-lg bg-default-200" />
-              </Skeleton>
-              <Skeleton className="mt-3 flex w-1/2 flex-col rounded-lg">
-                <div className="h-[5vh] rounded-lg bg-default-200" />
-              </Skeleton>
+            <div className="mb-10 w-full overflow-hidden rounded-2xl bg-white-accent-1 shadow-md drop-shadow-md sm:mb-0 sm:h-auto sm:w-1/3">
+              <img
+                src={Information.image}
+                alt={Information.title}
+                className="h-full w-full"
+              />
             </div>
             <div className="flex w-full flex-col justify-center p-1 text-white-accent-1 sm:w-2/3 sm:p-3 sm:pr-10">
-              <h1 className="p-3 text-3xl">Enhance Academic Performance</h1>
+              <h1 className="p-3 text-3xl">{Information.title}</h1>
               <h1 className="p-2 pl-3 text-xl sm:text-justify">
-                Meja Belajar assists university students in enhancing their
-                academic performance with the aid of our mentors. Whenever
-                you're ready, our mentors are always prepared to provide
-                assistance.
+                {Information.desc}
               </h1>
               <div className="mt-10 flex items-center">
                 <Link
@@ -188,22 +181,22 @@ const GuestLanding = () => {
           </div>
         </section>
 
+        {/* our program section */}
         <section className="flex flex-col items-center justify-between gap-5 bg-gradient-to-b from-white-accent-1 via-white to-white-accent-1 px-5 pb-28 pt-20 sm:px-20 sm:pb-48 sm:pt-36 lg:flex-row lg:px-36">
           <div className="px-5 py-10">
-            <h1 className="text-4xl">Our Program</h1>
-            <h2 className="mt-2 text-sm">
-              Whether you're a student, professional, or entrepreneur
-            </h2>
+            <h1 className="text-4xl">{OurProgram.title}</h1>
+            <h2 className="mt-2 text-sm">{OurProgram.desc}</h2>
           </div>
-          {Programs.map((item, index) => (
+          {OurProgram.feature.map((item, index) => (
             <div key={index} className="px-5 py-10">
-              <img src={star} className="mb-4" />
+              <img src={item.image} className="mb-4 w-10" />
               <h1 className="open-sans-600 text-xl">{item.title}</h1>
               <p className="mt-2 text-sm">{item.desc}</p>
             </div>
           ))}
         </section>
 
+        {/* review from user  */}
         <section className="flex w-full flex-col items-center justify-center p-10">
           <div className="mb-20 text-center text-4xl text-blue-accent-400">
             <h1>
@@ -212,7 +205,7 @@ const GuestLanding = () => {
             </h1>
           </div>
           <div className="flex w-full flex-col items-center justify-between gap-14 sm:gap-8 md:flex-row lg:px-14">
-            {UserReviews.map((item, index) => (
+            {Reviews.map((item, index) => (
               <div
                 key={index}
                 className="flex aspect-square w-3/4 flex-col justify-between rounded-3xl bg-blue-accent-300 p-5 shadow-xl shadow-blue-accent-300 drop-shadow-md lg:max-w-[25%]"
@@ -223,12 +216,12 @@ const GuestLanding = () => {
                   </div>
                   <div className="text-white">
                     <h1 className="open-sans-600 text-xl">{item.name}</h1>
-                    <h2 className="text-sm">{item.role}</h2>
+                    <h2 className="text-sm">{item.status}</h2>
                   </div>
                 </div>
 
                 <div className="line-clamp-3 overflow-hidden px-3 pt-3 text-white">
-                  <p>{item.review}</p>
+                  <p>{item.desc}</p>
                 </div>
 
                 <div className="mt-2 flex flex-row items-center justify-start p-3">
@@ -241,54 +234,53 @@ const GuestLanding = () => {
           </div>
         </section>
 
+        {/* best mentors section */}
         <section className="mt-20 w-full bg-gradient-to-r from-purple-500 to-blue-accent-300 p-10 md:mt-32">
           <div className="p-3 text-white">
-            <h1 className="open-sans-600 text-3xl">Our Best Mentor</h1>
-            <p>
-              Congratulations to our top mentor for the odd semester, whose
-              exceptional performance and dedication have set a new standard for
-              excellence in mentorship.
-            </p>
+            <h1 className="open-sans-600 text-3xl">{BestMentors.title}</h1>
+            <p>{BestMentors.desc}</p>
           </div>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-3 p-4 md:flex-row">
-            {BestMentors.map((item, index) => (
+            {BestMentors.mentors.map((item, index) => (
               <div key={index} className="flex flex-col items-center p-4">
-                <div className="mb-3 aspect-square w-full rounded-2xl bg-white p-3">
-                  <img src={item.image} />
+                <div className="mb-3 aspect-square w-20 overflow-hidden rounded-2xl bg-white">
+                  <img src={item.image} className="w-full" />
                 </div>
                 <div className="text-center text-white">
                   <h1 className="open-sans-600 text-lg">{item.name}</h1>
-                  <h2 className="text-sm opacity-80">{item.degree}</h2>
+                  <h2 className="text-sm opacity-80">{item.status}</h2>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
+        {/* popular courses section */}
         <section className="mt-16 flex flex-col pt-10">
           <div className="flex w-full flex-row items-center justify-center">
             <h1 className="open-sans-600 text-3xl text-blue-accent-400">
-              Our Popular Course
+              {PopularCourses.title}
             </h1>
           </div>
           <div className="mt-20 flex flex-col items-center justify-center gap-3 px-2 sm:flex-row  sm:gap-10 ">
-            {PopularCourses.map((item, index) => (
+            {PopularCourses.courses.map((item, index) => (
               <div
                 key={index}
                 className="flex aspect-square w-1/2 flex-col items-center justify-center rounded-xl bg-purple-500 p-5 shadow-purple-500 drop-shadow-2xl sm:w-1/5"
               >
-                <div className="aspect-square w-1/2 rounded-full bg-white">
-                  <img src={item.img} alt={item.alt} />
+                <div className="flex aspect-square w-1/2 items-center justify-center overflow-hidden rounded-full">
+                  <img src={item.image} alt={item.name} className="mr-1" />
                 </div>
                 <h1 className="open-sans-300 open-sans-600 mt-5 text-center text-lg text-white">
-                  {item.title}
+                  {item.name}
                 </h1>
               </div>
             ))}
           </div>
         </section>
 
+        {/* list of company  */}
         <section className="mt-36 flex w-full flex-row items-center justify-center">
           <div className="mx-3 flex w-4/5 flex-col items-center justify-between gap-20 rounded-3xl border border-purple-300 bg-white p-10 shadow-2xl shadow-purple-300 sm:flex-row sm:gap-0">
             <div className="pt-5 text-center text-3xl text-purple-500 sm:pl-5 sm:pt-0">
@@ -307,6 +299,8 @@ const GuestLanding = () => {
             </div>
           </div>
         </section>
+
+        {/* sign up section */}
         <section className="mt-32 flex w-full flex-col items-center justify-center">
           <div className="open-sans-600 p-4 text-center text-3xl text-blue-accent-400 sm:w-1/2">
             <h1>

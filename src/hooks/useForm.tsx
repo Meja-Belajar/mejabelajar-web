@@ -5,18 +5,17 @@ type useFormProps<T> = {
   initialValues: T;
   validationSchema: ZodSchema;
   onSubmit: () => void;
-}
+};
 
 export const useForm = <T extends object>({
   initialValues,
   validationSchema,
   onSubmit,
-} : useFormProps<T>) => {
-
+}: useFormProps<T>) => {
   const [values, setValues] = useState<T>(initialValues);
 
   const [errorMessages, setErrorMessages] = useState<T>(initialValues);
-  
+
   const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -35,7 +34,7 @@ export const useForm = <T extends object>({
       ...prevValues,
       [name]: value,
     }));
-  }
+  };
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,13 +42,13 @@ export const useForm = <T extends object>({
     const validation = validateField();
     console.log(validation);
 
-    if(!validation) onSubmit();
-  
-  }
+    if (!validation) onSubmit();
+  };
 
-  const validateField = () : boolean => {
+  const validateField = (): boolean => {
     const parsedValues = validationSchema.safeParse(values);
-    
+
+    console.log(values);
     if (parsedValues.success) {
       setErrorMessages({} as T);
 
@@ -64,11 +63,12 @@ export const useForm = <T extends object>({
           [issue.path[0]]: issue.message,
         };
       }
+      console.log(newErrors);
 
       setErrorMessages(newErrors as T);
       return true;
     }
-  }
+  };
 
   const clearField = () => {
     for (const name in values) {
@@ -79,7 +79,7 @@ export const useForm = <T extends object>({
     }
 
     setErrorMessages({} as T);
-  }
+  };
 
   return {
     values,
@@ -88,6 +88,6 @@ export const useForm = <T extends object>({
     onChangeHandler,
     onSubmitHandler,
     setIsError,
-    clearField
-  }
-}
+    clearField,
+  };
+};

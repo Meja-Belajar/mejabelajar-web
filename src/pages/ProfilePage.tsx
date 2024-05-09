@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { animate, exit, initial } from "@src/assets/PageTransition";
+import { animate, exit, initial } from "@src/assets/pageTransition";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "@src/contexts/UserContext";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBook,
@@ -12,8 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
-import { current } from "@reduxjs/toolkit";
-import { logoutService } from "@src/apis/services/userService";
+import { UserService } from "@src/apis/services/userService";
 import { setCurrentUser } from "@src/redux/user/userSelectors";
 import "@src/assets/global.css";
 
@@ -36,7 +34,7 @@ const ProfilePage = () => {
   const handleImageChange = async (e: any) => {};
 
   const handleLogout = () => {
-    dispatch(setCurrentUser(logoutService()));
+    dispatch(setCurrentUser(UserService.logOut()));
     navigate("/login");
   };
 

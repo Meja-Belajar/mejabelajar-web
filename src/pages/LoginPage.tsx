@@ -8,7 +8,7 @@ import {
 } from "@nextui-org/react";
 import { motion } from "framer-motion";
 
-import { exit, animate, initial } from "@src/assets/PageTransition";
+import { exit, animate, initial } from "@src/assets/pageTransition";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleExclamation,
@@ -16,7 +16,7 @@ import {
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { Form, Link, useNavigate } from "react-router-dom";
-import { loginService } from "@src/apis/services/userService";
+import { UserService } from "@src/apis/services/userService";
 
 import Logo from "@src/components/Logo";
 
@@ -31,9 +31,9 @@ import {
 // import { Validation } from '@src/utils/validation';
 import { useForm } from "@src/hooks";
 import "@src/assets/global.css";
+import { UserDTO } from "@src/models/dtos/userOutput";
 
 const LoginPage = () => {
-
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const LoginPage = () => {
       try {
         dispatch(setUserLoading(true));
         console.log(former.values);
-        const loginResponse = await loginService({
+        const loginResponse: UserDTO = await UserService.login({
           email: former.values.email,
           password: former.values.password,
         });

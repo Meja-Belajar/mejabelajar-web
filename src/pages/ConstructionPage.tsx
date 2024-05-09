@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { animate, exit, initial } from "@src/assets/PageTransition";
+import { animate, exit, initial } from "@src/assets/pageTransition";
 import img from "@src/assets/images/image-removebg-preview.png";
 import { Button } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

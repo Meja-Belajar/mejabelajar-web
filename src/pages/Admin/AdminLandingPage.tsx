@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link, NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
-import { initial, animate, exit } from "@src/assets/PageTransition";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import { initial, animate, exit } from "@src/assets/pageTransition";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,
@@ -20,26 +26,29 @@ import { AdminService } from "@src/apis/services/adminService";
 
 const AdminLandingPage = () => {
   const navigate = useNavigate();
-  const currentPath =
-    window.location.pathname.split("/")[2] ? window.location.pathname.split("/")[2] : "Dashboard";
-  
+  const currentPath = window.location.pathname.split("/")[2]
+    ? window.location.pathname.split("/")[2]
+    : "Dashboard";
+
   const [adminStatus, setAdminStatus] = useState<boolean>(false);
-    
+
   const checkAdmin = async () => {
-    if(!adminStatus) {
+    if (!adminStatus) {
       const adminId = window.prompt("Enter your admin ID");
 
-      if(adminId) {
+      if (adminId) {
         try {
-          const response: boolean = await AdminService.verify(adminId) as boolean;
-          
+          const response: boolean = (await AdminService.verify(
+            adminId,
+          )) as boolean;
+
           setAdminStatus(response);
-        } catch(e) {
+        } catch (e) {
           navigate("/");
         }
-      } 
+      }
     }
-  }
+  };
 
   const adminErrorLoad = () => {
     return (
@@ -47,7 +56,7 @@ const AdminLandingPage = () => {
         initial={initial}
         animate={animate}
         exit={exit}
-        className="w-full flex items-center justify-center"
+        className="flex w-full items-center justify-center"
       >
         <div className="mt-8 flex w-3/4 flex-col items-center justify-between sm:mt-2">
           <div className="flex w-full flex-row items-center justify-center p-5 sm:w-1/2">
@@ -65,19 +74,20 @@ const AdminLandingPage = () => {
           <div className="mt-8 flex w-full flex-col items-center p-3 text-center ">
             <h1 className="open-sans-600 text-3xl sm:text-6xl">500 ERROR</h1>
             <p className="open-sans-500 mt-5 text-center text-xl opacity-80">
-              Admin Page can only be accessed by admin from min-screens width 1000px. ....
+              Admin Page can only be accessed by admin from min-screens width
+              1000px. ....
             </p>
           </div>
         </div>
       </motion.div>
-    )
-  }
-  
+    );
+  };
+
   useEffect(() => {
     checkAdmin();
   }, []);
 
-  if(window.innerWidth < 1000 || !adminStatus) return adminErrorLoad();
+  if (window.innerWidth < 1000 || !adminStatus) return adminErrorLoad();
 
   return (
     <>
@@ -101,9 +111,11 @@ const AdminLandingPage = () => {
                       className="open-sans-600 rounded-md  px-3 py-2 text-sm font-medium"
                       style={() => {
                         return {
-                          backgroundColor: currentPath === "Dashboard" ? "#B46EFB" : "white",
-                          color: currentPath === "Dashboard" ? "white" : "black",
-                        }
+                          backgroundColor:
+                            currentPath === "Dashboard" ? "#B46EFB" : "white",
+                          color:
+                            currentPath === "Dashboard" ? "white" : "black",
+                        };
                       }}
                       aria-current="page"
                     >
@@ -116,7 +128,7 @@ const AdminLandingPage = () => {
                         return {
                           backgroundColor: isActive ? "#B46EFB" : "white",
                           color: isActive ? "white" : "black",
-                        }
+                        };
                       }}
                     >
                       Announcement
@@ -128,7 +140,7 @@ const AdminLandingPage = () => {
                         return {
                           backgroundColor: isActive ? "#B46EFB" : "white",
                           color: isActive ? "white" : "black",
-                        }
+                        };
                       }}
                     >
                       Report

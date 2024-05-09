@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import Navigation from "@src/components/Navigation";
-import { exit, animate, initial } from "@src/assets/PageTransition";
-import icon from "@public/logo.svg";
+import { exit, animate, initial } from "@src/assets/pageTransition";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BecomeMentor from "@src/components/BecomeMentor";
@@ -43,7 +42,7 @@ const UserLanding = () => {
             </h1>
             <div className="flex w-full flex-col items-center gap-3 p-3 sm:flex-row sm:justify-between sm:p-5 md:mr-10 lg:w-3/4">
               <div className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50">
-                <img src={icon} alt="icon tutor" className="w-8" />
+                <img src="" alt="icon tutor" className="w-8" />
                 <h1>Tutoring Class</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}
@@ -52,7 +51,7 @@ const UserLanding = () => {
                 />
               </div>
               <div className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50">
-                <img src={icon} alt="icon tutor" className="w-8" />
+                <img src="" alt="icon tutor" className="w-8" />
                 <h1>Mentoring 1-to-1</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}
@@ -61,7 +60,7 @@ const UserLanding = () => {
                 />
               </div>
               <div className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50">
-                <img src={icon} alt="icon tutor" className="w-8" />
+                <img src="" alt="icon tutor" className="w-8" />
                 <h1>Scheduled Mentoring</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}

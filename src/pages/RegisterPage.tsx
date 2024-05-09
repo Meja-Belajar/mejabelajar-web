@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { exit, animate, initial } from "@src/assets/PageTransition";
+import { exit, animate, initial } from "@src/assets/pageTransition";
 import {
   Button,
   Input,
@@ -15,7 +15,7 @@ import {
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
-import { registerService } from "@src/apis/services/userService";
+import { UserService } from "@src/apis/services/userService";
 import Logo from "@src/components/Logo";
 
 import { RegisterUserSchema } from "@src/models/zod/userZod";
@@ -29,6 +29,7 @@ import {
   setUserLoading,
 } from "@src/redux/user/userSelectors";
 import "@src/assets/global.css";
+import { UserDTO } from "@src/models/dtos/userOutput";
 
 const RegisterPage = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -46,7 +47,7 @@ const RegisterPage = () => {
       try {
         dispatch(setUserLoading(true));
 
-        const registerResponse = await registerService({
+        const registerResponse: UserDTO = await UserService.register({
           user_name: former.values.user_name,
           email: former.values.email,
           password: former.values.password,
@@ -111,7 +112,7 @@ const RegisterPage = () => {
             </div>
             <div className="m-3 mt-8">
               <Input
-                name="name"
+                name="user_name"
                 type="name"
                 variant="bordered"
                 className="lato-regular mt-3"
@@ -195,7 +196,7 @@ const RegisterPage = () => {
                 }
               />
               <Input
-                name="confirmpassword"
+                name="confirm_password"
                 type={isVisible ? "text" : "password"}
                 variant="bordered"
                 label="Confirm Password"

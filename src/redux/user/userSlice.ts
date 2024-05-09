@@ -1,12 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { isUserAlreadyLogin } from "./userThunks";
-import {
-  LoginUserResponse,
-  RegisterUserResponse,
-} from "@src/models/responses/userResponse";
+import { UserDTO } from "@src/models/dtos/userOutput";
 
 type InitialState = {
-  currentUser: LoginUserResponse | RegisterUserResponse | null;
+  currentUser: UserDTO | null;
   isUserLoading: boolean;
   userError: string;
 };
@@ -21,10 +18,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setCurrentUser: (
-      state,
-      action: PayloadAction<LoginUserResponse | RegisterUserResponse | null>,
-    ) => {
+    setCurrentUser: (state, action: PayloadAction<UserDTO | null>) => {
       state.currentUser = action.payload;
     },
     setUserLoading: (state, action: PayloadAction<boolean>) => {

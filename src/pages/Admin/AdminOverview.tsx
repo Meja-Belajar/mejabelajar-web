@@ -144,7 +144,11 @@ const AdminOverview = () => {
             <sup className="-top-3">{BookingLists.length}</sup>
           </div>
 
-          <Table removeWrapper aria-label="Collection Transaction" className="mt-10">
+          <Table
+            removeWrapper
+            aria-label="Collection Transaction"
+            className="mt-10"
+          >
             <TableHeader>
               <TableColumn>User</TableColumn>
               <TableColumn>Mentor</TableColumn>
@@ -166,21 +170,20 @@ const AdminOverview = () => {
                   <TableCell>{booking.createdAt}</TableCell>
                   <TableCell>
                     <Tooltip content="Details">
-                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                        <FontAwesomeIcon icon={faEye}/>
+                      <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
+                        <FontAwesomeIcon icon={faEye} />
                       </span>
                     </Tooltip>
                     <Tooltip content="Update Booking">
-                      <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                        <FontAwesomeIcon icon={faPencil} className="ml-3"/>
+                      <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
+                        <FontAwesomeIcon icon={faPencil} className="ml-3" />
                       </span>
                     </Tooltip>
                     <Tooltip color="danger" content="Remove Booking">
-                      <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                        <FontAwesomeIcon icon={faTrash} className="ml-3"/>
+                      <span className="cursor-pointer text-lg text-danger active:opacity-50">
+                        <FontAwesomeIcon icon={faTrash} className="ml-3" />
                       </span>
                     </Tooltip>
-
                   </TableCell>
                 </TableRow>
               ))}

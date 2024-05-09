@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { isLoggedService } from "@src/apis/services/userService";
+import { UserService } from "@src/apis/services/userService";
 
 // export const isUserAlreadyLogin = createAsyncThunk("user/checkUser", async () => {
 //   const response = await isLoggedService();
@@ -8,8 +8,7 @@ import { isLoggedService } from "@src/apis/services/userService";
 // });
 
 export const isUserAlreadyLogin = () => {
-  const response = isLoggedService();
-  console.log(response);
+  const response = UserService.isLogged();
 
   return response;
 };

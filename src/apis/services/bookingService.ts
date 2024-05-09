@@ -20,7 +20,6 @@ export class BookingService {
       console.error("Error fetching bookings:", e);
       throw new Error("Failed to fetch bookings");
     }
-  
   }
 
   static async getBookingById(id: string) {

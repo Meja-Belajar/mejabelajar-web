@@ -1,13 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Landing from "@src/pages/Landing/LandingPage";
-import Login from "@src/pages/LoginPage";
-import Register from "@src/pages/RegisterPage";
 import ErrorPage from "@src/pages/ErrorPage";
 import Profile from "@src/pages/ProfilePage";
 
-import { UserProvider } from "@src/contexts/UserContext";
-import { AuthRedirector } from "@src/components/AuthRedirector";
-import { QueryProvider } from "@src/contexts/SearchQueryContext";
 import Search from "@src/pages/Search/SearchPage";
 import SearchDefault from "@src/pages/Search/SearchDefault";
 import SearchResult from "@src/pages/Search/SearchResult";
@@ -15,28 +9,22 @@ import AdminLandingPage from "@src/pages/Admin/AdminLandingPage";
 import AdminOverview from "@src/pages/Admin/AdminOverview";
 import AdminAnnouncement from "@src/pages/Admin/AdminAnnouncement";
 import ConstructionPage from "@src/pages/ConstructionPage";
-import { useSelector } from "react-redux";
 import UserLanding from "@src/pages/Landing/UserLandingPage";
 import AdminReport from "@src/pages/Admin/AdminReport";
+import MentorLanding from "@src/pages/Landing/MentorLanding";
 
 const AuthRouter = () => {
   return (
     <Routes key="auth-routes">
       {/* routes that don't require login */}
       <Route path="/" element={<UserLanding />} />
+      <Route path="/mentor" element={<MentorLanding />} />
       <Route path="*" element={<ErrorPage />} />
       <Route path="/login" element={<Navigate to="/" />} />
       <Route path="/register" element={<Navigate to="/login" />} />
 
       {/* routes that require user to login */}
-      <Route
-        path="/search"
-        element={
-          <QueryProvider>
-            <Search />
-          </QueryProvider>
-        }
-      >
+      <Route path="/search" element={<Search />}>
         <Route index element={<SearchDefault />} />
         <Route path=":query" element={<SearchResult />} />
       </Route>
@@ -51,7 +39,7 @@ const AuthRouter = () => {
         <Route path="announcement" element={<AdminAnnouncement />} />
         <Route path="report" element={<AdminReport />} />
       </Route>
-      
+
       {/* future enchancement routes */}
       <Route path="/about/*" element={<ConstructionPage />} />
       <Route path="/overview/*" element={<ConstructionPage />} />
