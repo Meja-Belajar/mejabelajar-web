@@ -29,7 +29,7 @@ import {
   setUserLoading,
 } from "@src/redux/user/userSelectors";
 import "@src/assets/global.css";
-import { UserDTO } from "@src/models/dtos/userOutput";
+import { UserDTO } from "@src/models/dtos/userDTO";
 
 const RegisterPage = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);

@@ -1,4 +1,3 @@
-import { getAllBookings } from "./services/bookingService";
 
 export const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -18,6 +17,7 @@ export const tokenServiceApi = {
 export const mentorServiceApi = {
   getMentors: `${baseUrl}/mentor/getAllMentors`,
   getMentor: `${baseUrl}/mentor/getMentor`,
+  getPopularMentors: `${baseUrl}/mentor/getPopularMentors`,
 };
 
 // bookingService

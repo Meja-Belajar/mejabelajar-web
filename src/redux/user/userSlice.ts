@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { isUserAlreadyLogin } from "./userThunks";
-import { UserDTO } from "@src/models/dtos/userOutput";
+import { UserDTO } from "@src/models/dtos/userDTO";
 
 type InitialState = {
   currentUser: UserDTO | null;

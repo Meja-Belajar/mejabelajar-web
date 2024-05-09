@@ -30,8 +30,8 @@ const AuthRouter = () => {
       </Route>
 
       <Route path="/profile" element={<Profile />} />
-      <Route path="/history" />
-      <Route path="/tutoring" />
+      <Route path="/history" element={<ConstructionPage />}/>
+      <Route path="/tutoring" element={<ConstructionPage />} />
 
       {/* exclusive to admin */}
       <Route path="/admin" element={<AdminLandingPage />}>

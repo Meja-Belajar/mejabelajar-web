@@ -31,7 +31,7 @@ import {
 // import { Validation } from '@src/utils/validation';
 import { useForm } from "@src/hooks";
 import "@src/assets/global.css";
-import { UserDTO } from "@src/models/dtos/userOutput";
+import { UserDTO } from "@src/models/dtos/userDTO";
 
 const LoginPage = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);

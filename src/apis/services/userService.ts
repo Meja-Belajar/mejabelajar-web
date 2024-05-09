@@ -1,5 +1,5 @@
 import { userServiceApi } from "@src/apis/envConfig";
-import { UserDTO, toUserDTO } from "@src/models/dtos/userOutput";
+import { UserDTO, toUserDTO } from "@src/models/dtos/userDTO";
 import {
   LoginUserRequest,
   RegisterUserRequest,

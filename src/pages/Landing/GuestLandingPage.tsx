@@ -18,6 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import star from "@src/assets/images/icon/star.svg";
+import parse from "html-react-parser";
 
 import "@src/assets/global.css";
 
@@ -28,7 +29,8 @@ import {
   Reviews,
   PopularCourses,
   NavigationLists,
-} from "@src/assets/data/userLanding";
+  Header,
+} from "@src/assets/data/userLandingData";
 
 // Landing page for guest
 const GuestLanding = () => {
@@ -112,13 +114,10 @@ const GuestLanding = () => {
           >
             <div className="z-10 text-center">
               <h1 className="mb-0 p-5 text-6xl text-blue-accent-400 sm:mb-5 sm:p-0">
-                Discover Your Perfect <br /> Mentor Today!
+                {parse(Header.title)}
               </h1>
               <h3 className="p-5 text-xl text-blue-accent-400 sm:p-0">
-                Meja Belajar now is your gateway to <br />
-                connecting with experienced mentors who <br />
-                are eager to share their knowledge and <br />
-                expertise with you.
+                {parse(Header.desc)}
               </h3>
             </div>
 
@@ -200,12 +199,11 @@ const GuestLanding = () => {
         <section className="flex w-full flex-col items-center justify-center p-10">
           <div className="mb-20 text-center text-4xl text-blue-accent-400">
             <h1>
-              View some reviews <br />
-              from <a className="special-font">Meja Belajar'</a> users
+              {parse(Reviews.title)}
             </h1>
           </div>
           <div className="flex w-full flex-col items-center justify-between gap-14 sm:gap-8 md:flex-row lg:px-14">
-            {Reviews.map((item, index) => (
+            {Reviews.reviews.map((item, index) => (
               <div
                 key={index}
                 className="flex aspect-square w-3/4 flex-col justify-between rounded-3xl bg-blue-accent-300 p-5 shadow-xl shadow-blue-accent-300 drop-shadow-md lg:max-w-[25%]"
@@ -280,7 +278,7 @@ const GuestLanding = () => {
           </div>
         </section>
 
-        {/* list of company  */}
+        {/* data of company  */}
         <section className="mt-36 flex w-full flex-row items-center justify-center">
           <div className="mx-3 flex w-4/5 flex-col items-center justify-between gap-20 rounded-3xl border border-purple-300 bg-white p-10 shadow-2xl shadow-purple-300 sm:flex-row sm:gap-0">
             <div className="pt-5 text-center text-3xl text-purple-500 sm:pl-5 sm:pt-0">
@@ -300,12 +298,11 @@ const GuestLanding = () => {
           </div>
         </section>
 
-        {/* sign up section */}
+        {/* propose sign up section */}
         <section className="mt-32 flex w-full flex-col items-center justify-center">
           <div className="open-sans-600 p-4 text-center text-3xl text-blue-accent-400 sm:w-1/2">
             <h1>
-              Let’s enhance your academic journey with the guidance of our top
-              mentor
+              Let’s enhance your academic journey with the guidance of our top mentor
             </h1>
           </div>
           <div className="mt-10 flex w-1/2 items-center justify-center">

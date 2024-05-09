@@ -1,38 +1,44 @@
 import {
-  getAllBookingsResponse,
-  getBookingResponse,
+  getBookingByIdResponse,
+  getBookingsByUserIdResponse,
 } from "@src/models/responses/bookingReponse";
 import { bookingServiceApi } from "../envConfig";
+import { bookingDTO, toBookingDTO, toBookingsDTO } from "@src/models/dtos/bookingDTO";
+
+import { BookingLists } from "@src/assets/data/userLandingData";
 
 export class BookingService {
-  static async getAllBookingsByUserId() {
+  static async getAllBookingsByUserId(userId: string): Promise<bookingDTO[]> {
     try {
-      const response = await fetch(bookingServiceApi.getAllBookings);
+      // const response = await fetch(`${bookingServiceApi.getAllBookings}/${userId}`);
 
-      const bookings = await response.json();
+      // const bookings: getBookingsByUserIdResponse = await response.json();
 
-      if (bookings.code !== 200) {
-        throw new Error(bookings.message);
-      }
+      // if (bookings.code !== 200) {
+      //   throw new Error(bookings.message);
+      // }
 
-      return bookings as getAllBookingsResponse;
+      // return toBookingsDTO(bookings);
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      return BookingLists;
     } catch (e) {
       console.error("Error fetching bookings:", e);
       throw new Error("Failed to fetch bookings");
     }
   }
 
-  static async getBookingById(id: string) {
+  static async getBookingById(userId: string): Promise<bookingDTO> {
     try {
-      const response = await fetch(`${bookingServiceApi.getBooking}/${id}`);
+      const response = await fetch(`${bookingServiceApi.getBooking}/${userId}`);
 
-      const booking = await response.json();
+      const booking: getBookingByIdResponse  = await response.json();
 
       if (booking.code !== 200) {
         throw new Error(booking.message);
       }
 
-      return booking as getBookingResponse;
+      return toBookingDTO(booking);
     } catch (e) {
       console.error("Error fetching booking:", e);
       throw new Error("Failed to fetch booking");
@@ -40,40 +46,3 @@ export class BookingService {
   }
 }
 
-export const getAllBookings = async (page: number) => {
-  const apiUrl = bookingServiceApi.getAllBookings;
-
-  try {
-    const response = await fetch(`${apiUrl}?page=${page}`);
-
-    const bookings = await response.json();
-
-    if (bookings.code !== 200) {
-      throw new Error(bookings.message);
-    }
-
-    return bookings as getAllBookingsResponse;
-  } catch (e) {
-    console.error("Error fetching bookings:", e);
-    throw new Error("Failed to fetch bookings");
-  }
-};
-
-export const getBooking = async (query: string) => {
-  const apiUrl = bookingServiceApi.getBooking;
-
-  try {
-    const response = await fetch(`${apiUrl}/${query}`);
-
-    const booking = await response.json();
-
-    if (booking.code !== 200) {
-      throw new Error(booking.message);
-    }
-
-    return booking as getBookingResponse;
-  } catch (e) {
-    console.error("Error fetching booking:", e);
-    throw new Error("Failed to fetch booking");
-  }
-};
