@@ -23,7 +23,8 @@ const MentorCard = (props: MentorCardProps) => {
   return (
     <Card
       key={mentor?.mentor_id}
-      className="w-56 cursor-pointer border-2 py-4 shadow-sm hover:scale-110"
+      className="w-56 border-2 py-4 shadow-sm hover:scale-110"
+      onClick={() => navigate(`/mentoring/${mentor?.mentor_id}`)}
     >
       <CardHeader className="flex-col flex-wrap items-start px-4 pb-0 pt-2">
         <p className="open-sans-600 text-tiny uppercase">
@@ -39,7 +40,7 @@ const MentorCard = (props: MentorCardProps) => {
       <CardBody className="flex items-center overflow-visible py-2">
         <Image
           alt="Card background"
-          className="max-h-36 rounded-xl object-cover"
+          className="max-h-36 rounded-xl object-cover  cursor-pointer"
           src={mentor?.profile_picture}
           width={270}
           onClick={() => {
@@ -76,7 +77,9 @@ const SkeletonMentorCard = () => {
   )
 }
 
-const PopularMentorWrapper = () => {
+const WeeklyPopularMentorWrapper = () => {
+  const navigate = useNavigate();
+
   const [popularMentors, setPopularMentors] = useState<MentorState>({
     isLoading: false,
     items: [],
@@ -123,7 +126,9 @@ const PopularMentorWrapper = () => {
   return (
     <section className="mt-16">
       <div className="open-sans-600 flex w-full flex-row items-center p-3 text-2xl">
-        <h1 className="ml-8">Popular Mentor This Week</h1>
+        <h1 className="ml-8 underline-offset-4 decoration-transparent hover:decoration-solid hover:underline cursor-pointer hover:decoration-black ease-in-out transition-all duration-300"
+            onClick={() => navigate("/search")}
+          >Popular Mentor This Week</h1>
         <FontAwesomeIcon
           icon={faArrowRight}
           className="z-[99] ml-3 mt-1 text-black"
@@ -146,5 +151,5 @@ const PopularMentorWrapper = () => {
 export {
   MentorCard,
   SkeletonMentorCard,
-  PopularMentorWrapper
+  WeeklyPopularMentorWrapper
 }

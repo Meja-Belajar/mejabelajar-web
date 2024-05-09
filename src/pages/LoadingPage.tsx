@@ -4,17 +4,16 @@ import img from "@src/assets/images/image-removebg-preview.png";
 import { Button } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import peopleConfuse from "@src/assets/lotties/people-confuse.json";
+import loadingDot from "@src/assets/lotties/loading-dot.json";
 import Lottie from "react-lottie";
 import "@src/assets/global.css";
 
-type ErrorPageProps = {
-  code: number;
+type LoadingPageProps = {
   message: string;
 };
 
-const ErrorPage = (props: ErrorPageProps) => {
-  const { code, message } = props;
+const LoadingPage = (props: LoadingPageProps) => {
+  const { message } = props;
 
   return (
     <>
@@ -30,7 +29,7 @@ const ErrorPage = (props: ErrorPageProps) => {
               options={{
                 loop: true,
                 autoplay: true,
-                animationData: peopleConfuse,
+                animationData: loadingDot,
                 rendererSettings: {
                   preserveAspectRatio: "xMidYMid slice",
                 },
@@ -38,7 +37,6 @@ const ErrorPage = (props: ErrorPageProps) => {
             />
           </div>
           <div className="mt-3 flex w-full flex-col items-center p-3 text-center ">
-            <h1 className="open-sans-600 text-3xl sm:text-6xl">{code} ERROR</h1>
             <p className="open-sans-500 mt-5 text-center text-xl opacity-80">
               {message}
             </p>
@@ -49,4 +47,4 @@ const ErrorPage = (props: ErrorPageProps) => {
   );
 };
 
-export default ErrorPage;
+export default LoadingPage;

@@ -16,7 +16,7 @@ export const tokenServiceApi = {
 // mentorService
 export const mentorServiceApi = {
   getMentors: `${baseUrl}/mentor/getAllMentors`,
-  getMentor: `${baseUrl}/mentor/getMentor`,
+  getMentor: `${baseUrl}/mentor/`,
   getPopularMentors: `${baseUrl}/mentor/getPopularMentors`,
 };
 

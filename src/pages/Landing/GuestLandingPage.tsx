@@ -31,6 +31,7 @@ import {
   NavigationLists,
   Header,
 } from "@src/assets/data/userLandingData";
+import { CourseCard } from "@src/components/Course";
 
 // Landing page for guest
 const GuestLanding = () => {
@@ -263,17 +264,7 @@ const GuestLanding = () => {
           </div>
           <div className="mt-20 flex flex-col items-center justify-center gap-3 px-2 sm:flex-row  sm:gap-10 ">
             {PopularCourses.courses.map((item, index) => (
-              <div
-                key={index}
-                className="flex aspect-square w-1/2 flex-col items-center justify-center rounded-xl bg-purple-500 p-5 shadow-purple-500 drop-shadow-2xl sm:w-1/5"
-              >
-                <div className="flex aspect-square w-1/2 items-center justify-center overflow-hidden rounded-full">
-                  <img src={item.image} alt={item.name} className="mr-1" />
-                </div>
-                <h1 className="open-sans-300 open-sans-600 mt-5 text-center text-lg text-white">
-                  {item.name}
-                </h1>
-              </div>
+              <CourseCard key={index} id={index.toString()} name={item.name} image={item.image}/>
             ))}
           </div>
         </section>

@@ -19,7 +19,7 @@ const AuthRouter = () => {
       {/* routes that don't require login */}
       <Route path="/" element={<UserLanding />} />
       <Route path="/mentor" element={<MentorLanding />} />
-      <Route path="*" element={<ErrorPage />} />
+      <Route path="*" element={<ErrorPage code={404} message="Ooops! Something's missing ...." />} />
       <Route path="/login" element={<Navigate to="/" />} />
       <Route path="/register" element={<Navigate to="/login" />} />
 

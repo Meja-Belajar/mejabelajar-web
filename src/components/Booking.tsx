@@ -208,5 +208,5 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
 export { 
   BookingCard, 
   SkeletonBookingCard, 
-  BookingsWrapper 
+  BookingsWrapper,
 };

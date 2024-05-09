@@ -21,8 +21,30 @@ export class MentorService {
       return PopularMentors as unknown as MentorDTO[];
 
     } catch (e) {
-      console.error("Error fetching mentors:", e);
+      console.error(`Error fetching mentors: ${e}`);
       throw new Error("Failed to fetch mentors");
     }
+  }
+
+  static async getMentorById(userId: string): Promise<MentorDTO> {
+    try {
+      // const response = await fetch(`${mentorServiceApi.getMentor}${userId}`);
+      
+      // const mentor: MentorDTO = await response.json();
+
+      // if (!mentor) {
+      //   throw new Error("Mentor not found");
+      // }
+
+      // return mentor;
+
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      return PopularMentors[0] as unknown as MentorDTO;
+    } catch(e) {
+      console.error(`Error fetching mentor: ${e}`);
+      throw new Error(`Error: ${e}`);
+    }
+  
   }
 }

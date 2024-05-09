@@ -7,9 +7,10 @@ import { useNavigate } from "react-router-dom";
 import Footer from "@src/components/Footer";
 import { BookingsWrapper } from "@src/components/Booking";
 import "@src/assets/global.css";
-import { CDNIcon } from "@src/assets/data/userLandingData";
+import { CDNIcon, WeeklyPopularCourses } from "@src/assets/data/userLandingData";
 import { useSelector } from "react-redux";
-import { PopularMentorWrapper } from "@src/components/Mentor";
+import { WeeklyPopularMentorWrapper } from "@src/components/Mentor";
+import { WeeklyPopularCoursesWrapper } from "@src/components/Course";
 
 // landing page for user
 const UserLanding = () => {
@@ -84,10 +85,13 @@ const UserLanding = () => {
           {/* user schedule section  */}
           <BookingsWrapper userId={currentUser.id} />
 
-          {/* popular mentors section */}
-          <PopularMentorWrapper />
+          {/* popular courses this week */}
+          <WeeklyPopularCoursesWrapper />
 
-          <div className="mb-20"/>
+          {/* popular mentors section */}
+          <WeeklyPopularMentorWrapper />
+
+          <div className="pb-20"/>
         </main>
       </motion.div>
       <Footer />

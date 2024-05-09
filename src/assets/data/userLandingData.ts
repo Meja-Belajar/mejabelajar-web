@@ -4,6 +4,8 @@
   - https://www.flaticon.com/stickers-pack/creativity-11
   - https://www.flaticon.com/free-stickers/education
   - https://www.flaticon.com/free-stickers/teacher
+  - https://www.flaticon.com/free-stickers/people
+  - https://www.flaticon.com/free-stickers/book
 
   Disclaimer: 
   - The images are used to provide a better visual experience.
@@ -138,8 +140,10 @@ export const PopularCourses = {
 export const CDNIcon = {
   "tutoring": "https://cdn-icons-png.flaticon.com/512/7189/7189988.png",
   "mentoring": "https://cdn-icons-png.flaticon.com/512/4681/4681580.png",
-  "for_mentor": "https://cdn-icons-png.flaticon.com/512/9473/9473007.png"
-}
+  "for_mentor": "https://cdn-icons-png.flaticon.com/512/9473/9473007.png",
+  "logbook": "https://cdn-icons-png.flaticon.com/512/6347/6347299.png",
+  "back_user": "https://cdn-icons-png.flaticon.com/512/4825/4825038.png"
+};
 
 export const PopularMentors = [
   {
@@ -181,8 +185,8 @@ export const PopularMentors = [
 	      "description": "John is a great mentor. He is very knowledgeable and helpful. I would recommend him to anyone who is interested in machine learning."
 	    }
 	  ]
-	}
-]
+	},
+];
 
 export const BookingLists =  [
   {
@@ -239,5 +243,42 @@ export const BookingLists =  [
     "date": "2024-04-12T00:00:00.000Z",
     "location": "Bina Nusantara University"
   },
-]
+];
 
+export const WeeklyPopularCourses = [
+  {
+    id: "1",
+    name: "Introduction to Programming",
+    image: "https://cdn-icons-png.flaticon.com/256/4359/4359835.png",
+  },
+  {
+    id: "2",
+    name: "Introduction to Web Development",
+    image: "https://cdn-icons-png.flaticon.com/256/4359/4359857.png",
+  },
+  {
+    id: "3",
+    name: "Human and Reseource Management",
+    image: "https://cdn-icons-png.flaticon.com/256/4359/4359881.png",
+  },
+  {
+    id: "1",
+    name: "Introduction to Programming",
+    image: "https://cdn-icons-png.flaticon.com/256/4359/4359835.png",
+  },
+  {
+    id: "2",
+    name: "Introduction to Web Development",
+    image: "https://cdn-icons-png.flaticon.com/256/4359/4359857.png",
+  },
+  {
+    id: "3",
+    name: "Human and Reseource Management",
+    image: "https://cdn-icons-png.flaticon.com/256/4359/4359881.png",
+  },
+  {
+    id: "3",
+    name: "Human and Reseource Management",
+    image: "https://cdn-icons-png.flaticon.com/256/4359/4359881.png",
+  }
+];
