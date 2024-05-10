@@ -14,6 +14,7 @@ export interface LoginUserRequest {
 }
 
 export interface UpdateUserRequest {
+  id: string;
   user_name: string;
   email: string;
   phone_number: string;

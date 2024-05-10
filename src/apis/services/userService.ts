@@ -107,6 +107,7 @@ export class UserService {
   static async update(request: UpdateUserRequest) {
     try {
       const {
+        id,
         user_name,
         email,
         phone_number,
@@ -121,6 +122,7 @@ export class UserService {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          id,
           user_name,
           email,
           phone_number,

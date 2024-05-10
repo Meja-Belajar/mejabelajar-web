@@ -14,7 +14,7 @@ export const useForm = <T extends object>({
 }: useFormProps<T>) => {
   const [values, setValues] = useState<T>(initialValues);
 
-  const [errorMessages, setErrorMessages] = useState<T>(initialValues);
+  const [errorMessages, setErrorMessages] = useState<T>({} as T);
 
   const [isError, setIsError] = useState<boolean>(false);
 

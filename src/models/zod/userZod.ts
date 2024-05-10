@@ -44,10 +44,19 @@ export const RegisterUserSchema = z
 
 // schema for user profile update
 export const UpdateProfileSchema = z.object({
-  user_name: z.string(),
-  email: z.string().email(),
-  phone_number: z.string(),
-  bod: z.string(),
+  user_name: z
+    .string({ required_error: "Name is required" })
+    .min(3, { message: "Name must be at least 3 characters" }),
+  email: z
+    .string({ required_error: "Correct email format is required" })
+    .min(5, { message: "Email must be at least 5 characters" })
+    .email("Invalid email address"),
+  phone_number: z
+    .string({ required_error: "Phone number is required" })
+    .min(10, { message: "Phone number must be at least 10 characters" })
+    .max(15, { message: "Phone number must be at most 15 characters" })
+    .regex(/^[0-9]+$/, { message: "Phone number must be a number" }),
+  bod: z.coerce.date({ required_error: "Date of birth is required" }),
 });
 
 // schema for user password update

@@ -23,6 +23,7 @@ const PublicPage = () => {
 
   const former = useForm<UpdateUserRequest>({
     initialValues: {
+      id: currentUser.id,
       user_name: currentUser.username,
       email: currentUser.email,
       phone_number: currentUser.phone_number,
@@ -36,6 +37,7 @@ const PublicPage = () => {
         dispatch(setUserLoading(true));
 
         const updateResponse = await UserService.update({
+          id: former.values.id,
           user_name: former.values.user_name,
           email: former.values.email,
           phone_number: former.values.phone_number,
@@ -88,10 +90,7 @@ const PublicPage = () => {
 
               <form
                 className="mt-8 items-center text-[#202142] sm:mt-14"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  console.log("submit");
-                }}
+                onSubmit={former.onSubmitHandler}
               >
                 <div className="mb-2 flex w-full flex-col items-center space-x-0 space-y-2 sm:mb-6 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <div className="w-full">
@@ -103,6 +102,11 @@ const PublicPage = () => {
                       required
                       onChange={former.onChangeHandler}
                     />
+                    {former.errorMessages.user_name && (
+                      <p className="mt-2 text-xs italic text-red-500">
+                        {former.errorMessages.user_name}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -116,6 +120,11 @@ const PublicPage = () => {
                     onChange={former.onChangeHandler}
                     required
                   />
+                  {former.errorMessages.email && (
+                    <p className="mt-2 text-xs italic text-red-500">
+                      {former.errorMessages.email}
+                    </p>
+                  )}
                 </div>
 
                 <div className="mb-2 sm:mb-6">
@@ -128,6 +137,11 @@ const PublicPage = () => {
                     onChange={former.onChangeHandler}
                     required
                   />
+                  {former.errorMessages.phone_number && (
+                    <p className="mt-2 text-xs italic text-red-500">
+                      {former.errorMessages.phone_number}
+                    </p>
+                  )}
                 </div>
 
                 <div className="mb-2 sm:mb-6">
@@ -143,6 +157,11 @@ const PublicPage = () => {
                     onChange={former.onChangeHandler}
                     required
                   />
+                  {former.errorMessages.bod && (
+                    <p className="mt-2 text-xs italic text-red-500">
+                      {former.errorMessages.bod.toString()}
+                    </p>
+                  )}
                 </div>
 
                 <div className="mb-6">

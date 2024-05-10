@@ -1,24 +1,32 @@
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Accordion, AccordionItem } from "@nextui-org/react";
+import { animate, exit, initial } from "@src/assets/pageTransition";
 import { motion } from "framer-motion";
 const NotificationLists = [
   {
     id: 1,
-    title: "New Booking",
-    description: "New booking from John Doe",
+    title: "Session Reminder",
+    description:
+      "Your session will start in 30 minutes, please be ready to join",
   },
   {
     id: 2,
-    title: "Example Booking",
-    description: "Example booking from John Doe",
+    title: "Payment Reminder",
+    description:
+      "Your payment will be due in 3 days, please make sure to pay on time",
   },
 ];
 
 const NotificationPage = () => {
   return (
     <>
-      <main className="min-h-screen w-full py-1 md:w-2/3 lg:w-3/4">
+      <motion.main
+        initial={initial}
+        animate={animate}
+        exit={exit}
+        className="min-h-screen w-full py-1 md:w-2/3 lg:w-3/4"
+      >
         <div className="p-2 md:p-4">
           <div className="mt-8 w-full px-6 pb-8 sm:max-w-xl sm:rounded-lg">
             <div className="mb-10 mt-10">
@@ -37,7 +45,7 @@ const NotificationPage = () => {
             </Accordion>
           </div>
         </div>
-      </main>
+      </motion.main>
     </>
   );
 };
