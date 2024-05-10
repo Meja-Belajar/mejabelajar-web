@@ -62,7 +62,7 @@ const AuthRouter = () => {
       <Route path="/mobileapps/*" element={<ConstructionPage />} />
       <Route path="/faq/*" element={<ConstructionPage />} />
       <Route path="/announcement/*" element={<ConstructionPage />} />
-      <Route path="/appstutorial/*" element={<ConstructionPage />} />
+      <Route path="/promotion/*" element={<ConstructionPage />} />
     </Routes>
   );
 };

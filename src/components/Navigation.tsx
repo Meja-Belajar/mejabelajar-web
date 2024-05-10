@@ -20,7 +20,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Logo from "@src/components/Logo";
-import { UserContext } from "@src/contexts/UserContext";
 import { useSelector } from "react-redux";
 import "@src/assets/global.css";
 
@@ -59,7 +58,11 @@ const Navigation: React.FC = () => {
               className="open-sans-600 mb-3 flex h-6 items-center justify-center bg-white-accent-1 p-5 transition ease-linear"
               exit={{ y: -100 }}
             >
-              <h1 className="sm:text-md ease peer cursor-pointer text-xs text-red-500 transition hover:opacity-50">
+              <h1 
+                className="sm:text-md ease peer cursor-pointer text-xs text-red-500 transition hover:opacity-50"
+                onClick={() => navigate('/promotion')}
+              >
+                
                 50% OFF BY USING THIS VOUCHER
               </h1>
               <FontAwesomeIcon

@@ -30,7 +30,7 @@ const UserLanding = () => {
         className="bg-white-accent-1"
       >
         <main className="mt-3">
-          <section className="w-full border bg-gradient-to-r from-blue-accent-300 via-purple-500 to-pink-500 p-5 pb-12 text-white">
+          <section className="w-full border bg-gradient-to-r from-blue-accent-300 via-purple-400 to-pink-300 p-5 pb-12 text-white">
             <div className="text-xl md:p-3">
               <h1 className="open-sans-600">Hay, Friends 👋!</h1>
               <h3 className="mt-1 text-sm">
