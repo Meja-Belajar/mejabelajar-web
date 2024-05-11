@@ -1,5 +1,6 @@
-import { initial, animate, exit } from '@src/assets/PageTransition';
-import { motion } from 'framer-motion';
+import { initial, animate, exit } from "@src/assets/pageTransition";
+import { motion } from "framer-motion";
+import "@src/assets/global.css";
 
 const SearchDefault = () => {
   return (
@@ -8,15 +9,14 @@ const SearchDefault = () => {
         initial={initial}
         animate={animate}
         exit={exit}
-        className='bg-white-accent-1'
+        className="bg-white-accent-1"
       >
         <div>
           <h1>Search Root Page</h1>
         </div>
       </motion.div>
     </>
+  );
+};
 
-  )
-}
-
-export default SearchDefault
+export default SearchDefault;

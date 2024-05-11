@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
-import { initial, animate, exit } from '@src/assets/PageTransition';
+import { initial, animate, exit } from "@src/assets/pageTransition";
 import { motion } from "framer-motion";
+import "@src/assets/global.css";
 
 const SearchResult = () => {
-
   const { query } = useParams();
   return (
     <>
@@ -11,15 +11,14 @@ const SearchResult = () => {
         initial={initial}
         animate={animate}
         exit={exit}
-        className='bg-white-accent-1'
+        className="bg-white-accent-1"
       >
         <div>
           <h1>Search Result {query}</h1>
         </div>
       </motion.div>
     </>
+  );
+};
 
-  )
-}
-
-export default SearchResult
+export default SearchResult;

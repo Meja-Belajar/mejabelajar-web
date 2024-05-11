@@ -1,0 +1,64 @@
+[
+  {
+    "code": 200,
+    "message": "Success",
+    "booking": {
+      "id": "1",
+      "userId": "user123",
+      "mentor": {
+        "id": "mentor456",
+        "name": "John Doe",
+        "email": ""
+      },
+      "course": {
+        "id": "course789",
+        "name": "Java Introduction",
+        "description": "Java Programming",
+        "isActive": true,
+        "createdBy": "admin",
+        "updatedBy": "admin",
+        "createdAt": "2024-04-06T10:00:00.000Z",
+        "updatedAt": "2024-04-06T10:00:00.000Z"
+      },
+      "invoiceId": "invoice987",
+      "date": "2024-04-06T12:00:00.000Z",
+      "location": "Virtual",
+      "isActive": true,
+      "createdBy": "admin",
+      "updatedBy": "admin",
+      "createdAt": "2024-04-06T10:00:00.000Z",
+      "updatedAt": "2024-04-06T10:00:00.000Z"
+    }
+  },
+  {
+    "code": 200,
+    "message": "Success",
+    "booking": {
+      "id": "2",
+      "userId": "user234",
+      "mentor": {
+        "id": "mentor456",
+        "name": "John Doe",
+        "email": ""
+      },
+      "course": {
+        "id": "course789",
+        "name": "Java",
+        "description": "Java Programming",
+        "isActive": true,
+        "createdBy": "admin",
+        "updatedBy": "admin",
+        "createdAt": "2024-04-06T10:00:00.000Z",
+        "updatedAt": "2024-04-06T10:00:00.000Z"
+      },
+      "invoiceId": "invoice654",
+      "date": "2024-04-02T12:00:00.000Z",
+      "location": "Physical",
+      "isActive": false,
+      "createdBy": "admin",
+      "updatedBy": "admin",
+      "createdAt": "2024-04-07T10:00:00.000Z",
+      "updatedAt": "2024-04-07T10:00:00.000Z"
+    }
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "code": 200,
+  "message": "Success: List of bookings has been retrieved",
+  "data": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "mentor": {
+        "id": 1,
+        "name": "John Doe"
+      },
+      "course": {
+        "id": 1,
+        "name": "Introduction to Programming",
+        "detail": "Learn the basic of programming"
+      },
+      "invoice": {
+        "id": 1,
+        "payment_method": "credit_card",
+        "payment_name": "John Doe",
+        "payment_status": "paid",
+        "payment_amount": 1000000,
+        "payment_fee": 10000,
+        "payment_total": 1010000
+      },
+      "date": "2021-01-01T00:00:00.000Z",
+      "location": "Bina Nusantara University, Campus Anggrek, Jakarta, Indonesia"
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "mentor": {
+        "id": 2,
+        "name": "Jane Doe"
+      },
+      "course": {
+        "id": 2,
+        "name": "Introduction to Design",
+        "detail": "Learn the basic of design"
+      },
+      "invoice": {
+        "id": 2,
+        "payment_method": "credit_card",
+        "payment_name": "John Doe",
+        "payment_status": "paid",
+        "payment_amount": 1000000,
+        "payment_fee": 10000,
+        "payment_total": 1010000
+      },
+      "date": "2021-01-01T00:00:00.000Z",
+      "location": "Bina Nusantara University, Campus Anggrek, Jakarta, Indonesia"
+    }
+  ]
+}

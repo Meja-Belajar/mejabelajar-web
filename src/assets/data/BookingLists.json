@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "userId": "user1",
+    "mentorId": "mentor1",
+    "courseId": "course1",
+    "invoiceId": "invoice1",
+    "date": "2024-04-12T00:00:00.000Z",
+    "location": "New York",
+    "isActive": true,
+    "createdBy": "admin",
+    "updatedBy": "admin",
+    "createdAt": "2024-04-10T08:00:00.000Z",
+    "updatedAt": "2024-04-10T08:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "userId": "user2",
+    "mentorId": "mentor2",
+    "courseId": "course2",
+    "invoiceId": "invoice2",
+    "date": "2024-04-15T00:00:00.000Z",
+    "location": "London",
+    "isActive": true,
+    "createdBy": "admin",
+    "updatedBy": "admin",
+    "createdAt": "2024-04-10T08:00:00.000Z",
+    "updatedAt": "2024-04-10T08:00:00.000Z"
+  }
+]

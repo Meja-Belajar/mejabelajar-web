@@ -3,17 +3,9 @@
     "baseUrl": "./",
     "paths": {
       "@public/*": ["public/*"],
-      "@src/*": ["src/*"],
-      "@apis/*": ["src/apis/*"],
-      "@assets/*": ["src/assets/*"],
-      "@components/*": ["src/components/*"],
-      "@contexts/*": ["src/contexts/*"],
-      "@data/*": ["src/data/*"],
-      "@helpers/*": ["src/helpers/*"],
-      "@models/*": ["src/models/*"],
-      "@pages/*": ["src/pages/*"],
+      "@src/*": ["src/*"]
     },
-    
+
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -34,6 +26,11 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "services", "src/models/database/userModel.tsx", "../__test__/userService.ts"],
+  "include": [
+    "src",
+    "services",
+    "src/models/database/userModel.tsx",
+    "../__test__/userService.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
