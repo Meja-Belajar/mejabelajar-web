@@ -168,7 +168,7 @@ export const PopularMentors = [
         detail:
           "This course is an introduction to machine learning. It covers the basic concepts of machine learning and its applications.",
         rating: "4.5",
-        hourly_rate: 12.1,
+        hourly_rate: 1222.1,
         course_start_time: "2021-01-01T00:00:00.000Z",
         course_end_time: "2021-01-01T00:00:00.000Z",
       },
@@ -178,7 +178,7 @@ export const PopularMentors = [
         detail:
           "This course is an introduction to artificial intelligence. It covers the basic concepts of artificial intelligence and its applications.",
         rating: "4.5",
-        hourly_rate: 12.1,
+        hourly_rate: 1233.1,
         course_start_time: "2021-01-01T00:00:00.000Z",
         course_end_time: "2021-01-01T00:00:00.000Z",
       },

@@ -47,7 +47,6 @@ const Navigation: React.FC = () => {
   const location = useLocation();
   const currentUser = useSelector((state: any) => state.user.currentUser);
 
-  console.log(currentUser);
   if (["/login", "/register"].includes(location.pathname)) return null;
   else
     return (
@@ -58,11 +57,10 @@ const Navigation: React.FC = () => {
               className="open-sans-600 mb-3 flex h-6 items-center justify-center bg-white-accent-1 p-5 transition ease-linear"
               exit={{ y: -100 }}
             >
-              <h1 
+              <h1
                 className="sm:text-md ease peer cursor-pointer text-xs text-red-500 transition hover:opacity-50"
-                onClick={() => navigate('/promotion')}
+                onClick={() => navigate("/promotion")}
               >
-                
                 50% OFF BY USING THIS VOUCHER
               </h1>
               <FontAwesomeIcon
@@ -86,7 +84,7 @@ const Navigation: React.FC = () => {
           className="mt-1 w-full p-1"
           maxWidth="xl"
         >
-          <div className="flex flex-row items-center justify-center gap-5">
+          <div className="ml-4 flex flex-row items-center justify-center gap-5">
             <NavbarMenuToggle
               aria-label={isMenuOpen ? "Close" : "Open"}
               className="sm:hidden"
@@ -152,7 +150,7 @@ const Navigation: React.FC = () => {
           </NavbarMenu>
         </Navbar>
 
-        <nav className="flex w-full justify-center">
+        <nav className="flex w-full justify-center px-8">
           <Input
             type="text"
             placeholder="search courses"

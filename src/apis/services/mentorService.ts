@@ -25,9 +25,13 @@ export class MentorService {
     }
   }
 
-  static async getMentorById(userId: string): Promise<MentorDTO> {
+  static async getMentorById({
+    mentor_id,
+  }: {
+    mentor_id: String;
+  }): Promise<MentorDTO> {
     try {
-      // const response = await fetch(`${mentorServiceApi.getMentor}${userId}`);
+      // const response = await fetch(`${mentorServiceApi.getMentor}${mentor_id}`);
 
       // const mentor: MentorDTO = await response.json();
 

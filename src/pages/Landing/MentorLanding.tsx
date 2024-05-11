@@ -70,7 +70,9 @@ const MentorLanding = () => {
         <main className="mt-3">
           <section className="w-full border bg-gradient-to-l from-blue-accent-300 via-purple-500 to-pink-500 p-5 pb-12 text-white">
             <div className="text-xl md:p-3">
-              <h1 className="open-sans-600">Welcome, {currentUser.username}👋!</h1>
+              <h1 className="open-sans-600">
+                Welcome, {currentUser.username}👋!
+              </h1>
               <h3 className="mt-1 text-sm">
                 What would you like to teach about today?
               </h3>
