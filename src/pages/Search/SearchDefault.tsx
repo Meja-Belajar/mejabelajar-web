@@ -1,4 +1,4 @@
-import { initial, animate, exit } from "@src/assets/pageTransition";
+import { initial, animate, exit } from "@src/assets/pageTransitions";
 import { motion } from "framer-motion";
 import "@src/assets/global.css";
 

@@ -8,7 +8,7 @@ import {
 } from "@nextui-org/react";
 import { motion } from "framer-motion";
 
-import { exit, animate, initial } from "@src/assets/pageTransition";
+import { exit, animate, initial } from "@src/assets/pageTransitions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleExclamation,

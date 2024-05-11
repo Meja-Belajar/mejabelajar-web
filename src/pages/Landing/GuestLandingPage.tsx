@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { animate, exit, initial } from "@src/assets/pageTransition";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 import Footer from "@src/components/Footer";
 import Logo from "@src/components/Logo";
 import {

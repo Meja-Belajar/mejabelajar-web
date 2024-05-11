@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { exit, animate, initial } from "@src/assets/pageTransition";
+import { exit, animate, initial } from "@src/assets/pageTransitions";
 import {
   Button,
   Input,

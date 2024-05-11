@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import Navigation from "@src/components/Navigation";
-import { exit, animate, initial } from "@src/assets/pageTransition";
+import { exit, animate, initial } from "@src/assets/pageTransitions";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";

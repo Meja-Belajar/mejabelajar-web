@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { animate, exit, initial } from "@src/assets/pageTransition";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

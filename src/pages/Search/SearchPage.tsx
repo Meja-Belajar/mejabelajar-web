@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
-import { initial, animate, exit } from "@src/assets/pageTransition";
+import { initial, animate, exit } from "@src/assets/pageTransitions";
 import "@src/assets/global.css";
 
 const Search = () => {

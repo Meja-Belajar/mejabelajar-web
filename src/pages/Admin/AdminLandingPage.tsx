@@ -7,7 +7,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { initial, animate, exit } from "@src/assets/pageTransition";
+import { initial, animate, exit } from "@src/assets/pageTransitions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,

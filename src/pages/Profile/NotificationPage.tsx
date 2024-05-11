@@ -1,7 +1,7 @@
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Accordion, AccordionItem } from "@nextui-org/react";
-import { animate, exit, initial } from "@src/assets/pageTransition";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 import { motion } from "framer-motion";
 const NotificationLists = [
   {

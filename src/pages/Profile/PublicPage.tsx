@@ -13,7 +13,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { animate, exit, initial } from "@src/assets/pageTransition";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 import { motion } from "framer-motion";
 
 const PublicPage = () => {
