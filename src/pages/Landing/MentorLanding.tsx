@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Footer from "@src/components/Footer";
 import { BookingsWrapper } from "@src/components/Booking";
+import { NumberUtil } from "@src/utils/numberUtil";
 
 type MentorState = {
   isLoading: boolean;
@@ -36,8 +37,10 @@ const MentorLanding = () => {
     try {
       setMentorState({ ...mentorState, isLoading: true });
 
-      const mentor = await MentorService.getMentorById(currentUser.user_id);
-
+      const mentor = await MentorService.getMentorById({
+        mentor_id: currentUser.user_id,
+      });
+      console.log(mentor);
       setMentorState({ ...mentorState, isLoading: false, mentor });
     } catch (e) {
       if (e instanceof Error) {
@@ -69,7 +72,7 @@ const MentorLanding = () => {
       >
         <main className="mt-3">
           <section className="w-full border bg-gradient-to-l from-blue-accent-300 via-purple-500 to-pink-500 p-5 pb-12 text-white">
-            <div className="text-xl md:p-3">
+            <div className="mt-2 text-xl sm:mt-0 md:p-3">
               <h1 className="open-sans-600">
                 Welcome, {currentUser.username}👋!
               </h1>
@@ -79,9 +82,9 @@ const MentorLanding = () => {
             </div>
           </section>
 
-          <section className="black relative -top-3 flex w-full flex-col items-center justify-between rounded-xl bg-white drop-shadow-lg sm:flex-row">
+          <section className="black relative -top-3 flex w-full flex-col items-center justify-between rounded-xl bg-white px-3 drop-shadow-lg sm:flex-row">
             <h1 className="open-sans-600 mb-3 mt-5 p-3 sm:mb-0 sm:mt-0 md:ml-10">
-              {`Total Revenue: Rp. ${mentorState.mentor.revenue}`}
+              {`Total Revenue: ${NumberUtil.formatToRupiah(mentorState.mentor.revenue)}`}
             </h1>
             <div className="flex w-full flex-col items-center gap-3 p-3 sm:flex-row sm:justify-between sm:p-5 md:mr-10 lg:w-3/4">
               <div

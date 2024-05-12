@@ -1,6 +1,13 @@
-import { getPopularMentorsResponse } from "@src/models/responses/mentorResponse";
+import {
+  getMentorByIdResponse,
+  getPopularMentorsResponse,
+} from "@src/models/responses/mentorResponse";
 import { mentorServiceApi } from "../envConfig";
-import { MentorDTO } from "@src/models/dtos/mentorDTO";
+import {
+  MentorDTO,
+  fromGetMentorByIdResponse,
+  toMentorDTO,
+} from "@src/models/dtos/mentorDTO";
 import { PopularMentors } from "@src/assets/data/userLandingData";
 
 export class MentorService {

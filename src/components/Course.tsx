@@ -32,9 +32,9 @@ const CourseCard = (props: CourseCardProps) => {
 const WeeklyPopularCoursesWrapper = () => {
   const navigate = useNavigate();
   const renderCourseCard = () => {
-    return WeeklyPopularCourses.map((course) => (
+    return WeeklyPopularCourses.map((course, index) => (
       <CourseCard
-        key={course.id}
+        key={index}
         id={course.id}
         name={course.name}
         image={course.image}

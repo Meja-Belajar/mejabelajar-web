@@ -148,14 +148,15 @@ export const CDNIcon = {
 
 export const PopularMentors = [
   {
-    mentor_id: "1",
+    mentor_id: "1sdfs",
     username: "John Doe",
     university: "University of California, Berkeley",
     email: "john@mail.com",
     phone: "080-1234-5678",
     description:
       "I am a student at UC Berkeley. I am studying computer science and I am interested in machine learning and artificial intelligence.",
-    profile_picture: "https://www.w3schools.com/howto/img_avatar.png",
+    profile_picture:
+      "https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg",
     bod: "2021-01-01T00:00:00.000Z",
     revenue: 121.2,
     rating: 4.5,
@@ -168,7 +169,7 @@ export const PopularMentors = [
         detail:
           "This course is an introduction to machine learning. It covers the basic concepts of machine learning and its applications.",
         rating: "4.5",
-        hourly_rate: 1222.1,
+        hourly_rate: 1000.1,
         course_start_time: "2021-01-01T00:00:00.000Z",
         course_end_time: "2021-01-01T00:00:00.000Z",
       },
