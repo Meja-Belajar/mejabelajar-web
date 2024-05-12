@@ -5,7 +5,7 @@ import {
 import { mentorServiceApi } from "../envConfig";
 import {
   MentorDTO,
-  fromGetMentorByIdResponse,
+  toMentorsDTO,
   toMentorDTO,
 } from "@src/models/dtos/mentorDTO";
 import { PopularMentors } from "@src/assets/data/userLandingData";

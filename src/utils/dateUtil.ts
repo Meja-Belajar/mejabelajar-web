@@ -56,8 +56,23 @@ export class DateUtil extends Date {
       new Date(today.getFullYear() - 15, today.getMonth(), today.getDate()),
     );
   }
+  // ========================
+  // date validation
+  static isPast(date: Date): boolean {
+    console.log(date);
+    const today = this.getToday();
 
-  static getMinutes(from: Date, to: Date): number {
+    return date.getTime() < today.getTime();
+  }
+
+  static isAgeValid(date: Date): boolean {
+    const today = this.getToday();
+
+    return today.getFullYear() - date.getFullYear() >= 15;
+  }
+
+  // date difference
+  static getMinutesDifference(from: Date, to: Date): number {
     return Math.abs(to.getTime() - from.getTime()) / 60000;
   }
 
@@ -71,8 +86,8 @@ export class DateUtil extends Date {
     return `${days}d ${hours}h`;
   }
 
+  // return to format 01 January 2023, 00:00 AM
   static toLocalString(date: Date): string {
-    // return to format 01 January 2023, 00:00 AM
     return date.toLocaleString("en-GB", {
       day: "2-digit",
       month: "long",
@@ -83,14 +98,29 @@ export class DateUtil extends Date {
     });
   }
 
+  // compare date
   static compareDate(date1: Date, date2: Date): boolean {
     return date1.getTime() > date2.getTime();
   }
 
+  // today date
   static getToday(): Date {
     return new Date();
   }
 
+  static getCurrentDay(): number {
+    return new Date().getDate();
+  }
+
+  static getCurrentMonth(): number {
+    return new Date().getMonth();
+  }
+
+  static getCurrentYear(): number {
+    return new Date().getFullYear();
+  }
+
+  // ISO date
   static fromISO(date: string): Date {
     return new Date(date);
   }
@@ -99,6 +129,7 @@ export class DateUtil extends Date {
     return date.toISOString().split("T")[0];
   }
 
+  // Universal date
   static fromUniversalDate({
     year,
     month,

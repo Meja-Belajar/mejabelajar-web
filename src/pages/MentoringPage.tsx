@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import "@src/assets/global.css";
 import { animate, exit, initial } from "@src/assets/pageTransitions";
 import Navigation from "@src/components/Navigation";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFetch } from "@src/hooks/useFetch";
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
 import { MentorService } from "@src/apis/services/mentorService";
@@ -10,7 +10,6 @@ import { getMentorByIdRequest } from "@src/models/requests/mentorRequest";
 import {
   Button,
   DateInput,
-  DateValue,
   Modal,
   ModalBody,
   ModalContent,
@@ -18,16 +17,11 @@ import {
   ModalHeader,
   ModalProps,
   TimeInput,
-  select,
   useDisclosure,
 } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBox,
-  faSpinner,
-  faSquareCheck,
-} from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { useCallback, useEffect, useState } from "react";
 import { CalendarDate, Time } from "@internationalized/date";
 import { CourseDTO } from "@src/models/dtos/courseDTO";
 import { DateUtil } from "@src/utils/dateUtil";
@@ -35,6 +29,9 @@ import { NumberUtil } from "@src/utils/numberUtil";
 import { ImageUrl } from "@src/assets/data/imageUrl";
 
 import confetti from "canvas-confetti";
+import { BookingService } from "@src/apis/services/bookingService";
+import { CreateBookingRequest } from "@src/models/requests/bookingRequest";
+import { useSelector } from "react-redux";
 
 type scheduleProps = {
   date: {
@@ -54,18 +51,21 @@ type scheduleProps = {
 
 const MentoringPage = () => {
   const { mentorId } = useParams();
-  const [warning, setWarning] = useState<string>("");
 
+  const [createBookingIsLoading, setCreateBookingIsLoading] =
+    useState<boolean>(false);
+  const [createBookingWarning, setCreateBookingWarning] = useState<string>("");
+
+  const [warning, setWarning] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [selectedCourse, setSelectedCourse] = useState<CourseDTO>(
     {} as CourseDTO,
   );
-
   const [schedule, setSchedule] = useState<scheduleProps>({
     date: {
-      year: 2024,
-      month: 1,
-      day: 1,
+      year: DateUtil.getCurrentYear(),
+      month: DateUtil.getCurrentMonth(),
+      day: DateUtil.getCurrentDay(),
     },
     from: {
       hour: 1,
@@ -76,6 +76,25 @@ const MentoringPage = () => {
       minute: 0,
     },
   });
+
+  // @ts-ignore
+  const [scrollBehavior, setScrollBehavior] =
+    useState<ModalProps["scrollBehavior"]>("inside");
+
+  const mentor = useFetch<getMentorByIdRequest, MentorDTO>({
+    fetchProps: { mentor_id: mentorId } as getMentorByIdRequest,
+    fetchCallback: MentorService.getMentorById,
+  });
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const currentUser = useSelector((state: any) => state.user);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    calculatePrice();
+  }, [schedule]);
 
   const calculatePrice = () => {
     if (!selectedCourse) {
@@ -96,7 +115,12 @@ const MentoringPage = () => {
       ...schedule.date,
       ...schedule.to,
     });
-    const totalMinutes = DateUtil.getMinutes(fromDateTime, toDateTime);
+
+    const totalMinutes = DateUtil.getMinutesDifference(
+      fromDateTime,
+      toDateTime,
+    );
+
     const totalPrice = NumberUtil.priceOnDuration(
       totalMinutes,
       selectedCourse.hourly_rate,
@@ -109,21 +133,98 @@ const MentoringPage = () => {
     setPrice(totalPrice);
   };
 
+  const handleTimeChange = (type: string, hour: number, minute: number) => {
+    setWarning(minute !== 0 ? "Every schedule must be in hour only" : "");
+
+    setSchedule({
+      ...schedule,
+      [type]: {
+        hour: hour,
+        minute: 0,
+      },
+    });
+  };
+
+  const handleDateChange = (year: number, month: number, day: number) => {
+    const condition = DateUtil.isPast(
+      DateUtil.fromUniversalDate({
+        year: year,
+        month: month,
+        day: day,
+        hour: 0,
+        minute: 0,
+      }),
+    );
+    console.log(condition);
+
+    setWarning(condition ? "You can't book a schedule in the past" : "");
+
+    setSchedule({
+      ...schedule,
+      date: {
+        year: year,
+        month: month,
+        day: day,
+      },
+    });
+  };
+
+  const handleSuccessEffect = () => {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+  };
+
   const handleCourseChange = (course: CourseDTO) => {
     setSelectedCourse(course);
     calculatePrice();
   };
 
-  useEffect(() => {
-    calculatePrice();
-  }, [schedule]);
+  const handleBookingCreation = (onClose: () => void) => {
+    try {
+      setCreateBookingIsLoading(true);
+      // const response = BookingService.create({
+      //   user_id: currentUser?.id,
+      //   mentor_id: mentor?.data?.mentor_id,
+      //   course_id: selectedCourse?.course_id,
+      //   schedule: {
+      //     from: DateUtil.toISODate(
+      //       DateUtil.fromUniversalDate({
+      //         ...schedule.date,
+      //         ...schedule.from,
+      //       }),
+      //     ),
+      //     to: DateUtil.toISODate(
+      //       DateUtil.fromUniversalDate({
+      //         ...schedule.date,
+      //         ...schedule.to,
+      //       }),
+      //     ),
+      //   },
+      //   invoice: {
+      //     payment_method: "QRIS",
+      //     payment_name: "Mentoring Payment",
+      //     payment_status: "success",
+      //     payment_amount: price,
+      //   },
+      // } as CreateBookingRequest);
+      setTimeout(() => {
+        setCreateBookingIsLoading(false);
+        handleSuccessEffect();
+        onClose();
+      }, 2000);
 
-  const mentor = useFetch<getMentorByIdRequest, MentorDTO>({
-    fetchProps: { mentor_id: mentorId } as getMentorByIdRequest,
-    fetchCallback: MentorService.getMentorById,
-  });
+      setTimeout(() => {
+        navigate("/");
+      }, 4000);
+    } catch (e) {
+      setWarning(`Something went wrong, please try again later: ${e}`);
+    }
+  };
 
-  const renderStore = () => {
+  const renderStore = useCallback(() => {
     const mentorData = mentor.data as MentorDTO;
 
     return (
@@ -193,7 +294,7 @@ const MentoringPage = () => {
                   <div className="space-between flex flex-col items-start justify-start gap-4 sm:flex-row sm:items-center">
                     <DateInput
                       variant="bordered"
-                      label="Date"
+                      label="MM/DD/YYYY"
                       className="w-full sm:w-1/4"
                       value={
                         new CalendarDate(
@@ -202,52 +303,23 @@ const MentoringPage = () => {
                           schedule.date.day,
                         )
                       }
-                      onChange={(e) => {
-                        setSchedule({
-                          ...schedule,
-                          date: {
-                            year: e.year,
-                            month: e.month,
-                            day: e.day,
-                          },
-                        });
-                      }}
+                      onChange={(e) => handleDateChange(e.year, e.month, e.day)}
                     />
                     <TimeInput
                       variant="bordered"
                       label="From"
                       className="w-full sm:w-1/4"
                       value={new Time(schedule.from.hour, schedule.from.minute)}
-                      onChange={(e) => {
-                        if (e.minute !== 0) {
-                          setWarning("Every schedule must be in hour only");
-                        }
-                        setSchedule({
-                          ...schedule,
-                          from: {
-                            hour: e.hour,
-                            minute: 0,
-                          },
-                        });
-                      }}
+                      onChange={(e) =>
+                        handleTimeChange("from", e.hour, e.minute)
+                      }
                     />
                     <TimeInput
                       variant="bordered"
                       label="To"
                       className="w-full sm:w-1/4"
                       value={new Time(schedule.to.hour, schedule.to.minute)}
-                      onChange={(e) => {
-                        if (e.minute !== 0) {
-                          setWarning("Every schedule must be in hour only");
-                        }
-                        setSchedule({
-                          ...schedule,
-                          to: {
-                            hour: e.hour,
-                            minute: 0,
-                          },
-                        });
-                      }}
+                      onChange={(e) => handleTimeChange("to", e.hour, e.minute)}
                     />
                   </div>
                 </div>
@@ -282,19 +354,26 @@ const MentoringPage = () => {
         </Modal>
       </>
     );
-  };
-
-  const [scrollBehavior, setScrollBehavior] =
-    useState<ModalProps["scrollBehavior"]>("inside");
+  }, [mentor, selectedCourse, schedule, price, createBookingIsLoading]);
 
   const renderModalContent = (onClose: () => void) => {
-    if (!selectedCourse?.course_id || price === 0) {
+    if (
+      !selectedCourse?.course_id ||
+      price === 0 ||
+      DateUtil.isPast(
+        DateUtil.fromUniversalDate({
+          ...schedule.date,
+          ...schedule.to,
+        }),
+      )
+    ) {
       return (
         <>
           <ModalHeader className="flex flex-col gap-1">Booking</ModalHeader>
           <ModalBody className="top-0 mb-5">
             <p className="text-sm text-red-500">
-              Please select a course first and minimum session time is 1 hours
+              Please select a course first, minimum session time is 1 hours, and
+              you can't book a schedule in the past.
             </p>
           </ModalBody>
         </>
@@ -346,26 +425,24 @@ const MentoringPage = () => {
         <ModalFooter>
           <Button
             className="bg-green-500 text-white"
-            onPress={() => {
-              onClose();
-              handleSuccessEffect();
-            }}
+            // onPress={async () => {
+
+            //   setCreateBookingIsLoading(true);
+
+            //   await handleBookingCreation();
+
+            //   setCreateBookingIsLoading(false);
+            //   handleSuccessEffect();
+            //   onClose();
+            // }}
+            onClick={() => handleBookingCreation(onClose)}
           >
-            I Already Paid
+            {!createBookingIsLoading ? `I have already paid` : `Validating...`}
           </Button>
         </ModalFooter>
       </>
     );
   };
-  const handleSuccessEffect = () => {
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
-    });
-  };
-
-  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   return (
     <motion.div
