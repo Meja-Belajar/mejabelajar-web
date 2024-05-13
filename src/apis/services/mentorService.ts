@@ -49,11 +49,11 @@ export class MentorService {
       // return mentor;
 
       await new Promise((resolve) => setTimeout(resolve, 2000));
-
+      // throw new Error("Mentor not found");
       return PopularMentors[0] as unknown as MentorDTO;
     } catch (e) {
       console.error(`Error fetching mentor: ${e}`);
-      throw new Error(`Error: ${e}`);
+      throw new Error(`${e}`);
     }
   }
 }

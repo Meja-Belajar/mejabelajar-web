@@ -59,7 +59,6 @@ export class DateUtil extends Date {
   // ========================
   // date validation
   static isPast(date: Date): boolean {
-    console.log(date);
     const today = this.getToday();
 
     return date.getTime() < today.getTime();

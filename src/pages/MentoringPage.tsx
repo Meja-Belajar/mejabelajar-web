@@ -20,8 +20,8 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { useCallback, useEffect, useState } from "react";
+import { faMailBulk, faMailReply, faPhone, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { CalendarDate, Time } from "@internationalized/date";
 import { CourseDTO } from "@src/models/dtos/courseDTO";
 import { DateUtil } from "@src/utils/dateUtil";
@@ -32,6 +32,8 @@ import confetti from "canvas-confetti";
 import { BookingService } from "@src/apis/services/bookingService";
 import { CreateBookingRequest } from "@src/models/requests/bookingRequest";
 import { useSelector } from "react-redux";
+import { Image } from "@src/assets/images/Image";
+import { AppUtil } from "@src/utils/appUtil";
 
 type scheduleProps = {
   date: {
@@ -92,11 +94,12 @@ const MentoringPage = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    calculatePrice();
-  }, [schedule]);
+  // useEffect(() => {
+  //   console.log("trif");
+  //   calculatePrice();
+  // }, [schedule, selectedCourse]);
 
-  const calculatePrice = () => {
+  useMemo(() => {
     if (!selectedCourse) {
       setPrice(0);
       return;
@@ -131,7 +134,7 @@ const MentoringPage = () => {
     }
 
     setPrice(totalPrice);
-  };
+  }, [schedule.from, schedule.to, selectedCourse]);
 
   const handleTimeChange = (type: string, hour: number, minute: number) => {
     setWarning(minute !== 0 ? "Every schedule must be in hour only" : "");
@@ -155,7 +158,6 @@ const MentoringPage = () => {
         minute: 0,
       }),
     );
-    console.log(condition);
 
     setWarning(condition ? "You can't book a schedule in the past" : "");
 
@@ -179,7 +181,6 @@ const MentoringPage = () => {
 
   const handleCourseChange = (course: CourseDTO) => {
     setSelectedCourse(course);
-    calculatePrice();
   };
 
   const handleBookingCreation = (onClose: () => void) => {
@@ -232,22 +233,41 @@ const MentoringPage = () => {
         <section className="w-full py-4">
           <div className="container mx-auto px-4">
             <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-7 lg:gap-16">
-              <div className="lg:col-span-3 lg:row-end-1">
+              <div className="lg:col-span-3 lg:row-end-1 ">
                 <div className="lg:order-2 lg:ml-2">
                   <div className="mx-auto max-w-sm overflow-hidden rounded-lg">
                     <img
                       className="h-full w-full max-w-full object-cover"
                       src={mentorData.profile_picture}
-                      alt=""
+                      alt={mentorData.username}
                     />
                   </div>
                 </div>
               </div>
 
               <div className="p-4 sm:p-0 lg:col-span-4 lg:row-span-2 lg:row-end-2">
-                <h1 className="open-sans-700 font-bold leading-9 text-gray-900 sm:text-3xl">
-                  {mentorData.username}
-                </h1>
+                <div className="flex flex-row items-start justify-between">
+                  <div className="flex flex-row items-start gap-3">
+                    <h1 className="open-sans-700 font-bold leading-9 text-gray-900 sm:text-3xl">
+                      {mentorData.username}
+                    </h1>
+                    <div className="border-2 border-yellow-300 flex flex-row items-center rounded-full py-1 px-2">
+                      <img src={Image.star} alt="star" className="w-4" />
+                      <p className="text-xs open-sans-600 text-yellow-400">{mentorData.rating}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-row gap-3 items-center mt-2 mr-10">
+                    <a href={AppUtil.toWhatsappMe(mentorData.phone)}>
+                    <img src={Image.whatsapp} alt="whatsapp" className="w-7" />
+
+                    </a>
+                    <a href={AppUtil.toMailTo(mentorData.email)}>
+
+                    <FontAwesomeIcon icon={faMailBulk} className="text-gray-600"/>
+                    </a>
+                  </div>
+                </div>
 
                 <p className="mt-2 text-sm font-medium uppercase text-gray-900">
                   <span className="font-semibold text-blue-500">

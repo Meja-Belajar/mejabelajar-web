@@ -15,6 +15,7 @@ import {
   faSortDown,
   faSortUp,
   faTrash,
+  faX,
 } from "@fortawesome/free-solid-svg-icons";
 import BookingLists from "@src/assets/data/BookingLists.json";
 import {
@@ -32,10 +33,11 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import "@src/assets/global.css";
-import mentors from "../../../__tests__/GET_mentor.json";
 import { useNavigate } from "react-router-dom";
-
+import { PopularMentors } from "@src/assets/data/userLandingData";
 const AdminOverview = () => {
+
+  const mentors = PopularMentors;
   const [isMentorsView, setIsMentorView] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -95,7 +97,7 @@ const AdminOverview = () => {
 
           <div className="mt-10">
             {isMentorsView &&
-              mentors.body.map((mentor, index) => (
+              mentors.map((mentor, index) => (
                 <div
                   key={index}
                   className="bg-blue-accent-500 mt-3 w-full rounded-2xl border bg-white px-8 py-6 text-black "
@@ -169,19 +171,14 @@ const AdminOverview = () => {
                   <TableCell>{booking.createdAt}</TableCell>
                   <TableCell>{booking.createdAt}</TableCell>
                   <TableCell>
-                    <Tooltip content="Details">
+                    <Tooltip content="Approve Booking">
                       <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
-                        <FontAwesomeIcon icon={faEye} />
+                        <FontAwesomeIcon icon={faCheck} className="ml-3" />
                       </span>
                     </Tooltip>
-                    <Tooltip content="Update Booking">
-                      <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
-                        <FontAwesomeIcon icon={faPencil} className="ml-3" />
-                      </span>
-                    </Tooltip>
-                    <Tooltip color="danger" content="Remove Booking">
+                    <Tooltip color="danger" content="Cancel Booking">
                       <span className="cursor-pointer text-lg text-danger active:opacity-50">
-                        <FontAwesomeIcon icon={faTrash} className="ml-3" />
+                        <FontAwesomeIcon icon={faX} className="ml-3" />
                       </span>
                     </Tooltip>
                   </TableCell>

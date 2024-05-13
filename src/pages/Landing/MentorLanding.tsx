@@ -92,7 +92,7 @@ const MentorLanding = () => {
                 onClick={() => navigate("/tutoring")}
               >
                 <img src={CDNIcon.logbook} alt="icon tutor" className="w-8" />
-                <h1>Log Book</h1>
+                <h1 className="line-clamp-1">Log Book</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   fade
@@ -104,7 +104,7 @@ const MentorLanding = () => {
                 onClick={() => navigate("/")}
               >
                 <img src={CDNIcon.back_user} alt="icon tutor" className="w-8" />
-                <h1>Back As User</h1>
+                <h1 className="line-clamp-1">Back As User</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   fade

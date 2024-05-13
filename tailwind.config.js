@@ -44,7 +44,7 @@ module.exports = {
         openSans: ["Open Sans", "sans-serif"],
       },
       backgroundImage: {
-        teacher: "url('/src/assets/images/page/landing/teacher.png')",
+        teacher: "url('/src/assets/images/page/teacher-blurred.png')",
       },
     },
   },
