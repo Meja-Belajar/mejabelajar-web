@@ -16,6 +16,9 @@ const SearchResult = () => {
         <div>
           <h1>Search Result {query}</h1>
         </div>
+        <div>
+          
+        </div>
       </motion.div>
     </>
   );
