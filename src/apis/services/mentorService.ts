@@ -1,6 +1,13 @@
-import { getPopularMentorsResponse } from "@src/models/responses/mentorResponse";
+import {
+  getMentorByIdResponse,
+  getPopularMentorsResponse,
+} from "@src/models/responses/mentorResponse";
 import { mentorServiceApi } from "../envConfig";
-import { MentorDTO } from "@src/models/dtos/mentorDTO";
+import {
+  MentorDTO,
+  toMentorsDTO,
+  toMentorDTO,
+} from "@src/models/dtos/mentorDTO";
 import { PopularMentors } from "@src/assets/data/userLandingData";
 
 export class MentorService {
@@ -25,9 +32,13 @@ export class MentorService {
     }
   }
 
-  static async getMentorById(userId: string): Promise<MentorDTO> {
+  static async getMentorById({
+    mentor_id,
+  }: {
+    mentor_id: String;
+  }): Promise<MentorDTO> {
     try {
-      // const response = await fetch(`${mentorServiceApi.getMentor}${userId}`);
+      // const response = await fetch(`${mentorServiceApi.getMentor}${mentor_id}`);
 
       // const mentor: MentorDTO = await response.json();
 
@@ -38,11 +49,11 @@ export class MentorService {
       // return mentor;
 
       await new Promise((resolve) => setTimeout(resolve, 2000));
-
+      // throw new Error("Mentor not found");
       return PopularMentors[0] as unknown as MentorDTO;
     } catch (e) {
       console.error(`Error fetching mentor: ${e}`);
-      throw new Error(`Error: ${e}`);
+      throw new Error(`${e}`);
     }
   }
 }

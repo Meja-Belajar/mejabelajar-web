@@ -1,10 +1,14 @@
 import { AnimatePresence } from "framer-motion";
 
 import { useSelector } from "react-redux";
-import AuthRouter from "./authRouter";
-import PublicRouter from "./publicRouter";
+// import AuthRouter from "./authRouter";
+// import PublicRouter from "./publicRouter";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
+import LoadingPage from "@src/pages/LoadingPage";
+
+const AuthRouter = React.lazy(() => import("./authRouter"));
+const PublicRouter = React.lazy(() => import("./publicRouter"));
 
 const Router: React.FC = () => {
   const currentUser = useSelector((state: any) => state.user.currentUser);
@@ -18,7 +22,9 @@ const Router: React.FC = () => {
   return (
     <>
       <AnimatePresence>
-        {currentUser ? <AuthRouter /> : <PublicRouter />}
+        <Suspense fallback={<LoadingPage message="Getting everything ready for you... " />}>
+          {currentUser ? <AuthRouter /> : <PublicRouter />}
+        </Suspense>
       </AnimatePresence>
     </>
   );

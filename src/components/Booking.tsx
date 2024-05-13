@@ -54,7 +54,10 @@ const BookingCard = (props: BookingCardProps) => {
             >
               <p className="text-xs text-white-accent-1">
                 {isActive
-                  ? DateUtil.diff(book.date, new Date().toISOString())
+                  ? DateUtil.getDifference(
+                      DateUtil.fromISO(book.date),
+                      DateUtil.getToday(),
+                    )
                   : "LATE"}
               </p>
             </div>
@@ -73,7 +76,7 @@ const BookingCard = (props: BookingCardProps) => {
               <p className="text-sm text-gray-400">Date</p>
             </div>
             <p className="text-sm text-gray-400">
-              {DateUtil.format(book.date)}
+              {DateUtil.toLocalString(DateUtil.fromISO(book.date))}
             </p>
           </div>
 

@@ -14,6 +14,7 @@ import AdminReport from "@src/pages/Admin/AdminReport";
 import MentorLanding from "@src/pages/Landing/MentorLanding";
 import PublicPage from "@src/pages/Profile/PublicPage";
 import NotificationPage from "@src/pages/Profile/NotificationPage";
+import MentoringPage from "@src/pages/MentoringPage";
 
 const AuthRouter = () => {
   return (
@@ -42,6 +43,7 @@ const AuthRouter = () => {
       </Route>
       <Route path="/history" element={<ConstructionPage />} />
       <Route path="/tutoring" element={<ConstructionPage />} />
+      <Route path="/mentoring/:mentorId" element={<MentoringPage />} />
 
       {/* exclusive to admin */}
       <Route path="/admin" element={<AdminLandingPage />}>
@@ -54,7 +56,6 @@ const AuthRouter = () => {
       <Route path="/about/*" element={<ConstructionPage />} />
       <Route path="/overview/*" element={<ConstructionPage />} />
       <Route path="/idea/*" element={<ConstructionPage />} />
-      <Route path="/mentor/*" element={<ConstructionPage />} />
       <Route path="/tutor/*" element={<ConstructionPage />} />
       <Route path="/investors/*" element={<ConstructionPage />} />
       <Route path="/universities/*" element={<ConstructionPage />} />

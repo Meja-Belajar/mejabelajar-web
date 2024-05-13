@@ -1,3 +1,5 @@
+import { create } from "domain";
+
 export const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 // userService
@@ -26,6 +28,7 @@ export const bookingServiceApi = {
   getBooking: `${baseUrl}/booking/getBooking`,
   bookMentor: `${baseUrl}/booking/bookMentor`,
   cancelBooking: `${baseUrl}/booking/cancelBooking`,
+  createBooking: `${baseUrl}/booking/createBooking`,
 };
 
 // admin

@@ -32,6 +32,7 @@ import {
   Header,
 } from "@src/assets/data/userLandingData";
 import { CourseCard } from "@src/components/Course";
+import { Image } from "@src/assets/images/Image";
 
 // Landing page for guest
 const GuestLanding = () => {

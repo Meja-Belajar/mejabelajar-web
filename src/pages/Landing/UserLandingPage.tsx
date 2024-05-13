@@ -14,6 +14,7 @@ import {
 import { useSelector } from "react-redux";
 import { WeeklyPopularMentorWrapper } from "@src/components/Mentor";
 import { WeeklyPopularCoursesWrapper } from "@src/components/Course";
+import React from "react";
 
 // landing page for user
 const UserLanding = () => {
@@ -50,7 +51,7 @@ const UserLanding = () => {
                 onClick={() => navigate("/tutoring")}
               >
                 <img src={CDNIcon.tutoring} alt="icon tutor" className="w-8" />
-                <h1>Tutoring Class</h1>
+                <h1 className="line-clamp-1">Tutoring Class</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   fade
@@ -62,7 +63,7 @@ const UserLanding = () => {
                 onClick={() => navigate("/search")}
               >
                 <img src={CDNIcon.mentoring} alt="icon tutor" className="w-8" />
-                <h1>Mentoring 1-to-1</h1>
+                <h1 className="line-clamp-1">Mentoring 1-to-1</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   fade
@@ -78,7 +79,7 @@ const UserLanding = () => {
                   alt="icon tutor"
                   className="w-8"
                 />
-                <h1>For Mentor</h1>
+                <h1 className="line-clamp-1">For Mentor</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   fade

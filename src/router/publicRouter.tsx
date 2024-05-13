@@ -29,7 +29,8 @@ const PublicRouter = () => {
       <Route path="/profile/*" element={<Navigate to="/login" />} />
       <Route path="/history/*" element={<Navigate to="/login" />} />
       <Route path="/tutoring/*" element={<Navigate to="/login" />} />
-      {/* <Route path='/admin/*' element={<Navigate to="/login" />} /> */}
+      <Route path="/mentoring/*" element={<Navigate to="/login" />} />
+      <Route path="/admin/*" element={<Navigate to="/login" />} />
 
       <Route path="/admin" element={<AdminLandingPage />}>
         <Route index element={<AdminOverview />} />
@@ -41,7 +42,6 @@ const PublicRouter = () => {
       <Route path="/about/*" element={<ConstructionPage />} />
       <Route path="/overview/*" element={<ConstructionPage />} />
       <Route path="/idea/*" element={<ConstructionPage />} />
-      <Route path="/mentor/*" element={<ConstructionPage />} />
       <Route path="/tutor/*" element={<ConstructionPage />} />
       <Route path="/investors/*" element={<ConstructionPage />} />
       <Route path="/universities/*" element={<ConstructionPage />} />

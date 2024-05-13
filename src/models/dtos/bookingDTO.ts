@@ -1,4 +1,6 @@
 import {
+  CreateBookingResponse,
+  UpdateBookingResponse,
   getBookingByIdResponse,
   getBookingsByUserIdResponse,
 } from "../responses/bookingReponse";
@@ -63,7 +65,9 @@ export const toBookingsDTO = (
   }));
 };
 
-export const toBookingDTO = (data: getBookingByIdResponse): bookingDTO => {
+export const toBookingDTO = (
+  data: getBookingByIdResponse | CreateBookingResponse | UpdateBookingResponse,
+): bookingDTO => {
   return {
     id: data.data.id,
     user: {
