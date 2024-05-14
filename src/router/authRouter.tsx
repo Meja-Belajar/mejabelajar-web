@@ -1,20 +1,20 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import ErrorPage from "@src/pages/ErrorPage";
-import Profile from "@src/pages/Profile/ProfilePage";
+import ErrorPage from "@src/pages/ErrorPage.tsx";
+import Profile from "@src/pages/Profile/ProfilePage.tsx";
 
-import Search from "@src/pages/Search/SearchPage";
-import SearchDefault from "@src/pages/Search/SearchDefault";
-import SearchResult from "@src/pages/Search/SearchResult";
-import AdminLandingPage from "@src/pages/Admin/AdminLandingPage";
-import AdminOverview from "@src/pages/Admin/AdminOverview";
-import AdminAnnouncement from "@src/pages/Admin/AdminAnnouncement";
-import ConstructionPage from "@src/pages/ConstructionPage";
-import UserLanding from "@src/pages/Landing/UserLandingPage";
-import AdminReport from "@src/pages/Admin/AdminReport";
-import MentorLanding from "@src/pages/Landing/MentorLanding";
-import PublicPage from "@src/pages/Profile/PublicPage";
-import NotificationPage from "@src/pages/Profile/NotificationPage";
-import MentoringPage from "@src/pages/MentoringPage";
+import Search from "@src/pages/Search/SearchPage.tsx";
+import SearchDefault from "@src/pages/Search/SearchDefault.tsx";
+import SearchResult from "@src/pages/Search/SearchResult.tsx";
+import AdminLandingPage from "@src/pages/Admin/AdminLandingPage.tsx";
+import AdminOverview from "@src/pages/Admin/AdminOverview.tsx";
+import AdminAnnouncement from "@src/pages/Admin/AdminAnnouncement.tsx";
+import ConstructionPage from "@src/pages/ConstructionPage.tsx";
+import UserLanding from "@src/pages/Landing/UserLandingPage.tsx";
+import AdminNewMentor from "@src/pages/Admin/AdminNewMentor.tsx";
+import MentorLanding from "@src/pages/Landing/MentorLanding.tsx";
+import PublicPage from "@src/pages/Profile/PublicPage.tsx";
+import NotificationPage from "@src/pages/Profile/NotificationPage.tsx";
+import MentoringPage from "@src/pages/MentoringPage.tsx";
 
 const AuthRouter = () => {
   return (
@@ -49,7 +49,7 @@ const AuthRouter = () => {
       <Route path="/admin" element={<AdminLandingPage />}>
         <Route index element={<AdminOverview />} />
         <Route path="announcement" element={<AdminAnnouncement />} />
-        <Route path="report" element={<AdminReport />} />
+        <Route path="report" element={<AdminNewMentor />} />
       </Route>
 
       {/* future enchancement routes */}

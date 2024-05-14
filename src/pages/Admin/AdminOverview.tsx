@@ -71,7 +71,6 @@ const AdminOverview = () => {
 
         <div className="mt-10" />
 
-        <AnimatePresence>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -99,7 +98,7 @@ const AdminOverview = () => {
             {isMentorsView &&
               mentors.map((mentor, index) => (
                 <div
-                  key={index}
+                  key={`${index}/${mentor.mentor_id}`}
                   className="bg-blue-accent-500 mt-3 w-full rounded-2xl border bg-white px-8 py-6 text-black "
                 >
                   <div className="mt-2 flex flex-col items-start justify-between sm:flex-row sm:items-center">
@@ -138,7 +137,6 @@ const AdminOverview = () => {
                 </div>
               ))}
           </div>
-        </AnimatePresence>
 
         <section className="mt-20">
           <div>
@@ -163,7 +161,7 @@ const AdminOverview = () => {
 
             <TableBody>
               {BookingLists.map((booking, index) => (
-                <TableRow key={index}>
+                <TableRow key={`${index}/${booking.id}`}>
                   <TableCell>{booking.userId}</TableCell>
                   <TableCell>{booking.courseId}</TableCell>
                   <TableCell>{booking.courseId}</TableCell>

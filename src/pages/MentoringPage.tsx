@@ -26,7 +26,7 @@ import { CalendarDate, Time } from "@internationalized/date";
 import { CourseDTO } from "@src/models/dtos/courseDTO";
 import { DateUtil } from "@src/utils/dateUtil";
 import { NumberUtil } from "@src/utils/numberUtil";
-import { ImageUrl } from "@src/assets/data/imageUrl";
+import { ImageUrl } from "@src/assets/imageUrl";
 
 import confetti from "canvas-confetti";
 import { BookingService } from "@src/apis/services/bookingService";
@@ -258,7 +258,7 @@ const MentoringPage = () => {
                   </div>
 
                   <div className="flex flex-row gap-3 items-center mt-2 mr-10">
-                    <a href={AppUtil.toWhatsappMe(mentorData.phone)}>
+                    <a href={AppUtil.toWhatsappMe(mentorData.phone_number)}>
                     <img src={Image.whatsapp} alt="whatsapp" className="w-7" />
 
                     </a>

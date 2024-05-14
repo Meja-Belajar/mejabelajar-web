@@ -6,44 +6,45 @@ import {
   UpdateUserRequest,
 } from "@src/models/requests/userRequest";
 import {
+  Example,
+  GetUserByIdResponse,
   LoginUserResponse,
   RegisterUserResponse,
+  UpdateUserResponse,
 } from "@src/models/responses/userResponse";
 
 export class UserService {
   static async register(requestData: RegisterUserRequest): Promise<UserDTO> {
     const {
       user_name,
+      university,
       email,
-      password,
       phone_number,
       bod,
+      password,
       confirm_password,
-      created_by,
     } = requestData;
-    const apiurl = userServiceApi.register;
 
     try {
-      const response = await fetch(apiurl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_name,
-          email,
-          password,
-          phone_number,
-          bod,
-          confirm_password,
-          is_active: false,
-          created_by,
-        }),
-      });
+      // const response = await fetch(userServiceApi.register, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     user_name,
+      //     university,
+      //     email,
+      //     phone_number,
+      //     bod,
+      //     password,
+      //     confirm_password,
+      //   } as RegisterUserRequest),
+      // });
 
-      const registerResponse: RegisterUserResponse = await response.json();
+      const registerResponse: RegisterUserResponse = Example.RegisterUserResponse;
 
-      if (registerResponse.code !== 200) {
+      if (registerResponse.code !== 201) {
         throw new Error(registerResponse.message);
       }
 
@@ -60,18 +61,17 @@ export class UserService {
 
   static async login(requestData: LoginUserRequest): Promise<UserDTO> {
     const { email, password } = requestData;
-    const apiurl = userServiceApi.login;
 
     try {
-      const response = await fetch(apiurl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      // const response = await fetch(userServiceApi.login, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ email, password }),
+      // });
 
-      const loginResponse: LoginUserResponse = await response.json();
+      const loginResponse: LoginUserResponse = Example.LoginUserResponse;
 
       if (loginResponse.code !== 200) {
         throw new Error(loginResponse.message);
@@ -104,11 +104,12 @@ export class UserService {
     return null;
   }
 
-  static async update(request: UpdateUserRequest) {
+  static async update(request: UpdateUserRequest): Promise<UserDTO> {
     try {
       const {
         id,
         user_name,
+        university,
         email,
         phone_number,
         description,
@@ -116,32 +117,50 @@ export class UserService {
         bod,
       } = request;
 
-      const response = await fetch(userServiceApi.update, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id,
-          user_name,
-          email,
-          phone_number,
-          description,
-          profile_picture,
-          bod,
-        }),
-      });
+      // const response = await fetch(userServiceApi.update, {
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     id,
+      //     user_name,
+      //     university,
+      //     email,
+      //     phone_number,
+      //     description,
+      //     profile_picture,
+      //     bod,
+      //   } as UpdateUserRequest),
+      // });
 
-      const updateResponse = await response.json();
+      const updateResponse:UpdateUserResponse = Example.UpdateUserResponse;
 
       if (updateResponse.code !== 200) {
         throw new Error(updateResponse.message);
       }
 
-      return updateResponse;
+      return toUserDTO(updateResponse);
     } catch (e) {
       console.error("Error updating user:", e);
       throw new Error("Failed to update user. Please try again.");
+    }
+  }
+
+  static async getUserById(userId: string): Promise<UserDTO> {
+    try {
+      // const response = await fetch(`${userServiceApi.getUserById}/${userId}`);
+
+      const userResponse: GetUserByIdResponse = Example.GetUserByIdResponse;
+
+      if (userResponse.code !== 200) {
+        throw new Error(userResponse.message);
+      }
+
+      return toUserDTO(userResponse);
+    } catch (e) {
+      console.error("Error fetching user:", e);
+      throw new Error("Failed to fetch user");
     }
   }
 }

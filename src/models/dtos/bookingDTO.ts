@@ -1,11 +1,11 @@
 import {
   CreateBookingResponse,
   UpdateBookingResponse,
-  getBookingByIdResponse,
-  getBookingsByUserIdResponse,
+  GetBookingByIdResponse,
+  GetBookingsByUserIdResponse,
 } from "../responses/bookingReponse";
 
-export interface bookingDTO {
+export interface BookingDTO {
   id: string;
   user: {
     id: string;
@@ -34,8 +34,8 @@ export interface bookingDTO {
 }
 
 export const toBookingsDTO = (
-  data: getBookingsByUserIdResponse,
-): bookingDTO[] => {
+  data: GetBookingsByUserIdResponse,
+): BookingDTO[] => {
   return data.data.map((booking) => ({
     id: booking.id,
     user: {
@@ -66,8 +66,8 @@ export const toBookingsDTO = (
 };
 
 export const toBookingDTO = (
-  data: getBookingByIdResponse | CreateBookingResponse | UpdateBookingResponse,
-): bookingDTO => {
+  data: GetBookingByIdResponse | CreateBookingResponse | UpdateBookingResponse,
+): BookingDTO => {
   return {
     id: data.data.id,
     user: {

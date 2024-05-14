@@ -31,8 +31,5 @@ export interface UpdateBookingRequest {
   };
   date: string;
   location: string;
-}
-
-export interface DeleteBookingRequest {
-  id: string;
+  is_active: boolean;
 }

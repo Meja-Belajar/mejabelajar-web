@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 // import AuthRouter from "./authRouter";
 // import PublicRouter from "./publicRouter";
 import { useNavigate } from "react-router-dom";
-import React, { Suspense, useEffect } from "react";
-import LoadingPage from "@src/pages/LoadingPage";
+import React, { Suspense, lazy, useEffect } from "react";
+import LoadingPage from "@src/pages/LoadingPage.tsx";
 
-const AuthRouter = React.lazy(() => import("./authRouter"));
-const PublicRouter = React.lazy(() => import("./publicRouter"));
+const AuthRouter = lazy(() => import("./authRouter.tsx"));
+const PublicRouter = lazy(() => import("./publicRouter.tsx"));
 
 const Router: React.FC = () => {
   const currentUser = useSelector((state: any) => state.user.currentUser);

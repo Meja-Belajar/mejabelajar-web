@@ -7,14 +7,10 @@ import { useNavigate } from "react-router-dom";
 import Footer from "@src/components/Footer";
 import { BookingsWrapper } from "@src/components/Booking";
 import "@src/assets/global.css";
-import {
-  CDNIcon,
-  WeeklyPopularCourses,
-} from "@src/assets/data/userLandingData";
 import { useSelector } from "react-redux";
 import { WeeklyPopularMentorWrapper } from "@src/components/Mentor";
 import { WeeklyPopularCoursesWrapper } from "@src/components/Course";
-import React from "react";
+import { ImageUrl } from "@src/assets/imageUrl";
 
 // landing page for user
 const UserLanding = () => {
@@ -50,7 +46,7 @@ const UserLanding = () => {
                 className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50"
                 onClick={() => navigate("/tutoring")}
               >
-                <img src={CDNIcon.tutoring} alt="icon tutor" className="w-8" />
+                <img src={ImageUrl.TUTORING} alt="icon tutor" className="w-8" />
                 <h1 className="line-clamp-1">Tutoring Class</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}
@@ -62,7 +58,7 @@ const UserLanding = () => {
                 className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50"
                 onClick={() => navigate("/search")}
               >
-                <img src={CDNIcon.mentoring} alt="icon tutor" className="w-8" />
+                <img src={ImageUrl.MENTORING} alt="icon tutor" className="w-8" />
                 <h1 className="line-clamp-1">Mentoring 1-to-1</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}
@@ -75,7 +71,7 @@ const UserLanding = () => {
                 onClick={() => navigate("/mentor")}
               >
                 <img
-                  src={CDNIcon.for_mentor}
+                  src={ImageUrl.TO_ROLE_MENTOR}
                   alt="icon tutor"
                   className="w-8"
                 />

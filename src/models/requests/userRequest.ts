@@ -1,11 +1,11 @@
 export interface RegisterUserRequest {
   user_name: string;
+  university: string;
   email: string;
   phone_number: string;
-  bod: Date | string;
+  bod: string;
   password: string;
   confirm_password: string;
-  created_by: string;
 }
 
 export interface LoginUserRequest {
@@ -16,9 +16,14 @@ export interface LoginUserRequest {
 export interface UpdateUserRequest {
   id: string;
   user_name: string;
+  university: string;
   email: string;
   phone_number: string;
   description: string;
   profile_picture: string;
-  bod: Date | string;
+  bod: string;
+}
+
+export interface GetUserByIdRequest {
+  id: string;
 }

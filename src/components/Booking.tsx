@@ -6,14 +6,14 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateUtil } from "@src/utils/dateUtil";
 import "@src/assets/global.css";
-import { bookingDTO } from "@src/models/dtos/bookingDTO";
+import { BookingDTO } from "@src/models/dtos/bookingDTO";
 import { useCallback, useEffect, useState } from "react";
 import { BookingService } from "@src/apis/services/bookingService";
 import { Button, Skeleton } from "@nextui-org/react";
 
 type BookingCardProps = {
   key: string;
-  book: bookingDTO;
+  book: BookingDTO;
 };
 
 type BookingsWrapperProps = {
@@ -23,7 +23,7 @@ type BookingsWrapperProps = {
 type BookingState = {
   onShow: number;
   isLoading: boolean;
-  items: bookingDTO[];
+  items: BookingDTO[];
   error: string;
 };
 
@@ -140,7 +140,7 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
   const fetchBookings = async () => {
     try {
       setBookings({ ...bookings, isLoading: true });
-      const response: bookingDTO[] =
+      const response: BookingDTO[] =
         await BookingService.getAllBookingsByUserId(userId);
 
       setBookings({ ...bookings, isLoading: false, items: response });

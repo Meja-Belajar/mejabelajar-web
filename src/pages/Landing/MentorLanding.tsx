@@ -9,12 +9,12 @@ import LoadingPage from "@src/pages/LoadingPage";
 import ErrorPage from "../ErrorPage";
 import Navigation from "@src/components/Navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CDNIcon } from "@src/assets/data/userLandingData";
 import { useNavigate } from "react-router-dom";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Footer from "@src/components/Footer";
 import { BookingsWrapper } from "@src/components/Booking";
 import { NumberUtil } from "@src/utils/numberUtil";
+import { ImageUrl } from "@src/assets/imageUrl";
 
 type MentorState = {
   isLoading: boolean;
@@ -91,7 +91,7 @@ const MentorLanding = () => {
                 className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50"
                 onClick={() => navigate("/tutoring")}
               >
-                <img src={CDNIcon.logbook} alt="icon tutor" className="w-8" />
+                <img src={ImageUrl.LOGBOOK} alt="icon tutor" className="w-8" />
                 <h1 className="line-clamp-1">Log Book</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}
@@ -103,7 +103,7 @@ const MentorLanding = () => {
                 className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50"
                 onClick={() => navigate("/")}
               >
-                <img src={CDNIcon.back_user} alt="icon tutor" className="w-8" />
+                <img src={ImageUrl.TO_ROLE_USER} alt="icon tutor" className="w-8" />
                 <h1 className="line-clamp-1">Back As User</h1>
                 <FontAwesomeIcon
                   icon={faArrowRight}

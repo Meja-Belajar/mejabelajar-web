@@ -8,6 +8,7 @@ export const userServiceApi = {
   register: `${baseUrl}/user/register`,
   logout: `${baseUrl}/user/logout`,
   update: `${baseUrl}/user/update`,
+  getUserById: `${baseUrl}/user/getUserById`,
 };
 
 // tokenService
