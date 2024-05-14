@@ -36,7 +36,6 @@ import "@src/assets/global.css";
 import { useNavigate } from "react-router-dom";
 import { PopularMentors } from "@src/assets/data/userLandingData";
 const AdminOverview = () => {
-
   const mentors = PopularMentors;
   const [isMentorsView, setIsMentorView] = useState<boolean>(false);
 
@@ -71,72 +70,72 @@ const AdminOverview = () => {
 
         <div className="mt-10" />
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="rounded-2xl bg-blue-accent-300 p-8 text-white shadow-lg drop-shadow-lg"
-          >
-            <nav className="flex w-full flex-row items-center justify-between">
-              <h1 className="text-3xl">Available Mentors</h1>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="rounded-2xl bg-blue-accent-300 p-8 text-white shadow-lg drop-shadow-lg"
+        >
+          <nav className="flex w-full flex-row items-center justify-between">
+            <h1 className="text-3xl">Available Mentors</h1>
+            <div
+              className="flex cursor-pointer items-center justify-center p-2 pb-3"
+              onClick={() => setIsMentorView(!isMentorsView)}
+            >
+              <FontAwesomeIcon
+                icon={faSortDown}
+                className="transform text-xl transition duration-300 ease-out"
+                style={{
+                  transform: isMentorsView ? "rotate(0)" : "rotate(-90deg)",
+                }}
+              />
+            </div>
+          </nav>
+        </motion.div>
+
+        <div className="mt-10">
+          {isMentorsView &&
+            mentors.map((mentor, index) => (
               <div
-                className="flex cursor-pointer items-center justify-center p-2 pb-3"
-                onClick={() => setIsMentorView(!isMentorsView)}
+                key={`${index}/${mentor.mentor_id}`}
+                className="bg-blue-accent-500 mt-3 w-full rounded-2xl border bg-white px-8 py-6 text-black "
               >
-                <FontAwesomeIcon
-                  icon={faSortDown}
-                  className="transform text-xl transition duration-300 ease-out"
-                  style={{
-                    transform: isMentorsView ? "rotate(0)" : "rotate(-90deg)",
-                  }}
-                />
-              </div>
-            </nav>
-          </motion.div>
-
-          <div className="mt-10">
-            {isMentorsView &&
-              mentors.map((mentor, index) => (
-                <div
-                  key={`${index}/${mentor.mentor_id}`}
-                  className="bg-blue-accent-500 mt-3 w-full rounded-2xl border bg-white px-8 py-6 text-black "
-                >
-                  <div className="mt-2 flex flex-col items-start justify-between sm:flex-row sm:items-center">
-                    <h1 className="text-xl">{mentor.mentor_id}</h1>
-                    <h2 className="text-2xl">{mentor.username}</h2>
-                  </div>
-                  <div className="mt-5 flex flex-row items-end justify-between">
-                    <div>
-                      <div className="text-l text-gray-700">
-                        <FontAwesomeIcon icon={faMessage} />
-                        <span className="ml-3">{mentor.email}</span>
-                      </div>
-                      <div className="text-lg text-gray-700">
-                        <FontAwesomeIcon icon={faPhone} />
-                        <span className="ml-3">{mentor.phone}</span>
-                      </div>
-                      <div className="text-lg text-gray-700">
-                        <FontAwesomeIcon icon={faMoneyBill} />
-                        <span className="ml-3">{mentor.revenue}</span>
-                      </div>
-                    </div>
-
-                    <Button
-                      startContent={
-                        <FontAwesomeIcon
-                          icon={faMessage}
-                          className="text-white"
-                        />
-                      }
-                      className="mt-3 bg-blue-accent-300 text-white"
-                      onClick={() => navigate("")}
-                    >
-                      Message
-                    </Button>
-                  </div>
+                <div className="mt-2 flex flex-col items-start justify-between sm:flex-row sm:items-center">
+                  <h1 className="text-xl">{mentor.mentor_id}</h1>
+                  <h2 className="text-2xl">{mentor.username}</h2>
                 </div>
-              ))}
-          </div>
+                <div className="mt-5 flex flex-row items-end justify-between">
+                  <div>
+                    <div className="text-l text-gray-700">
+                      <FontAwesomeIcon icon={faMessage} />
+                      <span className="ml-3">{mentor.email}</span>
+                    </div>
+                    <div className="text-lg text-gray-700">
+                      <FontAwesomeIcon icon={faPhone} />
+                      <span className="ml-3">{mentor.phone}</span>
+                    </div>
+                    <div className="text-lg text-gray-700">
+                      <FontAwesomeIcon icon={faMoneyBill} />
+                      <span className="ml-3">{mentor.revenue}</span>
+                    </div>
+                  </div>
+
+                  <Button
+                    startContent={
+                      <FontAwesomeIcon
+                        icon={faMessage}
+                        className="text-white"
+                      />
+                    }
+                    className="mt-3 bg-blue-accent-300 text-white"
+                    onClick={() => navigate("")}
+                  >
+                    Message
+                  </Button>
+                </div>
+              </div>
+            ))}
+        </div>
 
         <section className="mt-20">
           <div>

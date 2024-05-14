@@ -1,13 +1,13 @@
-import MejaBelajar from './icon/logo.svg';
-import Star from './icon/star.svg';
+import MejaBelajar from "./icon/logo.svg";
+import Star from "./icon/star.svg";
 
-import Facebook from './social/facebook.svg';
-import Instagram from './social/instagram.svg';
-import Twitter from './social/twitter.svg';
-import Whatsapp from './social/whatsapp.svg';
+import Facebook from "./social/facebook.svg";
+import Instagram from "./social/instagram.svg";
+import Twitter from "./social/twitter.svg";
+import Whatsapp from "./social/whatsapp.svg";
 
-import TeacherTeaching from './page/teacher.png';
-import TeacherTeachingBlurred from './page/teacher-blurred.png';
+import TeacherTeaching from "./page/teacher.png";
+import TeacherTeachingBlurred from "./page/teacher-blurred.png";
 
 export class Image {
   static mejaBelajar = MejaBelajar;

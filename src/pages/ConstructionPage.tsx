@@ -15,10 +15,7 @@ const ConstructionPage: React.FC = () => {
       >
         <div className="mt-5 flex w-3/4 flex-col items-center justify-between sm:mt-2">
           <div className="flex w-full flex-row items-center justify-center p-5 sm:w-1/2">
-            <Lottie
-              animationData={workingProject}
-              loop={true}
-            />
+            <Lottie animationData={workingProject} loop={true} />
           </div>
           <div className="mt-3 flex w-full flex-col items-center p-3 text-center ">
             <h1 className="open-sans-600 text-3xl sm:text-6xl">Oops, Sorry!</h1>

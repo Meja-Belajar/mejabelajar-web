@@ -20,7 +20,12 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMailBulk, faMailReply, faPhone, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMailBulk,
+  faMailReply,
+  faPhone,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { CalendarDate, Time } from "@internationalized/date";
 import { CourseDTO } from "@src/models/dtos/courseDTO";
@@ -251,20 +256,27 @@ const MentoringPage = () => {
                     <h1 className="open-sans-700 font-bold leading-9 text-gray-900 sm:text-3xl">
                       {mentorData.username}
                     </h1>
-                    <div className="border-2 border-yellow-300 flex flex-row items-center rounded-full py-1 px-2">
+                    <div className="flex flex-row items-center rounded-full border-2 border-yellow-300 px-2 py-1">
                       <img src={Image.star} alt="star" className="w-4" />
-                      <p className="text-xs open-sans-600 text-yellow-400">{mentorData.rating}</p>
+                      <p className="open-sans-600 text-xs text-yellow-400">
+                        {mentorData.rating}
+                      </p>
                     </div>
                   </div>
 
-                  <div className="flex flex-row gap-3 items-center mt-2 mr-10">
+                  <div className="mr-10 mt-2 flex flex-row items-center gap-3">
                     <a href={AppUtil.toWhatsappMe(mentorData.phone_number)}>
-                    <img src={Image.whatsapp} alt="whatsapp" className="w-7" />
-
+                      <img
+                        src={Image.whatsapp}
+                        alt="whatsapp"
+                        className="w-7"
+                      />
                     </a>
                     <a href={AppUtil.toMailTo(mentorData.email)}>
-
-                    <FontAwesomeIcon icon={faMailBulk} className="text-gray-600"/>
+                      <FontAwesomeIcon
+                        icon={faMailBulk}
+                        className="text-gray-600"
+                      />
                     </a>
                   </div>
                 </div>

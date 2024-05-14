@@ -129,7 +129,7 @@ const Navigation: React.FC = () => {
             </div>
           </form>
 
-          <NavbarMenu className="pt-20" >
+          <NavbarMenu className="pt-20">
             {navigationList.map((item, index) => (
               <NavbarMenuItem key={index}>
                 <Link

@@ -9,7 +9,7 @@ export interface GetPopularMentorsResponse extends BaseResponse {
     description?: string;
     profile_picture?: string;
     bod: string;
-  
+
     mentor_id: string;
     revenue: number;
     rating: number;
@@ -42,7 +42,7 @@ export interface GetMentorQueryResponse extends BaseResponse {
     description?: string;
     profile_picture?: string;
     bod: string;
-  
+
     mentor_id: string;
     revenue: number;
     rating: number;
@@ -74,7 +74,7 @@ export interface GetMentorByIdResponse extends BaseResponse {
     description?: string;
     profile_picture?: string;
     bod: string;
-  
+
     mentor_id: string;
     revenue: number;
     rating: number;
@@ -106,7 +106,7 @@ export interface RegisterMentorResponse extends BaseResponse {
     description?: string;
     profile_picture?: string;
     bod: string;
-  
+
     mentor_id: string;
     revenue: number;
     rating: number;
@@ -126,7 +126,7 @@ export interface RegisterMentorResponse extends BaseResponse {
       review_id: string;
       description: string;
     }[];
-  }
+  };
 }
 
 export interface GetAllMentorApplicationResponse extends BaseResponse {
@@ -139,7 +139,7 @@ export interface GetAllMentorApplicationResponse extends BaseResponse {
       description?: string;
       profile_picture?: string;
       bod: string;
-    
+
       mentor_id: string;
       revenue: number;
       rating: number;
@@ -159,7 +159,7 @@ export interface GetAllMentorApplicationResponse extends BaseResponse {
         review_id: string;
         description: string;
       }[];
-    }
+    },
   ];
 }
 
@@ -214,7 +214,7 @@ export class Example {
         ],
       },
     ],
-  }
+  };
 
   static GetMentorQueryResponse: GetMentorQueryResponse = {
     code: 200,
@@ -266,7 +266,7 @@ export class Example {
         ],
       },
     ],
-  }
+  };
 
   static GetMentorByIdResponse: GetMentorByIdResponse = {
     code: 200,
@@ -279,7 +279,7 @@ export class Example {
       description: "I am a Student",
       profile_picture: "",
       bod: "2000-01-01T00:00:00.000Z",
-    
+
       mentor_id: "1",
       revenue: 0,
       rating: 5,
@@ -295,13 +295,13 @@ export class Example {
           hourly_rate: 50000,
           course_start_time: "2021-01-01T00:00:00.000Z",
           course_end_time: "2021-01-01T01:00:00.000Z",
-        }
+        },
       ],
       reviews: [
         {
           review_id: "1",
           description: "Good Mentor",
-        }
+        },
       ],
     },
   };
@@ -317,7 +317,7 @@ export class Example {
       description: "I am a Student",
       profile_picture: "",
       bod: "2000-01-01T00:00:00.000Z",
-    
+
       mentor_id: "1",
       revenue: 0,
       rating: 5,
@@ -341,13 +341,13 @@ export class Example {
         description: "I am a Student",
         profile_picture: "",
         bod: "2000-01-01T00:00:00.000Z",
-      
+
         mentor_id: "1",
         revenue: 0,
         rating: 5,
         total_teaching_hours: 0,
         teaching_frequency: 0,
-  
+
         courses: [
           {
             course_id: "1",
@@ -357,13 +357,13 @@ export class Example {
             hourly_rate: 50000,
             course_start_time: "2021-01-01T00:00:00.000Z",
             course_end_time: "2021-01-01T01:00:00.000Z",
-          }
+          },
         ],
         reviews: [
           {
             review_id: "1",
             description: "Good Mentor",
-          }
+          },
         ],
       },
     ],

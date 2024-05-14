@@ -1,10 +1,13 @@
-import { Example, ValidateAdminResponse } from "@src/models/responses/adminResponse";
+import {
+  Example,
+  ValidateAdminResponse,
+} from "@src/models/responses/adminResponse";
 import { adminServiceApi } from "../envConfig";
 import { AdminDTO, toAdminDTO } from "@src/models/dtos/adminDTO";
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
 
 export class AdminService {
-  static async verify({ id } : { id: string }): Promise<AdminDTO> {
+  static async verify({ id }: { id: string }): Promise<AdminDTO> {
     try {
       // const response = await fetch(`${adminServiceApi.verifyAdmin}${id}`);
 
@@ -21,10 +24,15 @@ export class AdminService {
     }
   }
 
-  static async approveMentor({ mentor_id } : { mentor_id: string }): Promise<MentorDTO> {
-  }
+  static async approveMentor({
+    mentor_id,
+  }: {
+    mentor_id: string;
+  }): Promise<MentorDTO> {}
 
-  static async rejectMentor({ mentor_id } : { mentor_id: string }): Promise<MentorDTO> {
-  }
-
+  static async rejectMentor({
+    mentor_id,
+  }: {
+    mentor_id: string;
+  }): Promise<MentorDTO> {}
 }

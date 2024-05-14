@@ -1,11 +1,18 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Card, CardBody, CardHeader, Image, Skeleton } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Image,
+  Skeleton,
+} from "@nextui-org/react";
 import { MentorService } from "@src/apis/services/mentorService";
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
 import { memo, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Image as ImageClass } from '@src/assets/images/Image';
+import { Image as ImageClass } from "@src/assets/images/Image";
 import { useFetch } from "@src/hooks/useFetch";
 
 type MentorCardProps = {
@@ -81,7 +88,6 @@ const WeeklyPopularMentorWrapper = () => {
     items: [],
     error: "",
   });
-
 
   const fetchPopularMentors = async () => {
     try {
@@ -162,31 +168,37 @@ const MentorCard = (props: MentorCardProps) => {
   return (
     <Card
       key={mentor?.mentor_id}
-      className="w-[90vw] sm:w-[60vw] md:w-[50vw] lg:w-[30vw] xl:w-[25vw] border-2 py-4 px-4 shadow-sm hover:scale-110 flex flex-row justify-between"
+      className="flex w-[90vw] flex-row justify-between border-2 px-4 py-4 shadow-sm hover:scale-110 sm:w-[60vw] md:w-[50vw] lg:w-[30vw] xl:w-[25vw]"
     >
-      <div className="border flex items-center overflow-visible py-2">
+      <div className="flex items-center overflow-visible border py-2">
         <Image
           alt="Card background"
-          className="w-32 aspect-square rounded-xl  object-cover"
+          className="aspect-square w-32 rounded-xl  object-cover"
           src={mentor?.profile_picture}
           width={270}
         />
       </div>
       <div className="flex-col flex-wrap items-start px-4 pb-0 pt-2">
-        
-      <h4 className="open-sans-600 text-large line-clamp-1">{mentor?.username}</h4>
-        <p className="open-sans-600 text-tiny uppercase line-clamp-2 text-blue-accent-400">
+        <h4 className="open-sans-600 line-clamp-1 text-large">
+          {mentor?.username}
+        </h4>
+        <p className="open-sans-600 line-clamp-2 text-tiny uppercase text-blue-accent-400">
           {mentor?.university}
         </p>
-        <div className="mt-3 line-clamp-1 items-center flex justify-between flex-row max-w-[240px] overflow-hidden text-ellipsis text-default-500">
-          <div className="border-2 w-fit border-yellow-300 flex flex-row items-center rounded-full py-1 px-2">
-            <img src={ImageClass.star} alt="star" className="w-4 mr-1" />
-            <p className="text-xs open-sans-600 text-yellow-400">{mentor?.rating}</p>
+        <div className="mt-3 line-clamp-1 flex max-w-[240px] flex-row items-center justify-between overflow-hidden text-ellipsis text-default-500">
+          <div className="flex w-fit flex-row items-center rounded-full border-2 border-yellow-300 px-2 py-1">
+            <img src={ImageClass.star} alt="star" className="mr-1 w-4" />
+            <p className="open-sans-600 text-xs text-yellow-400">
+              {mentor?.rating}
+            </p>
           </div>
-          <Button className="h-8 bg-purple-accent-500"onClick={() => {
-            navigate(`/mentoring/${mentor?.mentor_id}`);
-          }}>
-            <p className="text-xs open-sans-600 text-white">Check</p>
+          <Button
+            className="h-8 bg-purple-accent-500"
+            onClick={() => {
+              navigate(`/mentoring/${mentor?.mentor_id}`);
+            }}
+          >
+            <p className="open-sans-600 text-xs text-white">Check</p>
           </Button>
         </div>
       </div>

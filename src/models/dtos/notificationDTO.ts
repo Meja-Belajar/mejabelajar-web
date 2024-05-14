@@ -7,7 +7,9 @@ export interface NotificationDTO {
   created_at: string;
 }
 
-export const toNotificationDTO = (data: GetNotificationByIdResponse): NotificationDTO => {
+export const toNotificationDTO = (
+  data: GetNotificationByIdResponse,
+): NotificationDTO => {
   return {
     notification_id: data.notification_id,
     title: data.title,

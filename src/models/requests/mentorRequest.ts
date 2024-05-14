@@ -10,4 +10,3 @@ export interface MentorApplicationRequest {
   profile_picture: string;
   bod: string;
 }
-

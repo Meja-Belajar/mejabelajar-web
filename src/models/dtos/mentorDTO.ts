@@ -21,12 +21,14 @@ export interface MentorDTO {
   rating: number;
   total_teaching_hours: number;
   teaching_frequency: number;
-  
+
   courses: CourseDTO[];
   reviews: ReviewDTO[];
 }
 
-export const toMentorsDTO = (data: GetPopularMentorsResponse | GetAllMentorApplicationResponse): MentorDTO[] => {
+export const toMentorsDTO = (
+  data: GetPopularMentorsResponse | GetAllMentorApplicationResponse,
+): MentorDTO[] => {
   return data.data.map((mentor) => ({
     mentor_id: mentor.mentor_id,
     username: mentor.user_name,

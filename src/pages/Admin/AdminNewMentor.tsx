@@ -4,7 +4,13 @@ import BookingLists from "@src/assets/data/BookingLists.json";
 
 import "@src/assets/global.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faEnvelope, faRegistered, faSpinner, faWarning } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBell,
+  faEnvelope,
+  faRegistered,
+  faSpinner,
+  faWarning,
+} from "@fortawesome/free-solid-svg-icons";
 import { useFetch } from "@src/hooks/useFetch";
 import { MentorService } from "@src/apis/services/mentorService";
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
@@ -35,30 +41,28 @@ const AdminNewMentor = () => {
 
       setNewMentor(response);
     } catch (e) {
-      console.error("Error fetching mentor applications:", e)
+      console.error("Error fetching mentor applications:", e);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-  const handleApprove = async () => {
-  }
+  const handleApprove = async () => {};
 
-  const handleReject = async () => {
-    
-  }
+  const handleReject = async () => {};
 
   useEffect(() => {
     fetchMentorApplications();
-  }, [])
+  }, []);
 
-  if (isLoading) return (
-    <>
-      <div className="mt-20 flex items-center justify-center px-7">
-        <FontAwesomeIcon icon={faSpinner} spin className="text-3xl" />
-      </div>
-    </>
-  )
+  if (isLoading)
+    return (
+      <>
+        <div className="mt-20 flex items-center justify-center px-7">
+          <FontAwesomeIcon icon={faSpinner} spin className="text-3xl" />
+        </div>
+      </>
+    );
 
   return (
     <>
@@ -68,51 +72,49 @@ const AdminNewMentor = () => {
             key={mentor.mentor_id}
             title={mentor.mentor_id}
             startContent={<FontAwesomeIcon icon={faEnvelope} />}
-          > 
-<table className="w-full border-collapse bg-transparent">
-            <tbody>
+          >
+            <table className="w-full border-collapse bg-transparent">
+              <tbody>
                 <tr>
-                    <td className="p-2 border-none">Username:</td>
-                    <td className="p-2 border-none">{mentor.username}</td>
+                  <td className="border-none p-2">Username:</td>
+                  <td className="border-none p-2">{mentor.username}</td>
                 </tr>
                 <tr>
-                    <td className="p-2 border-none">University:</td>
-                    <td className="p-2 border-none">{mentor.university}</td>
+                  <td className="border-none p-2">University:</td>
+                  <td className="border-none p-2">{mentor.university}</td>
                 </tr>
                 <tr>
-                    <td className="p-2 border-none">Email:</td>
-                    <td className="p-2 border-none">{mentor.email}</td>
+                  <td className="border-none p-2">Email:</td>
+                  <td className="border-none p-2">{mentor.email}</td>
                 </tr>
                 <tr>
-                    <td className="p-2 border-none">Phone Number:</td>
-                    <td className="p-2 border-none">{mentor.phone_number}</td>
+                  <td className="border-none p-2">Phone Number:</td>
+                  <td className="border-none p-2">{mentor.phone_number}</td>
                 </tr>
                 <tr>
-                    <td className="p-2 border-none">Date of Birth:</td>
-                    <td className="p-2 border-none">{DateUtil.toLocalString(DateUtil.fromISO(mentor.bod))}</td>
+                  <td className="border-none p-2">Date of Birth:</td>
+                  <td className="border-none p-2">
+                    {DateUtil.toLocalString(DateUtil.fromISO(mentor.bod))}
+                  </td>
                 </tr>
                 <tr>
-                    <td className="p-2 border-none">Description:</td>
-                    <td className="p-2 border-none">{mentor.description}</td>
+                  <td className="border-none p-2">Description:</td>
+                  <td className="border-none p-2">{mentor.description}</td>
                 </tr>
-            </tbody>
-        </table>
-          <div className="p-2 mt-5 flex flex-row gap-5">
-            <Button
-              color="success"
-              className="text-white"
-              onClick={handleApprove}
-            >
-              Approve
-            </Button>
-            <Button
-              color="danger"
-              onClick={handleReject}
-            >
-              Reject
-            </Button>
-
-          </div>
+              </tbody>
+            </table>
+            <div className="mt-5 flex flex-row gap-5 p-2">
+              <Button
+                color="success"
+                className="text-white"
+                onClick={handleApprove}
+              >
+                Approve
+              </Button>
+              <Button color="danger" onClick={handleReject}>
+                Reject
+              </Button>
+            </div>
           </AccordionItem>
         ))}
       </Accordion>

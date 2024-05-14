@@ -42,7 +42,8 @@ export class UserService {
       //   } as RegisterUserRequest),
       // });
 
-      const registerResponse: RegisterUserResponse = Example.RegisterUserResponse;
+      const registerResponse: RegisterUserResponse =
+        Example.RegisterUserResponse;
 
       if (registerResponse.code !== 201) {
         throw new Error(registerResponse.message);
@@ -134,7 +135,7 @@ export class UserService {
       //   } as UpdateUserRequest),
       // });
 
-      const updateResponse:UpdateUserResponse = Example.UpdateUserResponse;
+      const updateResponse: UpdateUserResponse = Example.UpdateUserResponse;
 
       if (updateResponse.code !== 200) {
         throw new Error(updateResponse.message);

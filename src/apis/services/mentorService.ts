@@ -17,15 +17,14 @@ export class MentorService {
     try {
       // const response = await fetch(`${mentorServiceApi.getPopularMentors}`);
 
-      const mentors: GetPopularMentorsResponse = Example.GetPopularMentorsResponse;
+      const mentors: GetPopularMentorsResponse =
+        Example.GetPopularMentorsResponse;
 
       if (mentors.data.length === 0) {
         throw new Error("No mentors found");
       }
 
       return toMentorsDTO(mentors);
-
-
     } catch (e) {
       console.error(`Error fetching mentors: ${e}`);
       throw new Error("Failed to fetch mentors");
@@ -34,7 +33,7 @@ export class MentorService {
 
   static async getMentorById({
     mentor_id,
-  } : {
+  }: {
     mentor_id: String;
   }): Promise<MentorDTO> {
     try {
@@ -42,12 +41,11 @@ export class MentorService {
 
       const mentor: GetMentorByIdResponse = Example.GetMentorByIdResponse;
 
-      if(mentor.code != 200) {
+      if (mentor.code != 200) {
         throw new Error("Mentor not found");
       }
 
       return toMentorDTO(mentor);
-
     } catch (e) {
       console.error(`Error fetching mentor: ${e}`);
       throw new Error(`${e}`);
@@ -62,7 +60,7 @@ export class MentorService {
     description,
     profile_picture,
     bod,
-  } : {
+  }: {
     username: string;
     university: string;
     email: string;
@@ -90,12 +88,11 @@ export class MentorService {
 
       const mentor: RegisterMentorResponse = Example.RegisterMentorResponse;
 
-      if(mentor.code != 201) {
+      if (mentor.code != 201) {
         throw new Error("Failed to register mentor");
       }
 
       return toMentorDTO(mentor);
-
     } catch (e) {
       console.error(`Error registering mentor: ${e}`);
       throw new Error("Failed to register mentor");
@@ -106,9 +103,10 @@ export class MentorService {
     try {
       // const response = await fetch(`${mentorServiceApi.registerMentor}`);
 
-      const mentor: GetAllMentorApplicationResponse = Example.GetAllMentorApplicationResponse;
+      const mentor: GetAllMentorApplicationResponse =
+        Example.GetAllMentorApplicationResponse;
 
-      if(mentor.code != 200) {
+      if (mentor.code != 200) {
         throw new Error("Failed to register mentor");
       }
 

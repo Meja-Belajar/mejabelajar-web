@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  NavLink,
-  Outlet,
-  useNavigate,
-} from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { initial, animate, exit } from "@src/assets/pageTransitions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 import {
-  faBell,
-} from "@fortawesome/free-solid-svg-icons";
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/react";
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+} from "@nextui-org/react";
 import "@src/assets/global.css";
 import Logo from "@src/components/Logo";
 import Lottie from "lottie-react";
@@ -19,7 +21,6 @@ import { AdminService } from "@src/apis/services/adminService";
 import { AdminDTO } from "@src/models/dtos/adminDTO";
 
 const AdminLandingPage = () => {
-  
   const currentPath = window.location.pathname.split("/")[2]
     ? window.location.pathname.split("/")[2]
     : "Dashboard";
@@ -28,28 +29,28 @@ const AdminLandingPage = () => {
   const [id, setId] = useState<string>("");
 
   const renderAdminForm = () => {
-    const handleValidateId = async (onClose: () => void ) => {
-      if(!id) return alert("Please enter your Admin ID");
-      
+    const handleValidateId = async (onClose: () => void) => {
+      if (!id) return alert("Please enter your Admin ID");
+
       try {
         const admin: AdminDTO = await AdminService.verify({ id });
-        
+
         setAdmin(admin);
         onClose();
       } catch (e) {
         console.error(e);
+        return alert("Admin ID Rejected!");
       }
-    }
+    };
 
     return (
-      <Modal 
-        isOpen={true} 
-        placement="top-center"
-      >
+      <Modal isOpen={true} placement="top-center">
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Verify Admin</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">
+                Verify Admin
+              </ModalHeader>
               <ModalBody>
                 <Input
                   autoFocus
@@ -61,7 +62,10 @@ const AdminLandingPage = () => {
                 />
               </ModalBody>
               <ModalFooter>
-                <Button className="bg-purple-accent-500 text-white" onPress={() => handleValidateId(onClose)}>
+                <Button
+                  className="bg-purple-accent-500 text-white"
+                  onPress={() => handleValidateId(onClose)}
+                >
                   Verify
                 </Button>
               </ModalFooter>
@@ -69,8 +73,8 @@ const AdminLandingPage = () => {
           )}
         </ModalContent>
       </Modal>
-    )
-  }
+    );
+  };
 
   const renderErrorScreen = () => {
     return (
@@ -106,7 +110,7 @@ const AdminLandingPage = () => {
 
   if (!admin.admin_id) {
     return renderAdminForm();
-  };
+  }
 
   return (
     <>

@@ -22,7 +22,11 @@ const Router: React.FC = () => {
   return (
     <>
       <AnimatePresence>
-        <Suspense fallback={<LoadingPage message="Getting everything ready for you... " />}>
+        <Suspense
+          fallback={
+            <LoadingPage message="Getting everything ready for you... " />
+          }
+        >
           {currentUser ? <AuthRouter /> : <PublicRouter />}
         </Suspense>
       </AnimatePresence>

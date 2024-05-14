@@ -19,7 +19,8 @@ export class BookingService {
     try {
       // const response = await fetch(`${bookingServiceApi.getAllBookings}/${userId}`);
 
-      const bookings: GetBookingsByUserIdResponse = Example.GetBookingsByUserIdResponse;
+      const bookings: GetBookingsByUserIdResponse =
+        Example.GetBookingsByUserIdResponse;
 
       if (bookings.data.length === 0) {
         throw new Error("No bookings found");
@@ -66,9 +67,7 @@ export class BookingService {
     }
   }
 
-  static async create(
-    booking: CreateBookingRequest,
-  ): Promise<BookingDTO> {
+  static async create(booking: CreateBookingRequest): Promise<BookingDTO> {
     try {
       // const response = await fetch(bookingServiceApi.createBooking, {
       //   method: "POST",
@@ -78,7 +77,8 @@ export class BookingService {
       //   body: JSON.stringify(booking),
       // });
 
-      const createdBooking: CreateBookingResponse = Example.CreateBookingResponse;
+      const createdBooking: CreateBookingResponse =
+        Example.CreateBookingResponse;
 
       if (createdBooking.code !== 201) {
         throw new Error(createdBooking.message);

@@ -18,7 +18,11 @@ export interface UserDTO {
 }
 
 export const toUserDTO = (
-  data: LoginUserResponse | RegisterUserResponse | UpdateUserResponse | GetUserByIdResponse,
+  data:
+    | LoginUserResponse
+    | RegisterUserResponse
+    | UpdateUserResponse
+    | GetUserByIdResponse,
 ): UserDTO => {
   return {
     user_id: data.data.id,

@@ -43,7 +43,7 @@ export class DateUtil extends Date {
   static compare(date1: string, date2: string) {
     const date1Obj = new Date(date1);
     const date2Obj = new Date(date2);
-    
+
     return date1Obj.getTime() > date2Obj.getTime();
   }
 
