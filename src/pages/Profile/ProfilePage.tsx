@@ -1,13 +1,17 @@
-import { motion } from "framer-motion";
-import { animate, exit, initial } from "@src/assets/pageTransitions";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+
+import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { motion } from "framer-motion";
+
 import { UserService } from "@src/apis/services/userService";
+
 import { setCurrentUser } from "@src/redux/user/userSelectors";
+
 import "@src/assets/global.css";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 
 const ProfilePage = () => {
   const navigate = useNavigate();

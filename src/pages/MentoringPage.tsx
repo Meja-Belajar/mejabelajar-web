@@ -1,12 +1,15 @@
-import { motion } from "framer-motion";
-import "@src/assets/global.css";
-import { animate, exit, initial } from "@src/assets/pageTransitions";
-import Navigation from "@src/components/Navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFetch } from "@src/hooks/useFetch";
-import { MentorDTO } from "@src/models/dtos/mentorDTO";
-import { MentorService } from "@src/apis/services/mentorService";
-import { getMentorByIdRequest } from "@src/models/requests/mentorRequest";
+
+import {
+  faMailBulk,
+  faMailReply,
+  faPhone,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CalendarDate, Time } from "@internationalized/date";
 import {
   Button,
   DateInput,
@@ -19,21 +22,29 @@ import {
   TimeInput,
   useDisclosure,
 } from "@nextui-org/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMailBulk, faMailReply, faPhone, faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { CalendarDate, Time } from "@internationalized/date";
+import confetti from "canvas-confetti";
+import { motion } from "framer-motion";
+
+import { BookingService } from "@src/apis/services/bookingService";
+import { MentorService } from "@src/apis/services/mentorService";
+
+import Navigation from "@src/components/Navigation";
+
+import { useFetch } from "@src/hooks/useFetch";
+
 import { CourseDTO } from "@src/models/dtos/courseDTO";
+import { MentorDTO } from "@src/models/dtos/mentorDTO";
+import { CreateBookingRequest } from "@src/models/requests/bookingRequest";
+import { GetMentorByIdRequest } from "@src/models/requests/mentorRequest";
+
+import { AppUtil } from "@src/utils/appUtil";
 import { DateUtil } from "@src/utils/dateUtil";
 import { NumberUtil } from "@src/utils/numberUtil";
-import { ImageUrl } from "@src/assets/data/imageUrl";
 
-import confetti from "canvas-confetti";
-import { BookingService } from "@src/apis/services/bookingService";
-import { CreateBookingRequest } from "@src/models/requests/bookingRequest";
-import { useSelector } from "react-redux";
+import "@src/assets/global.css";
+import { ImageUrl } from "@src/assets/imageUrl";
 import { Image } from "@src/assets/images/Image";
-import { AppUtil } from "@src/utils/appUtil";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 
 type scheduleProps = {
   date: {
@@ -51,6 +62,11 @@ type scheduleProps = {
   };
 };
 
+type priceProps = {
+  totalMinutes: number;
+  totalPrice: number;
+};
+
 const MentoringPage = () => {
   const { mentorId } = useParams();
 
@@ -59,7 +75,10 @@ const MentoringPage = () => {
   const [createBookingWarning, setCreateBookingWarning] = useState<string>("");
 
   const [warning, setWarning] = useState<string>("");
-  const [price, setPrice] = useState<number>(0);
+  const [price, setPrice] = useState<priceProps>({
+    totalMinutes: 0,
+    totalPrice: 0,
+  });
   const [selectedCourse, setSelectedCourse] = useState<CourseDTO>(
     {} as CourseDTO,
   );
@@ -83,8 +102,8 @@ const MentoringPage = () => {
   const [scrollBehavior, setScrollBehavior] =
     useState<ModalProps["scrollBehavior"]>("inside");
 
-  const mentor = useFetch<getMentorByIdRequest, MentorDTO>({
-    fetchProps: { mentor_id: mentorId } as getMentorByIdRequest,
+  const mentor = useFetch<GetMentorByIdRequest, MentorDTO>({
+    fetchProps: { mentor_id: mentorId } as GetMentorByIdRequest,
     fetchCallback: MentorService.getMentorById,
   });
 
@@ -101,12 +120,18 @@ const MentoringPage = () => {
 
   useMemo(() => {
     if (!selectedCourse) {
-      setPrice(0);
+      setPrice({
+        totalMinutes: 0,
+        totalPrice: 0,
+      });
       return;
     }
 
     if (schedule.to.hour < schedule.from.hour) {
-      setPrice(0);
+      setPrice({
+        totalMinutes: 0,
+        totalPrice: 0,
+      });
       return;
     }
 
@@ -133,7 +158,10 @@ const MentoringPage = () => {
       setWarning("Maximum booking duration is 6 hours");
     }
 
-    setPrice(totalPrice);
+    setPrice({
+      totalMinutes: totalMinutes,
+      totalPrice: totalPrice,
+    });
   }, [schedule.from, schedule.to, selectedCourse]);
 
   const handleTimeChange = (type: string, hour: number, minute: number) => {
@@ -251,20 +279,27 @@ const MentoringPage = () => {
                     <h1 className="open-sans-700 font-bold leading-9 text-gray-900 sm:text-3xl">
                       {mentorData.username}
                     </h1>
-                    <div className="border-2 border-yellow-300 flex flex-row items-center rounded-full py-1 px-2">
+                    <div className="flex flex-row items-center rounded-full border-2 border-yellow-300 px-2 py-1">
                       <img src={Image.star} alt="star" className="w-4" />
-                      <p className="text-xs open-sans-600 text-yellow-400">{mentorData.rating}</p>
+                      <p className="open-sans-600 text-xs text-yellow-400">
+                        {mentorData.rating}
+                      </p>
                     </div>
                   </div>
 
-                  <div className="flex flex-row gap-3 items-center mt-2 mr-10">
-                    <a href={AppUtil.toWhatsappMe(mentorData.phone)}>
-                    <img src={Image.whatsapp} alt="whatsapp" className="w-7" />
-
+                  <div className="mr-10 mt-2 flex flex-row items-center gap-3">
+                    <a href={AppUtil.toWhatsappMe(mentorData.phone_number)}>
+                      <img
+                        src={Image.whatsapp}
+                        alt="whatsapp"
+                        className="w-7"
+                      />
                     </a>
                     <a href={AppUtil.toMailTo(mentorData.email)}>
-
-                    <FontAwesomeIcon icon={faMailBulk} className="text-gray-600"/>
+                      <FontAwesomeIcon
+                        icon={faMailBulk}
+                        className="text-gray-600"
+                      />
                     </a>
                   </div>
                 </div>
@@ -347,7 +382,7 @@ const MentoringPage = () => {
                 <div className="mt-8 flex flex-row items-center justify-between border-t py-4 sm:mr-10 sm:space-y-0">
                   <div className="flex items-end">
                     <h1 className="text-3xl font-bold">
-                      {NumberUtil.formatToRupiah(price)}
+                      {NumberUtil.formatToRupiah(price.totalPrice)}
                     </h1>
                   </div>
                   <Button
@@ -379,7 +414,8 @@ const MentoringPage = () => {
   const renderModalContent = (onClose: () => void) => {
     if (
       !selectedCourse?.course_id ||
-      price === 0 ||
+      price.totalPrice === 0 ||
+      price.totalMinutes / 60 > 6 ||
       DateUtil.isPast(
         DateUtil.fromUniversalDate({
           ...schedule.date,
@@ -391,9 +427,10 @@ const MentoringPage = () => {
         <>
           <ModalHeader className="flex flex-col gap-1">Booking</ModalHeader>
           <ModalBody className="top-0 mb-5">
-            <p className="text-sm text-red-500">
-              Please select a course first, minimum session time is 1 hours, and
-              you can't book a schedule in the past.
+            <p className="text-justify text-sm text-red-500">
+              Please select a course first, minimum session time is 1 hours with
+              maximum time is 6 hours, and you can't book a schedule in the
+              past.
             </p>
           </ModalBody>
         </>
@@ -431,7 +468,7 @@ const MentoringPage = () => {
           <p className="text-md mt-5">
             Total price:{" "}
             <span className="font-semibold">
-              {NumberUtil.formatToRupiah(price)}
+              {NumberUtil.formatToRupiah(price.totalPrice)}
             </span>
           </p>
 

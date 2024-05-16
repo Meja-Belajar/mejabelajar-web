@@ -1,3 +1,13 @@
+import { useContext, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import {
+  faArrowRight,
+  faClose,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
   Input,
@@ -10,17 +20,10 @@ import {
   NavbarMenuToggle,
 } from "@nextui-org/react";
 import logo from "@public/logo.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowRight,
-  faClose,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+
 import Logo from "@src/components/Logo";
-import { useSelector } from "react-redux";
+
 import "@src/assets/global.css";
 
 const navigationList = ["Announcement", "History"];
@@ -129,7 +132,7 @@ const Navigation: React.FC = () => {
             </div>
           </form>
 
-          <NavbarMenu className="pt-20" >
+          <NavbarMenu className="pt-20">
             {navigationList.map((item, index) => (
               <NavbarMenuItem key={index}>
                 <Link

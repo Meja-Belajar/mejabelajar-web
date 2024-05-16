@@ -1,12 +1,24 @@
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Card, CardBody, CardHeader, Image, Skeleton } from "@nextui-org/react";
-import { MentorService } from "@src/apis/services/mentorService";
-import { MentorDTO } from "@src/models/dtos/mentorDTO";
 import { memo, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Image as ImageClass } from '@src/assets/images/Image';
+
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Image,
+  Skeleton,
+} from "@nextui-org/react";
+
+import { MentorService } from "@src/apis/services/mentorService";
+
 import { useFetch } from "@src/hooks/useFetch";
+
+import { MentorDTO } from "@src/models/dtos/mentorDTO";
+
+import { Image as ImageClass } from "@src/assets/images/Image";
 
 type MentorCardProps = {
   mentor: MentorDTO;
@@ -75,41 +87,17 @@ const SkeletonMentorCard = () => {
 
 const WeeklyPopularMentorWrapper = () => {
   const navigate = useNavigate();
-
-  const [popularMentors, setPopularMentors] = useState<MentorState>({
-    isLoading: false,
-    items: [],
-    error: "",
+  const popularMentors = useFetch<{}, MentorDTO[]>({
+    fetchProps: {},
+    fetchCallback: MentorService.getPopularMentors,
   });
-
-
-  const fetchPopularMentors = async () => {
-    try {
-      setPopularMentors({ ...popularMentors, isLoading: true });
-      const response: MentorDTO[] = await MentorService.getPopularMentors();
-
-      setPopularMentors({
-        ...popularMentors,
-        isLoading: false,
-        items: response,
-      });
-    } catch (e) {
-      if (e instanceof Error) {
-        setPopularMentors({
-          ...popularMentors,
-          isLoading: false,
-          error: e.message,
-        });
-      }
-    }
-  };
 
   const renderPopularMentors = useCallback(() => {
     if (popularMentors.isLoading) {
       return <SkeletonMentorCard />;
     }
 
-    if (popularMentors.items.length === 0) {
+    if (popularMentors.data!.length === 0) {
       return (
         <section className="mx-8 w-full">
           <h1 className="text-center text-2xl">
@@ -119,14 +107,10 @@ const WeeklyPopularMentorWrapper = () => {
       );
     }
 
-    return popularMentors.items.map((mentor: MentorDTO, index) => (
+    return popularMentors.data!.map((mentor: MentorDTO, index) => (
       <MentorCard key={index} mentor={mentor} />
     ));
   }, [popularMentors]);
-
-  useEffect(() => {
-    fetchPopularMentors();
-  }, []);
 
   return (
     <section className="mt-16">
@@ -162,31 +146,37 @@ const MentorCard = (props: MentorCardProps) => {
   return (
     <Card
       key={mentor?.mentor_id}
-      className="w-[90vw] sm:w-[60vw] md:w-[50vw] lg:w-[30vw] xl:w-[25vw] border-2 py-4 px-4 shadow-sm hover:scale-110 flex flex-row justify-between"
+      className="flex w-[90vw] flex-row justify-between border-2 px-4 py-4 shadow-sm hover:scale-110 sm:w-[60vw] md:w-[50vw] lg:w-[30vw] xl:w-[25vw]"
     >
-      <div className="border flex items-center overflow-visible py-2">
+      <div className="flex items-center overflow-visible border py-2">
         <Image
           alt="Card background"
-          className="w-32 aspect-square rounded-xl  object-cover"
+          className="aspect-square w-32 rounded-xl  object-cover"
           src={mentor?.profile_picture}
           width={270}
         />
       </div>
       <div className="flex-col flex-wrap items-start px-4 pb-0 pt-2">
-        
-      <h4 className="open-sans-600 text-large line-clamp-1">{mentor?.username}</h4>
-        <p className="open-sans-600 text-tiny uppercase line-clamp-2 text-blue-accent-400">
+        <h4 className="open-sans-600 line-clamp-1 text-large">
+          {mentor?.username}
+        </h4>
+        <p className="open-sans-600 line-clamp-2 text-tiny uppercase text-blue-accent-400">
           {mentor?.university}
         </p>
-        <div className="mt-3 line-clamp-1 items-center flex justify-between flex-row max-w-[240px] overflow-hidden text-ellipsis text-default-500">
-          <div className="border-2 w-fit border-yellow-300 flex flex-row items-center rounded-full py-1 px-2">
-            <img src={ImageClass.star} alt="star" className="w-4 mr-1" />
-            <p className="text-xs open-sans-600 text-yellow-400">{mentor?.rating}</p>
+        <div className="mt-3 line-clamp-1 flex max-w-[240px] flex-row items-center justify-between overflow-hidden text-ellipsis text-default-500">
+          <div className="flex w-fit flex-row items-center rounded-full border-2 border-yellow-300 px-2 py-1">
+            <img src={ImageClass.star} alt="star" className="mr-1 w-4" />
+            <p className="open-sans-600 text-xs text-yellow-400">
+              {mentor?.rating}
+            </p>
           </div>
-          <Button className="h-8 bg-purple-accent-500"onClick={() => {
-            navigate(`/mentoring/${mentor?.mentor_id}`);
-          }}>
-            <p className="text-xs open-sans-600 text-white">Check</p>
+          <Button
+            className="h-8 bg-purple-accent-500"
+            onClick={() => {
+              navigate(`/mentoring/${mentor?.mentor_id}`);
+            }}
+          >
+            <p className="open-sans-600 text-xs text-white">Check</p>
           </Button>
         </div>
       </div>

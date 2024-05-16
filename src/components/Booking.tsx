@@ -1,29 +1,35 @@
+import { useCallback, useEffect, useState } from "react";
+
 import {
   faClock,
   faMapLocation,
   faPerson,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DateUtil } from "@src/utils/dateUtil";
-import "@src/assets/global.css";
-import { bookingDTO } from "@src/models/dtos/bookingDTO";
-import { useCallback, useEffect, useState } from "react";
-import { BookingService } from "@src/apis/services/bookingService";
 import { Button, Skeleton } from "@nextui-org/react";
+
+import { BookingService } from "@src/apis/services/bookingService";
+
+import { BookingDTO } from "@src/models/dtos/bookingDTO";
+
+import { DateUtil } from "@src/utils/dateUtil";
+
+import "@src/assets/global.css";
 
 type BookingCardProps = {
   key: string;
-  book: bookingDTO;
+  book: BookingDTO;
 };
 
 type BookingsWrapperProps = {
-  userId: string;
+  userId?: string;
+  mentorId?: string;
 };
 
 type BookingState = {
   onShow: number;
   isLoading: boolean;
-  items: bookingDTO[];
+  items: BookingDTO[];
   error: string;
 };
 
@@ -128,7 +134,7 @@ const SkeletonBookingCard = () => {
 };
 
 const BookingsWrapper = (props: BookingsWrapperProps) => {
-  const { userId } = props;
+  const { userId, mentorId } = props;
 
   const [bookings, setBookings] = useState<BookingState>({
     onShow: 1,
@@ -140,8 +146,11 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
   const fetchBookings = async () => {
     try {
       setBookings({ ...bookings, isLoading: true });
-      const response: bookingDTO[] =
-        await BookingService.getAllBookingsByUserId(userId);
+      const response: BookingDTO[] = userId
+        ? await BookingService.getAllBookingsByUserId({ user_id: userId! })
+        : await BookingService.getAllBookingsByMentorId({
+            mentor_id: mentorId!,
+          });
 
       setBookings({ ...bookings, isLoading: false, items: response });
     } catch (e) {

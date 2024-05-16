@@ -1,20 +1,24 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { faSave, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@nextui-org/react";
-import { UserService } from "@src/apis/services/userService";
 import { useForm } from "@src/hooks";
-import { UpdateUserRequest } from "@src/models/requests/userRequest";
-import { UpdateProfileSchema } from "@src/models/zod/userZod";
+import { motion } from "framer-motion";
+
+import { UserService } from "@src/apis/services/userService";
+
 import {
   setCurrentUser,
   setUserError,
   setUserLoading,
 } from "@src/redux/user/userSelectors";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
+import { UpdateUserRequest } from "@src/models/requests/userRequest";
+import { UpdateProfileSchema } from "@src/models/zod/userZod";
 
 import { animate, exit, initial } from "@src/assets/pageTransitions";
-import { motion } from "framer-motion";
 
 const PublicPage = () => {
   const navigate = useNavigate();

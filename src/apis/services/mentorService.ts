@@ -1,31 +1,35 @@
-import {
-  getMentorByIdResponse,
-  getPopularMentorsResponse,
-} from "@src/models/responses/mentorResponse";
 import { mentorServiceApi } from "../envConfig";
+
 import {
   MentorDTO,
-  toMentorsDTO,
   toMentorDTO,
+  toMentorsDTO,
 } from "@src/models/dtos/mentorDTO";
-import { PopularMentors } from "@src/assets/data/userLandingData";
+import {
+  GetMentorByIdRequest,
+  MentorApplicationRequest,
+} from "@src/models/requests/mentorRequest";
+import {
+  Example,
+  GetAllMentorApplicationResponse,
+  GetMentorByIdResponse,
+  GetPopularMentorsResponse,
+  MentorApplicationResponse,
+} from "@src/models/responses/mentorResponse";
 
 export class MentorService {
   static async getPopularMentors(): Promise<MentorDTO[]> {
     try {
       // const response = await fetch(`${mentorServiceApi.getPopularMentors}`);
 
-      // const mentors: MentorDTO[] = await response.json();
+      const mentors: GetPopularMentorsResponse =
+        Example.GetPopularMentorsResponse;
 
-      // if (mentors.length === 0) {
-      //   throw new Error("No mentors found");
-      // }
+      if (mentors.data.length === 0) {
+        throw new Error("No mentors found");
+      }
 
-      // return mentors;
-
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      return PopularMentors as unknown as MentorDTO[];
+      return toMentorsDTO(mentors);
     } catch (e) {
       console.error(`Error fetching mentors: ${e}`);
       throw new Error("Failed to fetch mentors");
@@ -34,26 +38,64 @@ export class MentorService {
 
   static async getMentorById({
     mentor_id,
-  }: {
-    mentor_id: String;
-  }): Promise<MentorDTO> {
+  }: GetMentorByIdRequest): Promise<MentorDTO> {
     try {
       // const response = await fetch(`${mentorServiceApi.getMentor}${mentor_id}`);
 
-      // const mentor: MentorDTO = await response.json();
+      const mentor: GetMentorByIdResponse = Example.GetMentorByIdResponse;
 
-      // if (!mentor) {
-      //   throw new Error("Mentor not found");
-      // }
+      if (mentor.code != 200) {
+        throw new Error("Mentor not found");
+      }
 
-      // return mentor;
-
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      // throw new Error("Mentor not found");
-      return PopularMentors[0] as unknown as MentorDTO;
+      return toMentorDTO(mentor);
     } catch (e) {
       console.error(`Error fetching mentor: ${e}`);
       throw new Error(`${e}`);
+    }
+  }
+
+  static async registerMentor(
+    requestData: MentorApplicationRequest,
+  ): Promise<MentorDTO> {
+    try {
+      // const response = await fetch(`${mentorServiceApi.registerMentor}`, {
+      //   method: "POST",
+      //   body: JSON.stringify(requestData),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+
+      const mentor: MentorApplicationResponse =
+        Example.MentorApplicationResponse;
+
+      if (mentor.code != 201) {
+        throw new Error("Failed to register mentor");
+      }
+
+      return toMentorDTO(mentor);
+    } catch (e) {
+      console.error(`Error registering mentor: ${e}`);
+      throw new Error("Failed to register mentor");
+    }
+  }
+
+  static async getMentorApplications(): Promise<MentorDTO[]> {
+    try {
+      // const response = await fetch(`${mentorServiceApi.registerMentor}`);
+
+      const mentor: GetAllMentorApplicationResponse =
+        Example.GetAllMentorApplicationResponse;
+
+      if (mentor.code != 200) {
+        throw new Error("Failed to register mentor");
+      }
+
+      return toMentorsDTO(mentor);
+    } catch (e) {
+      console.error(`Error fetching registered mentor: ${e}`);
+      throw new Error("Failed to register mentor");
     }
   }
 }

@@ -1,20 +1,20 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import ErrorPage from "@src/pages/ErrorPage";
-import Profile from "@src/pages/Profile/ProfilePage";
 
-import Search from "@src/pages/Search/SearchPage";
-import SearchDefault from "@src/pages/Search/SearchDefault";
-import SearchResult from "@src/pages/Search/SearchResult";
-import AdminLandingPage from "@src/pages/Admin/AdminLandingPage";
-import AdminOverview from "@src/pages/Admin/AdminOverview";
-import AdminAnnouncement from "@src/pages/Admin/AdminAnnouncement";
-import ConstructionPage from "@src/pages/ConstructionPage";
-import UserLanding from "@src/pages/Landing/UserLandingPage";
-import AdminReport from "@src/pages/Admin/AdminReport";
-import MentorLanding from "@src/pages/Landing/MentorLanding";
-import PublicPage from "@src/pages/Profile/PublicPage";
-import NotificationPage from "@src/pages/Profile/NotificationPage";
-import MentoringPage from "@src/pages/MentoringPage";
+import AdminAnnouncement from "@src/pages/Admin/AdminAnnouncement.tsx";
+import AdminLandingPage from "@src/pages/Admin/AdminLandingPage.tsx";
+import AdminNewMentor from "@src/pages/Admin/AdminNewMentor.tsx";
+import AdminOverview from "@src/pages/Admin/AdminOverview.tsx";
+import ConstructionPage from "@src/pages/ConstructionPage.tsx";
+import ErrorPage from "@src/pages/ErrorPage.tsx";
+import MentorLanding from "@src/pages/Landing/MentorLanding.tsx";
+import UserLanding from "@src/pages/Landing/UserLandingPage.tsx";
+import MentoringPage from "@src/pages/MentoringPage.tsx";
+import NotificationPage from "@src/pages/Profile/NotificationPage.tsx";
+import Profile from "@src/pages/Profile/ProfilePage.tsx";
+import PublicPage from "@src/pages/Profile/PublicPage.tsx";
+import SearchDefault from "@src/pages/Search/SearchDefault.tsx";
+import Search from "@src/pages/Search/SearchPage.tsx";
+import SearchResult from "@src/pages/Search/SearchResult.tsx";
 
 const AuthRouter = () => {
   return (
@@ -49,11 +49,11 @@ const AuthRouter = () => {
       <Route path="/admin" element={<AdminLandingPage />}>
         <Route index element={<AdminOverview />} />
         <Route path="announcement" element={<AdminAnnouncement />} />
-        <Route path="report" element={<AdminReport />} />
+        <Route path="report" element={<AdminNewMentor />} />
       </Route>
 
       {/* future enchancement routes */}
-      <Route path="/about/*" element={<ConstructionPage />} />
+      {/* <Route path="/about/*" element={<ConstructionPage />} />
       <Route path="/overview/*" element={<ConstructionPage />} />
       <Route path="/idea/*" element={<ConstructionPage />} />
       <Route path="/tutor/*" element={<ConstructionPage />} />
@@ -63,7 +63,7 @@ const AuthRouter = () => {
       <Route path="/mobileapps/*" element={<ConstructionPage />} />
       <Route path="/faq/*" element={<ConstructionPage />} />
       <Route path="/announcement/*" element={<ConstructionPage />} />
-      <Route path="/promotion/*" element={<ConstructionPage />} />
+      <Route path="/promotion/*" element={<ConstructionPage />} /> */}
     </Routes>
   );
 };

@@ -1,56 +1,87 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
-import { initial, animate, exit } from "@src/assets/pageTransitions";
+import { useState } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBell,
-  faBox,
-  faBullhorn,
-  faCalendar,
-  faRightFromBracket,
-} from "@fortawesome/free-solid-svg-icons";
-import { Button } from "@nextui-org/react";
-import "@src/assets/global.css";
-import Logo from "@src/components/Logo";
-import { current } from "@reduxjs/toolkit";
-import Lottie from "react-lottie";
-import screenProblem from "@src/assets/lotties/screen-problem.json";
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+} from "@nextui-org/react";
+import { motion } from "framer-motion";
+import Lottie from "lottie-react";
+
 import { AdminService } from "@src/apis/services/adminService";
 
+import Logo from "@src/components/Logo";
+
+import { AdminDTO } from "@src/models/dtos/adminDTO";
+
+import "@src/assets/global.css";
+import screenProblem from "@src/assets/lotties/screen-problem.json";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
+
 const AdminLandingPage = () => {
-  const navigate = useNavigate();
   const currentPath = window.location.pathname.split("/")[2]
     ? window.location.pathname.split("/")[2]
     : "Dashboard";
 
-  const [adminStatus, setAdminStatus] = useState<boolean>(false);
+  const [admin, setAdmin] = useState<AdminDTO>({} as AdminDTO);
+  const [id, setId] = useState<string>("");
 
-  const checkAdmin = async () => {
-    if (!adminStatus) {
-      const adminId = window.prompt("Enter your admin ID");
+  const renderAdminForm = () => {
+    const handleValidateId = async (onClose: () => void) => {
+      if (!id) return alert("Please enter your Admin ID");
 
-      if (adminId) {
-        try {
-          const response: boolean = (await AdminService.verify(
-            adminId,
-          )) as boolean;
+      try {
+        const admin: AdminDTO = await AdminService.verify({ id });
 
-          setAdminStatus(response);
-        } catch (e) {
-          navigate("/");
-        }
+        setAdmin(admin);
+        onClose();
+      } catch (e) {
+        console.error(e);
+        return alert("Admin ID Rejected!");
       }
-    }
+    };
+
+    return (
+      <Modal isOpen={true} placement="top-center">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Verify Admin
+              </ModalHeader>
+              <ModalBody>
+                <Input
+                  autoFocus
+                  label="Your Admin ID"
+                  placeholder="Enter your Admin ID"
+                  variant="bordered"
+                  value={id}
+                  onChange={(e) => setId(e.target.value)}
+                />
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  className="bg-purple-accent-500 text-white"
+                  onPress={() => handleValidateId(onClose)}
+                >
+                  Verify
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    );
   };
 
-  const adminErrorLoad = () => {
+  const renderErrorScreen = () => {
     return (
       <motion.div
         initial={initial}
@@ -61,21 +92,16 @@ const AdminLandingPage = () => {
         <div className="mt-8 flex w-3/4 flex-col items-center justify-between sm:mt-2">
           <div className="flex w-full flex-row items-center justify-center p-5 sm:w-1/2">
             <Lottie
-              options={{
-                loop: true,
-                autoplay: true,
-                animationData: screenProblem,
-                rendererSettings: {
-                  preserveAspectRatio: "xMidYMid slice",
-                },
-              }}
+              animationData={screenProblem}
+              loop={true}
+              style={{ width: "300px", height: "300px" }}
             />
           </div>
           <div className="mt-8 flex w-full flex-col items-center p-3 text-center ">
             <h1 className="open-sans-600 text-3xl sm:text-6xl">500 ERROR</h1>
             <p className="open-sans-500 mt-5 text-center text-xl opacity-80">
               Admin Page can only be accessed by admin from min-screens width
-              1000px. ....
+              900px. ....
             </p>
           </div>
         </div>
@@ -83,11 +109,13 @@ const AdminLandingPage = () => {
     );
   };
 
-  useEffect(() => {
-    checkAdmin();
-  }, []);
+  if (window.innerWidth < 900) {
+    return renderErrorScreen();
+  }
 
-  if (window.innerWidth < 1000 || !adminStatus) return adminErrorLoad();
+  if (!admin.admin_id) {
+    return renderAdminForm();
+  }
 
   return (
     <>
@@ -107,7 +135,7 @@ const AdminLandingPage = () => {
                 <div className="">
                   <div className="ml-10 flex items-baseline space-x-4">
                     <NavLink
-                      to="/admin/"
+                      to="/admin"
                       className="open-sans-600 rounded-md  px-3 py-2 text-sm font-medium"
                       style={() => {
                         return {
@@ -169,7 +197,7 @@ const AdminLandingPage = () => {
                       >
                         <img
                           className="h-8 w-8 rounded-full"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          src={admin?.profile_picture}
                           alt=""
                         />
                       </button>

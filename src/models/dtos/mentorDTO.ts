@@ -1,47 +1,43 @@
 import {
-  getMentorByIdResponse,
-  getPopularMentorsResponse,
+  GetAllMentorApplicationResponse,
+  GetMentorByIdResponse,
+  GetPopularMentorsResponse,
 } from "../responses/mentorResponse";
+import { CourseDTO } from "./courseDTO";
+import { ReviewDTO } from "./reviewDTO";
+
+import { ImageUrl } from "@src/assets/imageUrl";
 
 export interface MentorDTO {
-  mentor_id: string;
   username: string;
   university: string;
   email: string;
-  phone: string;
-  description: string;
-  profile_picture: string;
+  phone_number: string;
+  description?: string;
+  profile_picture?: string;
   bod: string;
+
+  mentor_id: string;
   revenue: number;
   rating: number;
   total_teaching_hours: number;
   teaching_frequency: number;
-  courses: {
-    course_id: string;
-    name: string;
-    detail: string;
-    rating: number;
-    hourly_rate: number;
-    course_start_time: string;
-    course_end_time: string;
-  }[];
-  reviews: {
-    review_id: string;
-    description: string;
-  }[];
+
+  courses: CourseDTO[];
+  reviews: ReviewDTO[];
 }
 
-export const toMentorsDTO = (data: getPopularMentorsResponse): MentorDTO[] => {
+export const toMentorsDTO = (
+  data: GetPopularMentorsResponse | GetAllMentorApplicationResponse,
+): MentorDTO[] => {
   return data.data.map((mentor) => ({
     mentor_id: mentor.mentor_id,
-    username: mentor.username,
+    username: mentor.user_name,
     university: mentor.university,
     email: mentor.email,
-    phone: mentor.phone,
-    description: mentor.description,
-    profile_picture:
-      mentor.profile_picture ||
-      "https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg",
+    phone_number: mentor.phone_number,
+    description: mentor.description || "Hi, I'm a mentor!",
+    profile_picture: mentor.profile_picture || ImageUrl.NO_PROFILE_IMAGE,
     bod: mentor.bod,
     revenue: mentor.revenue,
     rating: mentor.rating,
@@ -63,17 +59,15 @@ export const toMentorsDTO = (data: getPopularMentorsResponse): MentorDTO[] => {
   }));
 };
 
-export const toMentorDTO = (data: getMentorByIdResponse): MentorDTO => {
+export const toMentorDTO = (data: GetMentorByIdResponse): MentorDTO => {
   return {
     mentor_id: data.data.mentor_id,
-    username: data.data.username,
+    username: data.data.user_name,
     university: data.data.university,
     email: data.data.email,
-    phone: data.data.phone,
-    description: data.data.description,
-    profile_picture:
-      data.data.profile_picture ||
-      "https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg",
+    phone_number: data.data.phone_number,
+    description: data.data.description || "Hi, I'm a mentor!",
+    profile_picture: data.data.profile_picture || ImageUrl.NO_PROFILE_IMAGE,
     bod: data.data.bod,
     revenue: data.data.revenue,
     rating: data.data.rating,
