@@ -1,4 +1,3 @@
-import { ImageUrl } from "@src/assets/imageUrl";
 import {
   GetAllMentorApplicationResponse,
   GetMentorByIdResponse,
@@ -6,6 +5,8 @@ import {
 } from "../responses/mentorResponse";
 import { CourseDTO } from "./courseDTO";
 import { ReviewDTO } from "./reviewDTO";
+
+import { ImageUrl } from "@src/assets/imageUrl";
 
 export interface MentorDTO {
   username: string;

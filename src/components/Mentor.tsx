@@ -1,3 +1,6 @@
+import { memo, useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,12 +11,14 @@ import {
   Image,
   Skeleton,
 } from "@nextui-org/react";
+
 import { MentorService } from "@src/apis/services/mentorService";
-import { MentorDTO } from "@src/models/dtos/mentorDTO";
-import { memo, useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Image as ImageClass } from "@src/assets/images/Image";
+
 import { useFetch } from "@src/hooks/useFetch";
+
+import { MentorDTO } from "@src/models/dtos/mentorDTO";
+
+import { Image as ImageClass } from "@src/assets/images/Image";
 
 type MentorCardProps = {
   mentor: MentorDTO;
@@ -82,40 +87,17 @@ const SkeletonMentorCard = () => {
 
 const WeeklyPopularMentorWrapper = () => {
   const navigate = useNavigate();
-
-  const [popularMentors, setPopularMentors] = useState<MentorState>({
-    isLoading: false,
-    items: [],
-    error: "",
+  const popularMentors = useFetch<{}, MentorDTO[]>({
+    fetchProps: {},
+    fetchCallback: MentorService.getPopularMentors,
   });
-
-  const fetchPopularMentors = async () => {
-    try {
-      setPopularMentors({ ...popularMentors, isLoading: true });
-      const response: MentorDTO[] = await MentorService.getPopularMentors();
-
-      setPopularMentors({
-        ...popularMentors,
-        isLoading: false,
-        items: response,
-      });
-    } catch (e) {
-      if (e instanceof Error) {
-        setPopularMentors({
-          ...popularMentors,
-          isLoading: false,
-          error: e.message,
-        });
-      }
-    }
-  };
 
   const renderPopularMentors = useCallback(() => {
     if (popularMentors.isLoading) {
       return <SkeletonMentorCard />;
     }
 
-    if (popularMentors.items.length === 0) {
+    if (popularMentors.data!.length === 0) {
       return (
         <section className="mx-8 w-full">
           <h1 className="text-center text-2xl">
@@ -125,14 +107,10 @@ const WeeklyPopularMentorWrapper = () => {
       );
     }
 
-    return popularMentors.items.map((mentor: MentorDTO, index) => (
+    return popularMentors.data!.map((mentor: MentorDTO, index) => (
       <MentorCard key={index} mentor={mentor} />
     ));
   }, [popularMentors]);
-
-  useEffect(() => {
-    fetchPopularMentors();
-  }, []);
 
   return (
     <section className="mt-16">

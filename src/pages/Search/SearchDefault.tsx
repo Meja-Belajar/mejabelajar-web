@@ -1,6 +1,7 @@
-import { initial, animate, exit } from "@src/assets/pageTransitions";
 import { motion } from "framer-motion";
+
 import "@src/assets/global.css";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 
 const SearchDefault = () => {
   return (

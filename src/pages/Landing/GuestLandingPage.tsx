@@ -1,7 +1,11 @@
-import { motion } from "framer-motion";
-import { animate, exit, initial } from "@src/assets/pageTransitions";
-import Footer from "@src/components/Footer";
-import Logo from "@src/components/Logo";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import {
+  faArrowUpRightFromSquare,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
   Input,
@@ -10,29 +14,26 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@nextui-org/react";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  faArrowUpRightFromSquare,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import star from "@src/assets/images/icon/star.svg";
+import { motion } from "framer-motion";
 import parse from "html-react-parser";
 
-import "@src/assets/global.css";
+import { CourseCard } from "@src/components/Course";
+import Footer from "@src/components/Footer";
+import Logo from "@src/components/Logo";
 
 import {
-  Information,
-  OurProgram,
   BestMentors,
-  Reviews,
-  PopularCourses,
-  NavigationLists,
   Header,
+  Information,
+  NavigationLists,
+  OurProgram,
+  PopularCourses,
+  Reviews,
 } from "@src/assets/data/userLandingData";
-import { CourseCard } from "@src/components/Course";
+import "@src/assets/global.css";
 import { Image } from "@src/assets/images/Image";
+import star from "@src/assets/images/icon/star.svg";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 
 // Landing page for guest
 const GuestLanding = () => {

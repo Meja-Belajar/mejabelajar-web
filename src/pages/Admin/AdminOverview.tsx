@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
+
 import {
   faBan,
   faBell,
@@ -17,7 +17,7 @@ import {
   faTrash,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
-import BookingLists from "@src/assets/data/BookingLists.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
   Divider,
@@ -32,9 +32,12 @@ import {
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
-import "@src/assets/global.css";
-import { useNavigate } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+
+import BookingLists from "@src/assets/data/BookingLists.json";
 import { PopularMentors } from "@src/assets/data/userLandingData";
+import "@src/assets/global.css";
+
 const AdminOverview = () => {
   const mentors = PopularMentors;
   const [isMentorsView, setIsMentorView] = useState<boolean>(false);

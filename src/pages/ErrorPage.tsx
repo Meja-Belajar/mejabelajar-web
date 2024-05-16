@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { animate, exit, initial } from "@src/assets/pageTransitions";
-import peopleConfuse from "@src/assets/lotties/people-confuse.json";
 import Lottie from "lottie-react";
+
 import "@src/assets/global.css";
+import peopleConfuse from "@src/assets/lotties/people-confuse.json";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 
 type ErrorPageProps = {
   code: number;

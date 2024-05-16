@@ -1,20 +1,20 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import ErrorPage from "@src/pages/ErrorPage.tsx";
-import Profile from "@src/pages/Profile/ProfilePage.tsx";
 
-import Search from "@src/pages/Search/SearchPage.tsx";
-import SearchDefault from "@src/pages/Search/SearchDefault.tsx";
-import SearchResult from "@src/pages/Search/SearchResult.tsx";
-import AdminLandingPage from "@src/pages/Admin/AdminLandingPage.tsx";
-import AdminOverview from "@src/pages/Admin/AdminOverview.tsx";
 import AdminAnnouncement from "@src/pages/Admin/AdminAnnouncement.tsx";
-import ConstructionPage from "@src/pages/ConstructionPage.tsx";
-import UserLanding from "@src/pages/Landing/UserLandingPage.tsx";
+import AdminLandingPage from "@src/pages/Admin/AdminLandingPage.tsx";
 import AdminNewMentor from "@src/pages/Admin/AdminNewMentor.tsx";
+import AdminOverview from "@src/pages/Admin/AdminOverview.tsx";
+import ConstructionPage from "@src/pages/ConstructionPage.tsx";
+import ErrorPage from "@src/pages/ErrorPage.tsx";
 import MentorLanding from "@src/pages/Landing/MentorLanding.tsx";
-import PublicPage from "@src/pages/Profile/PublicPage.tsx";
-import NotificationPage from "@src/pages/Profile/NotificationPage.tsx";
+import UserLanding from "@src/pages/Landing/UserLandingPage.tsx";
 import MentoringPage from "@src/pages/MentoringPage.tsx";
+import NotificationPage from "@src/pages/Profile/NotificationPage.tsx";
+import Profile from "@src/pages/Profile/ProfilePage.tsx";
+import PublicPage from "@src/pages/Profile/PublicPage.tsx";
+import SearchDefault from "@src/pages/Search/SearchDefault.tsx";
+import Search from "@src/pages/Search/SearchPage.tsx";
+import SearchResult from "@src/pages/Search/SearchResult.tsx";
 
 const AuthRouter = () => {
   return (
@@ -53,7 +53,7 @@ const AuthRouter = () => {
       </Route>
 
       {/* future enchancement routes */}
-      <Route path="/about/*" element={<ConstructionPage />} />
+      {/* <Route path="/about/*" element={<ConstructionPage />} />
       <Route path="/overview/*" element={<ConstructionPage />} />
       <Route path="/idea/*" element={<ConstructionPage />} />
       <Route path="/tutor/*" element={<ConstructionPage />} />
@@ -63,7 +63,7 @@ const AuthRouter = () => {
       <Route path="/mobileapps/*" element={<ConstructionPage />} />
       <Route path="/faq/*" element={<ConstructionPage />} />
       <Route path="/announcement/*" element={<ConstructionPage />} />
-      <Route path="/promotion/*" element={<ConstructionPage />} />
+      <Route path="/promotion/*" element={<ConstructionPage />} /> */}
     </Routes>
   );
 };

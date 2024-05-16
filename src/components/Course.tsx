@@ -1,8 +1,9 @@
+import { useNavigate } from "react-router-dom";
+
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { WeeklyPopularCourses } from "@src/assets/data/userLandingData";
-import { encode } from "querystring";
-import { useNavigate } from "react-router-dom";
 
 type CourseCardProps = {
   id: string;

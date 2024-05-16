@@ -1,4 +1,5 @@
 import { userServiceApi } from "@src/apis/envConfig";
+
 import { UserDTO, toUserDTO } from "@src/models/dtos/userDTO";
 import {
   LoginUserRequest,
@@ -15,31 +16,13 @@ import {
 
 export class UserService {
   static async register(requestData: RegisterUserRequest): Promise<UserDTO> {
-    const {
-      user_name,
-      university,
-      email,
-      phone_number,
-      bod,
-      password,
-      confirm_password,
-    } = requestData;
-
     try {
       // const response = await fetch(userServiceApi.register, {
       //   method: "POST",
       //   headers: {
       //     "Content-Type": "application/json",
       //   },
-      //   body: JSON.stringify({
-      //     user_name,
-      //     university,
-      //     email,
-      //     phone_number,
-      //     bod,
-      //     password,
-      //     confirm_password,
-      //   } as RegisterUserRequest),
+      //   body: JSON.stringify(requestData),
       // });
 
       const registerResponse: RegisterUserResponse =
@@ -61,15 +44,13 @@ export class UserService {
   }
 
   static async login(requestData: LoginUserRequest): Promise<UserDTO> {
-    const { email, password } = requestData;
-
     try {
       // const response = await fetch(userServiceApi.login, {
       //   method: "POST",
       //   headers: {
       //     "Content-Type": "application/json",
       //   },
-      //   body: JSON.stringify({ email, password }),
+      //   body: JSON.stringify(requestData),
       // });
 
       const loginResponse: LoginUserResponse = Example.LoginUserResponse;
@@ -105,34 +86,14 @@ export class UserService {
     return null;
   }
 
-  static async update(request: UpdateUserRequest): Promise<UserDTO> {
+  static async update(requestData: UpdateUserRequest): Promise<UserDTO> {
     try {
-      const {
-        id,
-        user_name,
-        university,
-        email,
-        phone_number,
-        description,
-        profile_picture,
-        bod,
-      } = request;
-
       // const response = await fetch(userServiceApi.update, {
       //   method: "PUT",
       //   headers: {
       //     "Content-Type": "application/json",
       //   },
-      //   body: JSON.stringify({
-      //     id,
-      //     user_name,
-      //     university,
-      //     email,
-      //     phone_number,
-      //     description,
-      //     profile_picture,
-      //     bod,
-      //   } as UpdateUserRequest),
+      //   body: JSON.stringify(requestData),
       // });
 
       const updateResponse: UpdateUserResponse = Example.UpdateUserResponse;
@@ -148,7 +109,7 @@ export class UserService {
     }
   }
 
-  static async getUserById(userId: string): Promise<UserDTO> {
+  static async getUserById({ userId }: { userId: string }): Promise<UserDTO> {
     try {
       // const response = await fetch(`${userServiceApi.getUserById}/${userId}`);
 

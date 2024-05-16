@@ -1,3 +1,16 @@
+import { bookingServiceApi } from "../envConfig";
+
+import {
+  BookingDTO,
+  toBookingDTO,
+  toBookingsDTO,
+} from "@src/models/dtos/bookingDTO";
+import {
+  CreateBookingRequest,
+  GetAllBookingsByMentorIdRequest,
+  GetAllBookingsByUserIdRequest,
+  GetBookingByIdRequest,
+} from "@src/models/requests/bookingRequest";
 import {
   CreateBookingResponse,
   Example,
@@ -5,19 +18,13 @@ import {
   GetBookingByIdResponse,
   GetBookingsByUserIdResponse,
 } from "@src/models/responses/bookingReponse";
-import { bookingServiceApi } from "../envConfig";
-import {
-  BookingDTO,
-  toBookingDTO,
-  toBookingsDTO,
-} from "@src/models/dtos/bookingDTO";
-
-import { CreateBookingRequest } from "@src/models/requests/bookingRequest";
 
 export class BookingService {
-  static async getAllBookingsByUserId(userId: string): Promise<BookingDTO[]> {
+  static async getAllBookingsByUserId({
+    user_id,
+  }: GetAllBookingsByUserIdRequest): Promise<BookingDTO[]> {
     try {
-      // const response = await fetch(`${bookingServiceApi.getAllBookings}/${userId}`);
+      // const response = await fetch(`${bookingServiceApi.getAllBookings}/${user_id}`);
 
       const bookings: GetBookingsByUserIdResponse =
         Example.GetBookingsByUserIdResponse;
@@ -33,9 +40,31 @@ export class BookingService {
     }
   }
 
-  static async getBookingById(userId: string): Promise<BookingDTO> {
+  static async getAllBookingsByMentorId({
+    mentor_id,
+  }: GetAllBookingsByMentorIdRequest): Promise<BookingDTO[]> {
     try {
-      // const response = await fetch(`${bookingServiceApi.getBooking}/${userId}`);
+      // const response = await fetch(`${bookingServiceApi.getBookingsByMentorId}/${mentor_id}`);
+
+      const bookings: GetBookingsByUserIdResponse =
+        Example.GetBookingsByUserIdResponse;
+
+      if (bookings.data.length === 0) {
+        throw new Error("No bookings found");
+      }
+
+      return toBookingsDTO(bookings);
+    } catch (e) {
+      console.error("Error fetching bookings:", e);
+      throw new Error("Failed to fetch bookings");
+    }
+  }
+
+  static async getBookingById({
+    id,
+  }: GetBookingByIdRequest): Promise<BookingDTO> {
+    try {
+      // const response = await fetch(`${bookingServiceApi.getBooking}/${id}`);
 
       const booking: GetBookingByIdResponse = Example.GetBookingByIdResponse;
 

@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { animate, exit, initial } from "@src/assets/pageTransitions";
-import workingProject from "@src/assets/lotties/working-project.json";
-
 import Lottie from "lottie-react";
+
+import workingProject from "@src/assets/lotties/working-project.json";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 
 const ConstructionPage: React.FC = () => {
   return (

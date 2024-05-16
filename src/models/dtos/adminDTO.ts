@@ -1,5 +1,6 @@
-import { ImageUrl } from "@src/assets/imageUrl";
 import { ValidateAdminResponse } from "../responses/adminResponse";
+
+import { ImageUrl } from "@src/assets/imageUrl";
 
 export interface AdminDTO {
   admin_id: string;

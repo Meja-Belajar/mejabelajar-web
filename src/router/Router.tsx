@@ -1,10 +1,11 @@
-import { AnimatePresence } from "framer-motion";
-
+import React, { Suspense, lazy, useEffect } from "react";
 import { useSelector } from "react-redux";
 // import AuthRouter from "./authRouter";
 // import PublicRouter from "./publicRouter";
 import { useNavigate } from "react-router-dom";
-import React, { Suspense, lazy, useEffect } from "react";
+
+import { AnimatePresence } from "framer-motion";
+
 import LoadingPage from "@src/pages/LoadingPage.tsx";
 
 const AuthRouter = lazy(() => import("./authRouter.tsx"));

@@ -1,8 +1,9 @@
 import React from "react";
+
+import "@src/assets/global.css";
+import Facebook from "@src/assets/images/social/facebook.svg";
 import Instagram from "@src/assets/images/social/instagram.svg";
 import Twitter from "@src/assets/images/social/twitter.svg";
-import Facebook from "@src/assets/images/social/facebook.svg";
-import "@src/assets/global.css";
 
 const Footer: React.FC = () => {
   return (

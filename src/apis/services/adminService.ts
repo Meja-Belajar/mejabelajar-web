@@ -1,10 +1,11 @@
+import { adminServiceApi } from "../envConfig";
+
+import { AdminDTO, toAdminDTO } from "@src/models/dtos/adminDTO";
+import { MentorDTO } from "@src/models/dtos/mentorDTO";
 import {
   Example,
   ValidateAdminResponse,
 } from "@src/models/responses/adminResponse";
-import { adminServiceApi } from "../envConfig";
-import { AdminDTO, toAdminDTO } from "@src/models/dtos/adminDTO";
-import { MentorDTO } from "@src/models/dtos/mentorDTO";
 
 export class AdminService {
   static async verify({ id }: { id: string }): Promise<AdminDTO> {

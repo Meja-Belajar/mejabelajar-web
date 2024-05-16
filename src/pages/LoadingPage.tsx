@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { animate, exit, initial } from "@src/assets/pageTransitions";
-import loadingDot from "@src/assets/lotties/loading-dot.json";
 import Lottie from "lottie-react";
+
 import "@src/assets/global.css";
+import loadingDot from "@src/assets/lotties/loading-dot.json";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 
 type LoadingPageProps = {
   message: string;

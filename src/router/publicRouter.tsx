@@ -1,14 +1,14 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Register from "@src/pages/RegisterPage.tsx";
-import ErrorPage from "@src/pages/ErrorPage.tsx";
 
-import AdminLandingPage from "@src/pages/Admin/AdminLandingPage.tsx";
-import AdminOverview from "@src/pages/Admin/AdminOverview.tsx";
 import AdminAnnouncement from "@src/pages/Admin/AdminAnnouncement.tsx";
-import ConstructionPage from "@src/pages/ConstructionPage.tsx";
-import LoginPage from "@src/pages/LoginPage.tsx";
-import GuestLanding from "@src/pages/Landing/GuestLandingPage.tsx";
+import AdminLandingPage from "@src/pages/Admin/AdminLandingPage.tsx";
 import AdminNewMentor from "@src/pages/Admin/AdminNewMentor.tsx";
+import AdminOverview from "@src/pages/Admin/AdminOverview.tsx";
+import ConstructionPage from "@src/pages/ConstructionPage.tsx";
+import ErrorPage from "@src/pages/ErrorPage.tsx";
+import GuestLanding from "@src/pages/Landing/GuestLandingPage.tsx";
+import LoginPage from "@src/pages/LoginPage.tsx";
+import Register from "@src/pages/RegisterPage.tsx";
 
 const PublicRouter = () => {
   return (
@@ -39,7 +39,7 @@ const PublicRouter = () => {
       </Route>
 
       {/* future enchancement routes */}
-      <Route path="/about/*" element={<ConstructionPage />} />
+      {/* <Route path="/about/*" element={<ConstructionPage />} />
       <Route path="/overview/*" element={<ConstructionPage />} />
       <Route path="/idea/*" element={<ConstructionPage />} />
       <Route path="/tutor/*" element={<ConstructionPage />} />
@@ -49,7 +49,7 @@ const PublicRouter = () => {
       <Route path="/mobileapps/*" element={<ConstructionPage />} />
       <Route path="/faq/*" element={<ConstructionPage />} />
       <Route path="/announcement/*" element={<ConstructionPage />} />
-      <Route path="/promotion/*" element={<ConstructionPage />} />
+      <Route path="/promotion/*" element={<ConstructionPage />} /> */}
     </Routes>
   );
 };

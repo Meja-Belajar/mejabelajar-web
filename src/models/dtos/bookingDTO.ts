@@ -1,8 +1,8 @@
 import {
   CreateBookingResponse,
-  UpdateBookingResponse,
   GetBookingByIdResponse,
   GetBookingsByUserIdResponse,
+  UpdateBookingResponse,
 } from "../responses/bookingReponse";
 
 export interface BookingDTO {

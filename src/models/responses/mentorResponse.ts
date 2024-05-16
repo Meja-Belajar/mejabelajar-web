@@ -97,7 +97,7 @@ export interface GetMentorByIdResponse extends BaseResponse {
   };
 }
 
-export interface RegisterMentorResponse extends BaseResponse {
+export interface MentorApplicationResponse extends BaseResponse {
   data: {
     user_name: string;
     university: string;
@@ -281,7 +281,7 @@ export class Example {
       bod: "2000-01-01T00:00:00.000Z",
 
       mentor_id: "1",
-      revenue: 0,
+      revenue: 12220,
       rating: 5,
       total_teaching_hours: 0,
       teaching_frequency: 0,
@@ -306,7 +306,7 @@ export class Example {
     },
   };
 
-  static RegisterMentorResponse: RegisterMentorResponse = {
+  static MentorApplicationResponse: MentorApplicationResponse = {
     code: 201,
     message: "Success",
     data: {

@@ -1,16 +1,21 @@
+import { mentorServiceApi } from "../envConfig";
+
+import {
+  MentorDTO,
+  toMentorDTO,
+  toMentorsDTO,
+} from "@src/models/dtos/mentorDTO";
+import {
+  GetMentorByIdRequest,
+  MentorApplicationRequest,
+} from "@src/models/requests/mentorRequest";
 import {
   Example,
   GetAllMentorApplicationResponse,
   GetMentorByIdResponse,
   GetPopularMentorsResponse,
-  RegisterMentorResponse,
+  MentorApplicationResponse,
 } from "@src/models/responses/mentorResponse";
-import { mentorServiceApi } from "../envConfig";
-import {
-  MentorDTO,
-  toMentorsDTO,
-  toMentorDTO,
-} from "@src/models/dtos/mentorDTO";
 
 export class MentorService {
   static async getPopularMentors(): Promise<MentorDTO[]> {
@@ -33,9 +38,7 @@ export class MentorService {
 
   static async getMentorById({
     mentor_id,
-  }: {
-    mentor_id: String;
-  }): Promise<MentorDTO> {
+  }: GetMentorByIdRequest): Promise<MentorDTO> {
     try {
       // const response = await fetch(`${mentorServiceApi.getMentor}${mentor_id}`);
 
@@ -52,41 +55,20 @@ export class MentorService {
     }
   }
 
-  static async registerMentor({
-    username,
-    university,
-    email,
-    phone_number,
-    description,
-    profile_picture,
-    bod,
-  }: {
-    username: string;
-    university: string;
-    email: string;
-    phone_number: string;
-    description?: string;
-    profile_picture?: string;
-    bod: string;
-  }): Promise<MentorDTO> {
+  static async registerMentor(
+    requestData: MentorApplicationRequest,
+  ): Promise<MentorDTO> {
     try {
       // const response = await fetch(`${mentorServiceApi.registerMentor}`, {
       //   method: "POST",
-      //   body: JSON.stringify({
-      //     username,
-      //     university,
-      //     email,
-      //     phone_number,
-      //     description,
-      //     profile_picture,
-      //     bod,
-      //   }),
+      //   body: JSON.stringify(requestData),
       //   headers: {
       //     "Content-Type": "application/json",
       //   },
       // });
 
-      const mentor: RegisterMentorResponse = Example.RegisterMentorResponse;
+      const mentor: MentorApplicationResponse =
+        Example.MentorApplicationResponse;
 
       if (mentor.code != 201) {
         throw new Error("Failed to register mentor");

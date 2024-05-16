@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { initial, animate, exit } from "@src/assets/pageTransitions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
   Input,
@@ -13,12 +12,18 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import "@src/assets/global.css";
-import Logo from "@src/components/Logo";
+import { motion } from "framer-motion";
 import Lottie from "lottie-react";
-import screenProblem from "@src/assets/lotties/screen-problem.json";
+
 import { AdminService } from "@src/apis/services/adminService";
+
+import Logo from "@src/components/Logo";
+
 import { AdminDTO } from "@src/models/dtos/adminDTO";
+
+import "@src/assets/global.css";
+import screenProblem from "@src/assets/lotties/screen-problem.json";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 
 const AdminLandingPage = () => {
   const currentPath = window.location.pathname.split("/")[2]

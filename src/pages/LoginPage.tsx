@@ -1,4 +1,13 @@
 import React, { useEffect, useReducer, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Form, Link, useNavigate } from "react-router-dom";
+
+import {
+  faCircleExclamation,
+  faEye,
+  faEyeSlash,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
   Input,
@@ -6,32 +15,26 @@ import {
   ModalBody,
   ModalContent,
 } from "@nextui-org/react";
+// import { Validation } from '@src/utils/validation';
+import { useForm } from "@src/hooks";
 import { motion } from "framer-motion";
 
-import { exit, animate, initial } from "@src/assets/pageTransitions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleExclamation,
-  faEye,
-  faEyeSlash,
-} from "@fortawesome/free-solid-svg-icons";
-import { Form, Link, useNavigate } from "react-router-dom";
 import { UserService } from "@src/apis/services/userService";
 
-import Logo from "@src/components/Logo";
-
-import { LoginUserSchema } from "@src/models/zod/userZod";
-import { LoginUserRequest } from "@src/models/requests/userRequest";
-import { useDispatch, useSelector } from "react-redux";
 import {
   setCurrentUser,
   setUserError,
   setUserLoading,
 } from "@src/redux/user/userSelectors";
-// import { Validation } from '@src/utils/validation';
-import { useForm } from "@src/hooks";
-import "@src/assets/global.css";
+
+import Logo from "@src/components/Logo";
+
 import { UserDTO } from "@src/models/dtos/userDTO";
+import { LoginUserRequest } from "@src/models/requests/userRequest";
+import { LoginUserSchema } from "@src/models/zod/userZod";
+
+import "@src/assets/global.css";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 
 const LoginPage = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);

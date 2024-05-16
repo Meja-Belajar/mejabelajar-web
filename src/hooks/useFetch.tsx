@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type FetchProps<Request, ResponseDTO> = {
   fetchProps: Request;
@@ -18,16 +18,20 @@ export const useFetch = <Request extends object, ResponseDTO extends object>({
       const response: ResponseDTO = await fetchCallback(fetchProps);
 
       setData(response);
-      setLoading(false);
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
-        setLoading(false);
+      } else {
+        setError("An unknown error occurred");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
-  fetchData();
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return { data, isLoading, error };
 };

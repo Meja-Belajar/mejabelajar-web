@@ -33,3 +33,19 @@ export interface UpdateBookingRequest {
   location: string;
   is_active: boolean;
 }
+
+export interface GetAllBookingsByMentorIdRequest {
+  mentor_id: string;
+}
+
+export interface GetAllBookingsByUserIdRequest {
+  user_id: string;
+}
+
+export interface GetBookingByIdRequest {
+  id: string;
+}
+
+export interface DeleteBookingRequest {
+  id: string;
+}
