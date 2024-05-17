@@ -26,9 +26,13 @@ import Logo from "@src/components/Logo";
 
 import "@src/assets/global.css";
 
-const navigationList = ["Announcement", "History"];
+const navigationList = ["Profile"];
 
-const Navigation: React.FC = () => {
+type NavigationProps = {
+  disabled?: boolean;
+};
+
+const Navigation = (props: NavigationProps) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -41,62 +45,66 @@ const Navigation: React.FC = () => {
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
+    if (props?.disabled) return;
 
     if (search) {
-      navigate(`/search/${search}`);
+      navigate(`/search/${encodeURIComponent(search)}`);
     }
   };
 
-  const location = useLocation();
   const currentUser = useSelector((state: any) => state.user.currentUser);
-
-  if (["/login", "/register"].includes(location.pathname)) return null;
-  else
-    return (
-      <>
-        <AnimatePresence>
-          {!isHidden && (
-            <motion.div
-              className="open-sans-600 mb-3 flex h-6 items-center justify-center bg-white-accent-1 p-5 transition ease-linear"
-              exit={{ y: -100 }}
+  return (
+    <>
+      <AnimatePresence>
+        {!isHidden && !props?.disabled && (
+          <motion.div
+            className="open-sans-600 mb-3 flex h-6 items-center justify-center bg-white-accent-1 p-5 transition ease-linear"
+            exit={{ y: -100 }}
+          >
+            <h1
+              className="sm:text-md ease peer cursor-pointer text-xs text-red-500 transition hover:opacity-50"
+              onClick={() => navigate("/promotion")}
             >
-              <h1
-                className="sm:text-md ease peer cursor-pointer text-xs text-red-500 transition hover:opacity-50"
-                onClick={() => navigate("/promotion")}
-              >
-                50% OFF BY USING THIS VOUCHER
-              </h1>
-              <FontAwesomeIcon
-                icon={faArrowRight}
-                className="peer-hover:opacity:50 cursor-pointer pl-3 text-red-500 transition ease-linear"
-                fade
-                onClick={() => navigate("/promotion")}
-              />
-              <FontAwesomeIcon
-                icon={faClose}
-                className="absolute right-5 cursor-pointer transition ease-linear hover:opacity-50"
-                onClick={handleIconClick}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <Navbar
-          onMenuOpenChange={setIsMenuOpen}
-          shouldHideOnScroll
-          className="mt-1 w-full p-1"
-          maxWidth="xl"
-        >
-          <div className="ml-4 flex flex-row items-center justify-center gap-5">
-            <NavbarMenuToggle
-              aria-label={isMenuOpen ? "Close" : "Open"}
-              className="sm:hidden"
+              50% OFF BY USING THIS VOUCHER
+            </h1>
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              className="peer-hover:opacity:50 cursor-pointer pl-3 text-red-500 transition ease-linear"
+              fade
+              onClick={() => navigate("/promotion")}
             />
-            <Logo />
-          </div>
+            <FontAwesomeIcon
+              icon={faClose}
+              className="absolute right-5 cursor-pointer transition ease-linear hover:opacity-50"
+              onClick={handleIconClick}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
+      <Navbar
+        onMenuOpenChange={setIsMenuOpen}
+        shouldHideOnScroll
+        className="mt-1 flex w-full items-center justify-around p-1"
+        maxWidth="xl"
+      >
+        <div className="ml-4 flex flex-row items-center justify-center gap-5">
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? "Close" : "Open"}
+            className="h-10 sm:hidden"
+          />
+          <Logo />
+        </div>
+
+        <div
+          className="flex w-1/2 flex-row items-center gap-3 "
+          style={{
+            justifyContent: props?.disabled ? "flex-end" : "space-between",
+          }}
+        >
           <form
-            className="flex w-3/4 flex-row justify-end gap-10 lg:w-1/2"
+            className="hidden w-3/4 md:flex lg:w-full"
+            style={{ display: props?.disabled ? "none" : "flex" }}
             onSubmit={(e) => handleFormSubmit(e)}
           >
             <Input
@@ -115,62 +123,58 @@ const Navigation: React.FC = () => {
                 <FontAwesomeIcon icon={faSearch} className="text-gray-300" />
               }
             />
-
-            <div className="flex items-center gap-3">
-              <>
-                <Link
-                  to="/profile"
-                  className="relative mr-4 aspect-square w-10 overflow-hidden rounded-full border"
-                >
-                  <img
-                    src={currentUser?.profile_picture}
-                    alt=""
-                    className="h-full w-full"
-                  />
-                </Link>
-              </>
-            </div>
           </form>
+          <Link
+            to="/profile"
+            className="relative mr-4 hidden aspect-square w-10 overflow-hidden rounded-full border md:block"
+          >
+            <img
+              src={currentUser?.profile_picture}
+              alt="profile_image"
+              className="h-full w-full"
+            />
+          </Link>
+        </div>
+        <NavbarMenu className="pt-20">
+          {navigationList.map((item, index) => (
+            <NavbarMenuItem key={index}>
+              <Link
+                color={
+                  index === 2
+                    ? "primary"
+                    : index === navigationList.length - 1
+                      ? "danger"
+                      : "foreground"
+                }
+                className="w-full text-xl"
+                to={`/${item.toLowerCase()}`}
+              >
+                {item}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </NavbarMenu>
+      </Navbar>
 
-          <NavbarMenu className="pt-20">
-            {navigationList.map((item, index) => (
-              <NavbarMenuItem key={index}>
-                <Link
-                  color={
-                    index === 2
-                      ? "primary"
-                      : index === navigationList.length - 1
-                        ? "danger"
-                        : "foreground"
-                  }
-                  className="w-full text-xl"
-                  to={`/${item.toLowerCase()}`}
-                >
-                  {item}
-                </Link>
-              </NavbarMenuItem>
-            ))}
-          </NavbarMenu>
-        </Navbar>
-
-        <nav className="flex w-full justify-center px-8">
-          <Input
-            type="text"
-            placeholder="search courses"
-            variant="bordered"
-            className="flex w-full p-3 md:hidden"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            startContent={
-              <FontAwesomeIcon
-                icon={faSearch}
-                className="text-blue-accent-300"
-              />
-            }
-          />
-        </nav>
-      </>
-    );
+      <form
+        className="flex w-full justify-center px-8"
+        style={{ display: props?.disabled ? "none" : "flex" }}
+        onSubmit={(e) => handleFormSubmit(e)}
+      >
+        <Input
+          type="text"
+          placeholder="search courses"
+          variant="bordered"
+          className="mb-1 mt-4 flex w-full p-3 md:hidden"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          startContent={
+            <FontAwesomeIcon icon={faSearch} className="text-blue-accent-300" />
+          }
+        />
+      </form>
+    </>
+  );
 };
 
 export default Navigation;
