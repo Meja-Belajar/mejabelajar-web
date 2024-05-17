@@ -93,6 +93,7 @@ const PublicPage = () => {
               </div>
 
               <p className="sm:text-md open-sans-600 mt-8 text-xs opacity-80">{`ID: ${currentUser.id}`}</p>
+
               <form
                 className="mt-8 items-center text-[#202142] sm:mt-3"
                 onSubmit={former.onSubmitHandler}

@@ -21,6 +21,7 @@ import { SearchRequest } from "@src/models/requests/searchRequest";
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
 import { useFetch } from "@src/hooks/useFetch";
 
+
 const SearchResult = () => {
   const { query } = useParams();
 

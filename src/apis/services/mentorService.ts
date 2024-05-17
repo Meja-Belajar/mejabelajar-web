@@ -39,7 +39,6 @@ export class MentorService {
       throw new Error("Failed to fetch mentors");
     }
   }
-
   static async getAllMentors(): Promise<MentorDTO[]> {
     try {
       // const response = await fetch(`${mentorServiceApi.getAllMentors}`);
@@ -121,9 +120,7 @@ export class MentorService {
     }
   }
 
-  static async updateMentor(
-    requestData: UpdateMentorRequest,
-  ): Promise<MentorDTO> {
+  static async updateMentor(requestData: UpdateMentorRequest): Promise<MentorDTO> {
     try {
       // const response = await fetch(`${mentorServiceApi.updateMentor}`, {
       //   method: "PUT",
@@ -133,7 +130,9 @@ export class MentorService {
       //   },
       // });
 
-      const mentor: UpdateMentorResponse = Example.UpdateMentorResponse;
+
+      const mentor: UpdateMentorResponse =
+        Example.UpdateMentorResponse;
 
       if (mentor.code != 200) {
         throw new Error("Failed to update mentor");
@@ -145,7 +144,7 @@ export class MentorService {
       throw new Error("Failed to update mentor");
     }
   }
-
+  
   static async getMentorByName(requestData: SearchRequest): Promise<MentorDTO[]> {
     try {
       // const response = await fetch(`${mentorServiceApi.getMentorByName}`, {
