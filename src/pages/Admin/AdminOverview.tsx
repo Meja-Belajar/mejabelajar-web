@@ -34,39 +34,61 @@ import {
 } from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
 
+import { BookingService } from "@src/apis/services/bookingService";
+import { MentorService } from "@src/apis/services/mentorService";
+
+import { useFetch } from "@src/hooks/useFetch";
+
+import { BookingDTO } from "@src/models/dtos/bookingDTO";
+import { MentorDTO } from "@src/models/dtos/mentorDTO";
+
 import BookingLists from "@src/assets/data/BookingLists.json";
 import { PopularMentors } from "@src/assets/data/userLandingData";
 import "@src/assets/global.css";
 
 const AdminOverview = () => {
-  const mentors = PopularMentors;
+  const allBookings = useFetch<{}, BookingDTO[]>({
+    fetchProps: {},
+    fetchCallback: () => BookingService.getAllBookings(),
+  });
+
+  const availableMentors = useFetch<{}, MentorDTO[]>({
+    fetchProps: {},
+    fetchCallback: () => MentorService.getAllMentors(),
+  });
+
   const [isMentorsView, setIsMentorView] = useState<boolean>(false);
 
   const navigate = useNavigate();
+
+  if (availableMentors.isLoading || allBookings.isLoading)
+    return (
+      <div className="mt-20 flex items-center justify-center px-7">
+        <FontAwesomeIcon icon={faBell} spin className="text-3xl" />
+      </div>
+    );
 
   return (
     <>
       <motion.div className="px-8 py-5">
         <section className="w-full rounded-2xl bg-purple-accent-500 p-8 shadow-lg drop-shadow-lg">
-          <div className="flex flex-col gap-5 text-white sm:w-1/2 sm:flex-row sm:justify-between">
+          <div className="flex flex-col gap-5 text-white sm:w-3/4 sm:flex-row sm:justify-between">
             <div className="p-1">
               <h3 className="open-sans-600 text-white-accent-1">
                 Total Bookings
               </h3>
-              <h1 className="open-sans-600 text-3xl">12</h1>
+              <h1 className="open-sans-600 text-3xl">
+                {allBookings.data?.length}
+              </h1>
             </div>
 
             <div className="p-1">
               <h3 className="open-sans-600 text-white-accent-1">
-                Total Income
+                Total Mentors
               </h3>
-              <h1 className="open-sans-600 text-3xl">Rp230.120,-</h1>
-            </div>
-            <div className="p-1">
-              <h3 className="open-sans-600 text-white-accent-1">
-                Total Request
-              </h3>
-              <h1 className="open-sans-600 text-3xl">10</h1>
+              <h1 className="open-sans-600 text-3xl">
+                {availableMentors.data?.length}
+              </h1>
             </div>
           </div>
         </section>
@@ -98,7 +120,7 @@ const AdminOverview = () => {
 
         <div className="mt-10">
           {isMentorsView &&
-            mentors.map((mentor, index) => (
+            availableMentors.data!.map((mentor, index) => (
               <div
                 key={`${index}/${mentor.mentor_id}`}
                 className="bg-blue-accent-500 mt-3 w-full rounded-2xl border bg-white px-8 py-6 text-black "
@@ -115,7 +137,7 @@ const AdminOverview = () => {
                     </div>
                     <div className="text-lg text-gray-700">
                       <FontAwesomeIcon icon={faPhone} />
-                      <span className="ml-3">{mentor.phone}</span>
+                      <span className="ml-3">{mentor.phone_number}</span>
                     </div>
                     <div className="text-lg text-gray-700">
                       <FontAwesomeIcon icon={faMoneyBill} />
@@ -123,18 +145,19 @@ const AdminOverview = () => {
                     </div>
                   </div>
 
-                  <Button
-                    startContent={
-                      <FontAwesomeIcon
-                        icon={faMessage}
-                        className="text-white"
-                      />
-                    }
-                    className="mt-3 bg-blue-accent-300 text-white"
-                    onClick={() => navigate("")}
-                  >
-                    Message
-                  </Button>
+                  <a href={`mailto:${mentor.email}`}>
+                    <Button
+                      startContent={
+                        <FontAwesomeIcon
+                          icon={faMessage}
+                          className="text-white"
+                        />
+                      }
+                      className="mt-3 bg-blue-accent-300 text-white"
+                    >
+                      Message
+                    </Button>
+                  </a>
                 </div>
               </div>
             ))}
@@ -142,7 +165,7 @@ const AdminOverview = () => {
 
         <section className="mt-20">
           <div>
-            <span className="open-sans-600 mr-1 text-3xl">Transactions</span>
+            <span className="open-sans-600 mr-1 text-3xl">Bookings</span>
             <sup className="-top-3">{BookingLists.length}</sup>
           </div>
 

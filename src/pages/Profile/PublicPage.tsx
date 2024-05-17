@@ -92,8 +92,9 @@ const PublicPage = () => {
                 />
               </div>
 
+              <p className="sm:text-md open-sans-600 mt-8 text-xs opacity-80">{`ID: ${currentUser.id}`}</p>
               <form
-                className="mt-8 items-center text-[#202142] sm:mt-14"
+                className="mt-8 items-center text-[#202142] sm:mt-3"
                 onSubmit={former.onSubmitHandler}
               >
                 <div className="mb-2 flex w-full flex-col items-center space-x-0 space-y-2 sm:mb-6 sm:flex-row sm:space-x-4 sm:space-y-0">

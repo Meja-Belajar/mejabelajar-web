@@ -48,8 +48,7 @@ const AuthRouter = () => {
       {/* exclusive to admin */}
       <Route path="/admin" element={<AdminLandingPage />}>
         <Route index element={<AdminOverview />} />
-        <Route path="announcement" element={<AdminAnnouncement />} />
-        <Route path="report" element={<AdminNewMentor />} />
+        <Route path="application" element={<AdminNewMentor />} />
       </Route>
 
       {/* future enchancement routes */}

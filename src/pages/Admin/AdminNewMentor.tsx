@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import { PopOverComponent } from "./AdminOverview";
 import {
@@ -16,51 +17,50 @@ import { MentorService } from "@src/apis/services/mentorService";
 import { useFetch } from "@src/hooks/useFetch";
 
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
+import {
+  UpdateMentorRequest,
+  toUpdateMentorRequest,
+} from "@src/models/requests/mentorRequest";
 
 import { DateUtil } from "@src/utils/dateUtil";
 
-import BookingLists from "@src/assets/data/BookingLists.json";
 import "@src/assets/global.css";
 
 const AdminNewMentor = () => {
-  // const newMentor = useFetch<{}, MentorDTO>({
-  //   fetchProps: {},
-  //   fetchCallback: MentorService.getMentorApplications
-  // })
+  const newMentorsApp = useFetch<{}, MentorDTO[]>({
+    fetchProps: {},
+    fetchCallback: () => MentorService.getMentorApplications(),
+  });
 
-  // if(newMentor.isLoading) return (
-  //   <>        <div className="mt-20 flex items-center justify-center px-7">
-  //   <FontAwesomeIcon icon={faSpinner} spin className="text-3xl" />
-  // </div>
-  //   </>
-  // )
+  const [error, setError] = useState<string>("");
 
-  const [newMentor, setNewMentor] = useState<MentorDTO[]>([]);
-  const [isLoading, setLoading] = useState<boolean>(true);
-
-  const fetchMentorApplications = async () => {
+  const handleApprove = async (mentor: MentorDTO) => {
     try {
-      setLoading(true);
-      const response: MentorDTO[] = await MentorService.getMentorApplications();
-      console.log(response);
+      // @ts-ignore
+      const response = await MentorService.updateMentor(
+        toUpdateMentorRequest(mentor),
+      );
 
-      setNewMentor(response);
+      console.log(mentor);
     } catch (e) {
-      console.error("Error fetching mentor applications:", e);
-    } finally {
-      setLoading(false);
+      if (e instanceof Error) setError(e.message);
     }
   };
 
-  const handleApprove = async () => {};
+  const handleReject = async (mentor: MentorDTO) => {
+    try {
+      const request = toUpdateMentorRequest(mentor);
+      // @ts-ignore
+      const response = await MentorService.updateMentor({
+        ...request,
+        is_active: false,
+      });
+    } catch (e) {
+      if (e instanceof Error) setError(e.message);
+    }
+  };
 
-  const handleReject = async () => {};
-
-  useEffect(() => {
-    fetchMentorApplications();
-  }, []);
-
-  if (isLoading)
+  if (newMentorsApp.isLoading) {
     return (
       <>
         <div className="mt-20 flex items-center justify-center px-7">
@@ -68,14 +68,17 @@ const AdminNewMentor = () => {
         </div>
       </>
     );
+  }
 
   return (
     <>
+      <div>{error && <p className="text-red-500">{`!!! ${error}`}</p>}</div>
+
       <Accordion>
-        {newMentor.map((mentor) => (
+        {newMentorsApp.data!.map((mentor) => (
           <AccordionItem
             key={mentor.mentor_id}
-            title={mentor.mentor_id}
+            title={`${mentor.mentor_id} - ${mentor.username}`}
             startContent={<FontAwesomeIcon icon={faEnvelope} />}
           >
             <table className="w-full border-collapse bg-transparent">
@@ -99,7 +102,7 @@ const AdminNewMentor = () => {
                 <tr>
                   <td className="border-none p-2">Date of Birth:</td>
                   <td className="border-none p-2">
-                    {DateUtil.toLocalString(DateUtil.fromISO(mentor.bod))}
+                    {DateUtil.toBOD(DateUtil.fromISO(mentor.bod))}
                   </td>
                 </tr>
                 <tr>
@@ -112,11 +115,11 @@ const AdminNewMentor = () => {
               <Button
                 color="success"
                 className="text-white"
-                onClick={handleApprove}
+                onClick={() => handleApprove(mentor)}
               >
                 Approve
               </Button>
-              <Button color="danger" onClick={handleReject}>
+              <Button color="danger" onClick={() => handleReject(mentor)}>
                 Reject
               </Button>
             </div>

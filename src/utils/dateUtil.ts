@@ -95,6 +95,14 @@ export class DateUtil extends Date {
     });
   }
 
+  static toBOD(date: Date): string {
+    return date.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  }
+
   // compare date
   static compareDate(date1: Date, date2: Date): boolean {
     return date1.getTime() > date2.getTime();

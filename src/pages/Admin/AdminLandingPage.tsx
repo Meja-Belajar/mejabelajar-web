@@ -150,7 +150,7 @@ const AdminLandingPage = () => {
                       Dashboard
                     </NavLink>
                     <NavLink
-                      to="/admin/Announcement"
+                      to="/admin/Application"
                       className="open-sans-600 rounded-md px-3 py-2 text-sm font-medium"
                       style={({ isActive }) => {
                         return {
@@ -159,19 +159,7 @@ const AdminLandingPage = () => {
                         };
                       }}
                     >
-                      Announcement
-                    </NavLink>
-                    <NavLink
-                      to="/admin/Report"
-                      className="open-sans-600 rounded-md px-3 py-2 text-sm font-medium"
-                      style={({ isActive }) => {
-                        return {
-                          backgroundColor: isActive ? "#B46EFB" : "white",
-                          color: isActive ? "white" : "black",
-                        };
-                      }}
-                    >
-                      Report
+                      Application
                     </NavLink>
                   </div>
                 </div>

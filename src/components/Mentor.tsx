@@ -30,6 +30,10 @@ type MentorState = {
   error: string;
 };
 
+type SearchMentorWrapperProps = {
+  data: MentorDTO[];
+};
+
 // const MentorCard = (props: MentorCardProps) => {
 //   const { mentor } = props;
 //   const navigate = useNavigate();
@@ -184,4 +188,25 @@ const MentorCard = (props: MentorCardProps) => {
   );
 };
 
-export { MentorCard, SkeletonMentorCard, WeeklyPopularMentorWrapper };
+const SearchMentorWrapper = (props: SearchMentorWrapperProps) => {
+  const { data } = props;
+  return (
+    <>
+      <div className="flex flex-row flex-wrap items-center justify-start gap-3 px-0 sm:px-20">
+        {data.map((mentor) => (
+          <>
+            <div className="bg-white-accent-1">
+              <MentorCard mentor={mentor} />
+            </div>
+          </>
+        ))}
+      </div>
+    </>
+  );
+};
+export {
+  MentorCard,
+  SkeletonMentorCard,
+  WeeklyPopularMentorWrapper,
+  SearchMentorWrapper,
+};
