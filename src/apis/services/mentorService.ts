@@ -8,6 +8,7 @@ import {
 import {
   GetMentorByIdRequest,
   MentorApplicationRequest,
+  UpdateMentorRequest,
 } from "@src/models/requests/mentorRequest";
 import {
   Example,
@@ -15,12 +16,31 @@ import {
   GetMentorByIdResponse,
   GetPopularMentorsResponse,
   MentorApplicationResponse,
+  UpdateMentorResponse,
 } from "@src/models/responses/mentorResponse";
 
 export class MentorService {
   static async getPopularMentors(): Promise<MentorDTO[]> {
     try {
       // const response = await fetch(`${mentorServiceApi.getPopularMentors}`);
+
+      const mentors: GetPopularMentorsResponse =
+        Example.GetPopularMentorsResponse;
+
+      if (mentors.data.length === 0) {
+        throw new Error("No mentors found");
+      }
+
+      return toMentorsDTO(mentors);
+    } catch (e) {
+      console.error(`Error fetching mentors: ${e}`);
+      throw new Error("Failed to fetch mentors");
+    }
+  }
+
+  static async getAllMentors(): Promise<MentorDTO[]> {
+    try {
+      // const response = await fetch(`${mentorServiceApi.getAllMentors}`);
 
       const mentors: GetPopularMentorsResponse =
         Example.GetPopularMentorsResponse;
@@ -96,6 +116,30 @@ export class MentorService {
     } catch (e) {
       console.error(`Error fetching registered mentor: ${e}`);
       throw new Error("Failed to register mentor");
+    }
+  }
+
+  static async updateMentor(requestData: UpdateMentorRequest): Promise<MentorDTO> {
+    try {
+      // const response = await fetch(`${mentorServiceApi.updateMentor}`, {
+      //   method: "PUT",
+      //   body: JSON.stringify(requestData),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+
+      const mentor: UpdateMentorResponse =
+        Example.UpdateMentorResponse;
+
+      if (mentor.code != 200) {
+        throw new Error("Failed to update mentor");
+      }
+
+      return toMentorDTO(mentor);
+    } catch (e) {
+      console.error(`Error updating mentor: ${e}`);
+      throw new Error("Failed to update mentor");
     }
   }
 }

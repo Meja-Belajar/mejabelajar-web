@@ -1,5 +1,6 @@
 import {
   GetAllMentorApplicationResponse,
+  GetAllMentorsResponse,
   GetMentorByIdResponse,
   GetPopularMentorsResponse,
 } from "../responses/mentorResponse";
@@ -28,7 +29,7 @@ export interface MentorDTO {
 }
 
 export const toMentorsDTO = (
-  data: GetPopularMentorsResponse | GetAllMentorApplicationResponse,
+  data: GetPopularMentorsResponse | GetAllMentorsResponse | GetAllMentorApplicationResponse,
 ): MentorDTO[] => {
   return data.data.map((mentor) => ({
     mentor_id: mentor.mentor_id,

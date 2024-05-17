@@ -1,11 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 import {
   faMailBulk,
-  faMailReply,
-  faPhone,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,7 +23,6 @@ import {
 import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
 
-import { BookingService } from "@src/apis/services/bookingService";
 import { MentorService } from "@src/apis/services/mentorService";
 
 import Navigation from "@src/components/Navigation";
@@ -34,7 +31,6 @@ import { useFetch } from "@src/hooks/useFetch";
 
 import { CourseDTO } from "@src/models/dtos/courseDTO";
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
-import { CreateBookingRequest } from "@src/models/requests/bookingRequest";
 import { GetMentorByIdRequest } from "@src/models/requests/mentorRequest";
 
 import { AppUtil } from "@src/utils/appUtil";
@@ -72,7 +68,6 @@ const MentoringPage = () => {
 
   const [createBookingIsLoading, setCreateBookingIsLoading] =
     useState<boolean>(false);
-  const [createBookingWarning, setCreateBookingWarning] = useState<string>("");
 
   const [warning, setWarning] = useState<string>("");
   const [price, setPrice] = useState<priceProps>({
@@ -108,15 +103,7 @@ const MentoringPage = () => {
   });
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
-  const currentUser = useSelector((state: any) => state.user);
-
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   console.log("trif");
-  //   calculatePrice();
-  // }, [schedule, selectedCourse]);
 
   useMemo(() => {
     if (!selectedCourse) {
@@ -482,16 +469,6 @@ const MentoringPage = () => {
         <ModalFooter>
           <Button
             className="bg-green-500 text-white"
-            // onPress={async () => {
-
-            //   setCreateBookingIsLoading(true);
-
-            //   await handleBookingCreation();
-
-            //   setCreateBookingIsLoading(false);
-            //   handleSuccessEffect();
-            //   onClose();
-            // }}
             onClick={() => handleBookingCreation(onClose)}
           >
             {!createBookingIsLoading ? `I have already paid` : `Validating...`}
