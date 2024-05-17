@@ -10,10 +10,12 @@ import {
   MentorApplicationRequest,
   UpdateMentorRequest,
 } from "@src/models/requests/mentorRequest";
+import { SearchRequest } from "@src/models/requests/searchRequest";
 import {
   Example,
   GetAllMentorApplicationResponse,
   GetMentorByIdResponse,
+  GetMentorQueryResponse,
   GetPopularMentorsResponse,
   MentorApplicationResponse,
   UpdateMentorResponse,
@@ -141,6 +143,29 @@ export class MentorService {
     } catch (e) {
       console.error(`Error updating mentor: ${e}`);
       throw new Error("Failed to update mentor");
+    }
+  }
+
+  static async getMentorByName(requestData: SearchRequest): Promise<MentorDTO[]> {
+    try {
+      // const response = await fetch(`${mentorServiceApi.getMentorByName}`, {
+      //   method: "POST",
+      //   body: JSON.stringify(requestData),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+
+      const mentor: GetMentorQueryResponse = Example.GetMentorQueryResponse;
+
+      if (mentor.data.length === 0) {
+        throw new Error("No mentors found");
+      }
+
+      return toMentorsDTO(mentor);
+    } catch (e) {
+      console.error(`Error fetching mentor: ${e}`);
+      throw new Error("Failed to fetch mentor");
     }
   }
 }

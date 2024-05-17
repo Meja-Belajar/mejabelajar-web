@@ -4,6 +4,11 @@ import { motion } from "framer-motion";
 
 import "@src/assets/global.css";
 import { animate, exit, initial } from "@src/assets/pageTransitions";
+import { SearchMentorWrapper } from "@src/components/Mentor";
+import { MentorService } from "@src/apis/services/mentorService";
+import { SearchRequest } from "@src/models/requests/searchRequest";
+import { MentorDTO } from "@src/models/dtos/mentorDTO";
+import { useFetch } from "@src/hooks/useFetch";
 
 const SearchResult = () => {
   const { query } = useParams();
