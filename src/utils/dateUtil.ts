@@ -44,8 +44,6 @@ export class DateUtil extends Date {
     const date1Obj = new Date(date1);
     const date2Obj = new Date(date2);
 
-    console.log(date1Obj.getTime(), date2Obj.getTime());
-
     return date1Obj.getTime() > date2Obj.getTime();
   }
 
@@ -94,6 +92,14 @@ export class DateUtil extends Date {
       hour: "2-digit",
       minute: "2-digit",
       hour12: true,
+    });
+  }
+
+  static toBOD(date: Date): string {
+    return date.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric"
     });
   }
 

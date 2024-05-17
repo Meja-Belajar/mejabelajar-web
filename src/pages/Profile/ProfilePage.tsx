@@ -1,13 +1,17 @@
-import { motion } from "framer-motion";
-import { animate, exit, initial } from "@src/assets/pageTransitions";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+
+import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { motion } from "framer-motion";
+
 import { UserService } from "@src/apis/services/userService";
+
 import { setCurrentUser } from "@src/redux/user/userSelectors";
+
 import "@src/assets/global.css";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -37,14 +41,14 @@ const ProfilePage = () => {
         </section>
 
         <Outlet />
-
+        
         <aside
           className="absolute h-full w-full bg-white py-4 md:relative md:block md:h-auto md:w-1/3 md:bg-transparent lg:w-1/4"
           style={{
             display:
               window.innerWidth < 768 ? (isVisible ? "block" : "none") : "",
           }}
-        >
+        > 
           <div className="sticky top-12 flex w-full flex-col gap-2 p-4 text-sm">
             <h2 className="open-sans-600 mb-4 pl-3 text-2xl">
               Profile Settings

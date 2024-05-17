@@ -1,20 +1,24 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { faSave, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@nextui-org/react";
-import { UserService } from "@src/apis/services/userService";
 import { useForm } from "@src/hooks";
-import { UpdateUserRequest } from "@src/models/requests/userRequest";
-import { UpdateProfileSchema } from "@src/models/zod/userZod";
+import { motion } from "framer-motion";
+
+import { UserService } from "@src/apis/services/userService";
+
 import {
   setCurrentUser,
   setUserError,
   setUserLoading,
 } from "@src/redux/user/userSelectors";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
+import { UpdateUserRequest } from "@src/models/requests/userRequest";
+import { UpdateProfileSchema } from "@src/models/zod/userZod";
 
 import { animate, exit, initial } from "@src/assets/pageTransitions";
-import { motion } from "framer-motion";
 
 const PublicPage = () => {
   const navigate = useNavigate();
@@ -87,9 +91,11 @@ const PublicPage = () => {
                   onInput={handleImageChange}
                 />
               </div>
-
+              
+        
+              <p className="mt-8 text-xs sm:text-md opacity-80 open-sans-600">{`ID: ${currentUser.id}`}</p>
               <form
-                className="mt-8 items-center text-[#202142] sm:mt-14"
+                className="mt-8 items-center text-[#202142] sm:mt-3"
                 onSubmit={former.onSubmitHandler}
               >
                 <div className="mb-2 flex w-full flex-col items-center space-x-0 space-y-2 sm:mb-6 sm:flex-row sm:space-x-4 sm:space-y-0">

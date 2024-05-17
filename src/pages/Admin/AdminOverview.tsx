@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
+
 import {
   faBan,
   faBell,
@@ -17,7 +17,7 @@ import {
   faTrash,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
-import BookingLists from "@src/assets/data/BookingLists.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
   Divider,
@@ -32,96 +32,112 @@ import {
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
-import "@src/assets/global.css";
-import { useNavigate } from "react-router-dom";
-import { PopularMentors } from "@src/assets/data/userLandingData";
-const AdminOverview = () => {
+import { AnimatePresence, motion } from "framer-motion";
 
-  const mentors = PopularMentors;
+import BookingLists from "@src/assets/data/BookingLists.json";
+import { PopularMentors } from "@src/assets/data/userLandingData";
+import "@src/assets/global.css";
+import { useFetch } from "@src/hooks/useFetch";
+import { MentorDTO } from "@src/models/dtos/mentorDTO";
+import { MentorService } from "@src/apis/services/mentorService";
+import { BookingDTO } from "@src/models/dtos/bookingDTO";
+import { BookingService } from "@src/apis/services/bookingService";
+
+const AdminOverview = () => {
+  const allBookings = useFetch<{}, BookingDTO[]>({
+    fetchProps: {},
+    fetchCallback: () => BookingService.getAllBookings(),
+  });
+
+  const availableMentors = useFetch<{}, MentorDTO[]>({
+    fetchProps: {},
+    fetchCallback: () => MentorService.getAllMentors(),
+  });
+
   const [isMentorsView, setIsMentorView] = useState<boolean>(false);
 
   const navigate = useNavigate();
+
+  if(availableMentors.isLoading || allBookings.isLoading) return (
+    <div className="mt-20 flex items-center justify-center px-7">
+      <FontAwesomeIcon icon={faBell} spin className="text-3xl" />
+    </div>
+  )
 
   return (
     <>
       <motion.div className="px-8 py-5">
         <section className="w-full rounded-2xl bg-purple-accent-500 p-8 shadow-lg drop-shadow-lg">
-          <div className="flex flex-col gap-5 text-white sm:w-1/2 sm:flex-row sm:justify-between">
+          <div className="flex flex-col gap-5 text-white sm:w-3/4 sm:flex-row sm:justify-between">
             <div className="p-1">
               <h3 className="open-sans-600 text-white-accent-1">
                 Total Bookings
               </h3>
-              <h1 className="open-sans-600 text-3xl">12</h1>
+              <h1 className="open-sans-600 text-3xl">{allBookings.data?.length}</h1>
             </div>
 
             <div className="p-1">
               <h3 className="open-sans-600 text-white-accent-1">
-                Total Income
+               Total Mentors
               </h3>
-              <h1 className="open-sans-600 text-3xl">Rp230.120,-</h1>
-            </div>
-            <div className="p-1">
-              <h3 className="open-sans-600 text-white-accent-1">
-                Total Request
-              </h3>
-              <h1 className="open-sans-600 text-3xl">10</h1>
+              <h1 className="open-sans-600 text-3xl">{availableMentors.data?.length}</h1>
             </div>
           </div>
         </section>
 
         <div className="mt-10" />
 
-        <AnimatePresence>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="rounded-2xl bg-blue-accent-300 p-8 text-white shadow-lg drop-shadow-lg"
-          >
-            <nav className="flex w-full flex-row items-center justify-between">
-              <h1 className="text-3xl">Available Mentors</h1>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="rounded-2xl bg-blue-accent-300 p-8 text-white shadow-lg drop-shadow-lg"
+        >
+          <nav className="flex w-full flex-row items-center justify-between">
+            <h1 className="text-3xl">Available Mentors</h1>
+            <div
+              className="flex cursor-pointer items-center justify-center p-2 pb-3"
+              onClick={() => setIsMentorView(!isMentorsView)}
+            >
+              <FontAwesomeIcon
+                icon={faSortDown}
+                className="transform text-xl transition duration-300 ease-out"
+                style={{
+                  transform: isMentorsView ? "rotate(0)" : "rotate(-90deg)",
+                }}
+              />
+            </div>
+          </nav>
+        </motion.div>
+
+        <div className="mt-10">
+          {isMentorsView &&
+            availableMentors.data!.map((mentor, index) => (
               <div
-                className="flex cursor-pointer items-center justify-center p-2 pb-3"
-                onClick={() => setIsMentorView(!isMentorsView)}
+                key={`${index}/${mentor.mentor_id}`}
+                className="bg-blue-accent-500 mt-3 w-full rounded-2xl border bg-white px-8 py-6 text-black "
               >
-                <FontAwesomeIcon
-                  icon={faSortDown}
-                  className="transform text-xl transition duration-300 ease-out"
-                  style={{
-                    transform: isMentorsView ? "rotate(0)" : "rotate(-90deg)",
-                  }}
-                />
-              </div>
-            </nav>
-          </motion.div>
-
-          <div className="mt-10">
-            {isMentorsView &&
-              mentors.map((mentor, index) => (
-                <div
-                  key={index}
-                  className="bg-blue-accent-500 mt-3 w-full rounded-2xl border bg-white px-8 py-6 text-black "
-                >
-                  <div className="mt-2 flex flex-col items-start justify-between sm:flex-row sm:items-center">
-                    <h1 className="text-xl">{mentor.mentor_id}</h1>
-                    <h2 className="text-2xl">{mentor.username}</h2>
-                  </div>
-                  <div className="mt-5 flex flex-row items-end justify-between">
-                    <div>
-                      <div className="text-l text-gray-700">
-                        <FontAwesomeIcon icon={faMessage} />
-                        <span className="ml-3">{mentor.email}</span>
-                      </div>
-                      <div className="text-lg text-gray-700">
-                        <FontAwesomeIcon icon={faPhone} />
-                        <span className="ml-3">{mentor.phone}</span>
-                      </div>
-                      <div className="text-lg text-gray-700">
-                        <FontAwesomeIcon icon={faMoneyBill} />
-                        <span className="ml-3">{mentor.revenue}</span>
-                      </div>
+                <div className="mt-2 flex flex-col items-start justify-between sm:flex-row sm:items-center">
+                  <h1 className="text-xl">{mentor.mentor_id}</h1>
+                  <h2 className="text-2xl">{mentor.username}</h2>
+                </div>
+                <div className="mt-5 flex flex-row items-end justify-between">
+                  <div>
+                    <div className="text-l text-gray-700">
+                      <FontAwesomeIcon icon={faMessage} />
+                      <span className="ml-3">{mentor.email}</span>
                     </div>
+                    <div className="text-lg text-gray-700">
+                      <FontAwesomeIcon icon={faPhone} />
+                      <span className="ml-3">{mentor.phone_number}</span>
+                    </div>
+                    <div className="text-lg text-gray-700">
+                      <FontAwesomeIcon icon={faMoneyBill} />
+                      <span className="ml-3">{mentor.revenue}</span>
+                    </div>
+                  </div>
 
+                  <a href={`mailto:${mentor.email}`}>
                     <Button
                       startContent={
                         <FontAwesomeIcon
@@ -130,19 +146,18 @@ const AdminOverview = () => {
                         />
                       }
                       className="mt-3 bg-blue-accent-300 text-white"
-                      onClick={() => navigate("")}
                     >
                       Message
                     </Button>
-                  </div>
+                  </a>
                 </div>
-              ))}
-          </div>
-        </AnimatePresence>
+              </div>
+            ))}
+        </div>
 
         <section className="mt-20">
           <div>
-            <span className="open-sans-600 mr-1 text-3xl">Transactions</span>
+            <span className="open-sans-600 mr-1 text-3xl">Bookings</span>
             <sup className="-top-3">{BookingLists.length}</sup>
           </div>
 
@@ -163,7 +178,7 @@ const AdminOverview = () => {
 
             <TableBody>
               {BookingLists.map((booking, index) => (
-                <TableRow key={index}>
+                <TableRow key={`${index}/${booking.id}`}>
                   <TableCell>{booking.userId}</TableCell>
                   <TableCell>{booking.courseId}</TableCell>
                   <TableCell>{booking.courseId}</TableCell>

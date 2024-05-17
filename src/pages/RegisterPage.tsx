@@ -1,6 +1,13 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { exit, animate, initial } from "@src/assets/pageTransitions";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+
+import {
+  faCircleExclamation,
+  faEye,
+  faEyeSlash,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
   Input,
@@ -8,28 +15,27 @@ import {
   ModalBody,
   ModalContent,
 } from "@nextui-org/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleExclamation,
-  faEye,
-  faEyeSlash,
-} from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
-import { UserService } from "@src/apis/services/userService";
-import Logo from "@src/components/Logo";
-
-import { RegisterUserSchema } from "@src/models/zod/userZod";
-import { RegisterUserRequest } from "@src/models/requests/userRequest";
-import { DateUtil } from "@src/utils/dateUtil";
 import { useForm } from "@src/hooks";
-import { useDispatch, useSelector } from "react-redux";
+import { motion } from "framer-motion";
+
+import { UserService } from "@src/apis/services/userService";
+
 import {
   setCurrentUser,
   setUserError,
   setUserLoading,
 } from "@src/redux/user/userSelectors";
-import "@src/assets/global.css";
+
+import Logo from "@src/components/Logo";
+
 import { UserDTO } from "@src/models/dtos/userDTO";
+import { RegisterUserRequest } from "@src/models/requests/userRequest";
+import { RegisterUserSchema } from "@src/models/zod/userZod";
+
+import { DateUtil } from "@src/utils/dateUtil";
+
+import "@src/assets/global.css";
+import { animate, exit, initial } from "@src/assets/pageTransitions";
 
 const RegisterPage = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);

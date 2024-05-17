@@ -1,4 +1,4 @@
-import { userSlice } from "./userSlice";
+import { userSlice } from "./userSlice.ts";
 
 export const { setCurrentUser, setUserLoading, setUserError } =
   userSlice.actions;
