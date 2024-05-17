@@ -34,14 +34,18 @@ import {
 } from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
 
+import { BookingService } from "@src/apis/services/bookingService";
+import { MentorService } from "@src/apis/services/mentorService";
+
+import { useFetch } from "@src/hooks/useFetch";
+
+import { BookingDTO } from "@src/models/dtos/bookingDTO";
+import { MentorDTO } from "@src/models/dtos/mentorDTO";
+
 import BookingLists from "@src/assets/data/BookingLists.json";
 import { PopularMentors } from "@src/assets/data/userLandingData";
 import "@src/assets/global.css";
-import { useFetch } from "@src/hooks/useFetch";
-import { MentorDTO } from "@src/models/dtos/mentorDTO";
-import { MentorService } from "@src/apis/services/mentorService";
-import { BookingDTO } from "@src/models/dtos/bookingDTO";
-import { BookingService } from "@src/apis/services/bookingService";
+
 
 const AdminOverview = () => {
   const allBookings = useFetch<{}, BookingDTO[]>({
@@ -58,11 +62,12 @@ const AdminOverview = () => {
 
   const navigate = useNavigate();
 
-  if(availableMentors.isLoading || allBookings.isLoading) return (
-    <div className="mt-20 flex items-center justify-center px-7">
-      <FontAwesomeIcon icon={faBell} spin className="text-3xl" />
-    </div>
-  )
+  if (availableMentors.isLoading || allBookings.isLoading)
+    return (
+      <div className="mt-20 flex items-center justify-center px-7">
+        <FontAwesomeIcon icon={faBell} spin className="text-3xl" />
+      </div>
+    );
 
   return (
     <>
@@ -73,14 +78,17 @@ const AdminOverview = () => {
               <h3 className="open-sans-600 text-white-accent-1">
                 Total Bookings
               </h3>
+
               <h1 className="open-sans-600 text-3xl">{allBookings.data?.length}</h1>
             </div>
 
             <div className="p-1">
               <h3 className="open-sans-600 text-white-accent-1">
+
                Total Mentors
               </h3>
               <h1 className="open-sans-600 text-3xl">{availableMentors.data?.length}</h1>
+
             </div>
           </div>
         </section>

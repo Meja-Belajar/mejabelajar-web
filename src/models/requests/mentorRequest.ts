@@ -39,4 +39,5 @@ export const toUpdateMentorRequest = (data: MentorDTO): UpdateMentorRequest => {
     bod: data.bod,
     is_active: true,
   };
-}
+};
+

@@ -2,10 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import {
-  faMailBulk,
-  faSpinner,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMailBulk, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CalendarDate, Time } from "@internationalized/date";
 import {

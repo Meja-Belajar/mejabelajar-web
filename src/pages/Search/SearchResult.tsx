@@ -1,23 +1,48 @@
 import { useParams } from "react-router-dom";
 
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
+
+import { MentorService } from "@src/apis/services/mentorService";
+
+import { SearchMentorWrapper } from "@src/components/Mentor";
+
+import { useFetch } from "@src/hooks/useFetch";
+
+import { MentorDTO } from "@src/models/dtos/mentorDTO";
+import { SearchRequest } from "@src/models/requests/searchRequest";
 
 import "@src/assets/global.css";
 import { animate, exit, initial } from "@src/assets/pageTransitions";
+import { SearchMentorWrapper } from "@src/components/Mentor";
+import { MentorService } from "@src/apis/services/mentorService";
+import { SearchRequest } from "@src/models/requests/searchRequest";
+import { MentorDTO } from "@src/models/dtos/mentorDTO";
+import { useFetch } from "@src/hooks/useFetch";
+
 
 const SearchResult = () => {
   const { query } = useParams();
+
+  const queryResult = useFetch<SearchRequest, MentorDTO[]>({
+    fetchProps: { query: query as string },
+    fetchCallback: MentorService.getMentorByName,
+  });
+
   return (
     <>
       <motion.div
         initial={initial}
         animate={animate}
         exit={exit}
-        className="bg-white-accent-1"
+        className="mt-4 min-h-screen w-full bg-white-accent-1 px-3 pt-10 sm:px-10"
       >
-        <div>
-          <h1>Search Result {query}</h1>
-        </div>
+        <h1 className="open-sans-600 mb-10 text-xl sm:ml-2">{`Search result for ${query || "..."}`}</h1>
+
+        {!queryResult.isLoading && (
+          <SearchMentorWrapper data={queryResult.data!} />
+        )}
       </motion.div>
     </>
   );
