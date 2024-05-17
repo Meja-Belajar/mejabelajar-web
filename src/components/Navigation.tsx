@@ -156,19 +156,23 @@ const Navigation = (props: NavigationProps) => {
         </NavbarMenu>
       </Navbar>
 
-      <nav className="hidden w-full justify-center px-8 sm:flex">
+      <form
+        className="flex w-full justify-center px-8"
+        style={{ display: props?.disabled ? "none" : "flex" }}
+        onSubmit={(e) => handleFormSubmit(e)}
+      >
         <Input
           type="text"
           placeholder="search courses"
           variant="bordered"
-          className="flex w-full p-3 md:hidden"
+          className="mb-1 mt-4 flex w-full p-3 md:hidden"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           startContent={
             <FontAwesomeIcon icon={faSearch} className="text-blue-accent-300" />
           }
         />
-      </nav>
+      </form>
     </>
   );
 };

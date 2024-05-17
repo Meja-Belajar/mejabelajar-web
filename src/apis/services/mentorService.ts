@@ -11,10 +11,12 @@ import {
   UpdateMentorRequest,
 } from "@src/models/requests/mentorRequest";
 import { SearchRequest } from "@src/models/requests/searchRequest";
+import { SearchRequest } from "@src/models/requests/searchRequest";
 import {
   Example,
   GetAllMentorApplicationResponse,
   GetMentorByIdResponse,
+  GetMentorQueryResponse,
   GetMentorQueryResponse,
   GetPopularMentorsResponse,
   MentorApplicationResponse,
