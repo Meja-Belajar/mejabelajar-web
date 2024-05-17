@@ -17,7 +17,6 @@ import { MentorService } from "@src/apis/services/mentorService";
 import { useFetch } from "@src/hooks/useFetch";
 
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
-
 import {
   UpdateMentorRequest,
   toUpdateMentorRequest,
@@ -27,41 +26,37 @@ import { DateUtil } from "@src/utils/dateUtil";
 
 import "@src/assets/global.css";
 
-import { UpdateMentorRequest, toUpdateMentorRequest } from "@src/models/requests/mentorRequest";
-import { useSelector } from "react-redux";
-
-
 const AdminNewMentor = () => {
   const newMentorsApp = useFetch<{}, MentorDTO[]>({
     fetchProps: {},
-    fetchCallback: () => MentorService.getMentorApplications()
-  })
+    fetchCallback: () => MentorService.getMentorApplications(),
+  });
 
   const [error, setError] = useState<string>("");
 
   const handleApprove = async (mentor: MentorDTO) => {
     try {
       // @ts-ignore
-      const response = await MentorService.updateMentor(toUpdateMentorRequest(mentor));
+      const response = await MentorService.updateMentor(
+        toUpdateMentorRequest(mentor),
+      );
 
       console.log(mentor);
-
     } catch (e) {
-      if(e instanceof Error) setError(e.message);
+      if (e instanceof Error) setError(e.message);
     }
   };
-  
+
   const handleReject = async (mentor: MentorDTO) => {
     try {
       const request = toUpdateMentorRequest(mentor);
       // @ts-ignore
       const response = await MentorService.updateMentor({
         ...request,
-        is_active: false
+        is_active: false,
       });
-
-    } catch(e) {
-      if(e instanceof Error) setError(e.message);
+    } catch (e) {
+      if (e instanceof Error) setError(e.message);
     }
   };
 
@@ -76,10 +71,8 @@ const AdminNewMentor = () => {
   }
 
   return (
-    <> 
-      <div>
-        {error && <p className="text-red-500">{`!!! ${error}`}</p>}
-      </div>
+    <>
+      <div>{error && <p className="text-red-500">{`!!! ${error}`}</p>}</div>
 
       <Accordion>
         {newMentorsApp.data!.map((mentor) => (

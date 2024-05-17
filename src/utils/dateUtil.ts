@@ -99,7 +99,7 @@ export class DateUtil extends Date {
     return date.toLocaleString("en-GB", {
       day: "2-digit",
       month: "long",
-      year: "numeric"
+      year: "numeric",
     });
   }
 

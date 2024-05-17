@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -9,7 +8,6 @@ import { motion } from "framer-motion";
 import { encode } from "punycode";
 
 import Navigation from "@src/components/Navigation";
-
 
 import "@src/assets/global.css";
 import { animate, exit, initial } from "@src/assets/pageTransitions";

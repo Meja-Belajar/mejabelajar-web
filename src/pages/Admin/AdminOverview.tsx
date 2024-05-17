@@ -46,7 +46,6 @@ import BookingLists from "@src/assets/data/BookingLists.json";
 import { PopularMentors } from "@src/assets/data/userLandingData";
 import "@src/assets/global.css";
 
-
 const AdminOverview = () => {
   const allBookings = useFetch<{}, BookingDTO[]>({
     fetchProps: {},
@@ -79,16 +78,18 @@ const AdminOverview = () => {
                 Total Bookings
               </h3>
 
-              <h1 className="open-sans-600 text-3xl">{allBookings.data?.length}</h1>
+              <h1 className="open-sans-600 text-3xl">
+                {allBookings.data?.length}
+              </h1>
             </div>
 
             <div className="p-1">
               <h3 className="open-sans-600 text-white-accent-1">
-
-               Total Mentors
+                Total Mentors
               </h3>
-              <h1 className="open-sans-600 text-3xl">{availableMentors.data?.length}</h1>
-
+              <h1 className="open-sans-600 text-3xl">
+                {availableMentors.data?.length}
+              </h1>
             </div>
           </div>
         </section>

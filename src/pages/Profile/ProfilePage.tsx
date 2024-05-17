@@ -41,14 +41,14 @@ const ProfilePage = () => {
         </section>
 
         <Outlet />
-        
+
         <aside
           className="absolute h-full w-full bg-white py-4 md:relative md:block md:h-auto md:w-1/3 md:bg-transparent lg:w-1/4"
           style={{
             display:
               window.innerWidth < 768 ? (isVisible ? "block" : "none") : "",
           }}
-        > 
+        >
           <div className="sticky top-12 flex w-full flex-col gap-2 p-4 text-sm">
             <h2 className="open-sans-600 mb-4 pl-3 text-2xl">
               Profile Settings
