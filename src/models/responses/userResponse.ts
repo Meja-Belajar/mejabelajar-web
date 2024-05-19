@@ -101,7 +101,7 @@ export class Example {
       description: "I am a Student",
       profile_picture: "",
       bod: "2000-01-01T00:00:00.000Z",
-      isMentor: false,
+      is_mentor: false,
     },
   };
 
@@ -117,7 +117,7 @@ export class Example {
       description: "I am a Student",
       profile_picture: "",
       bod: "2000-01-01T00:00:00.000Z",
-      isMentor: false,
+      is_mentor: false,
     },
   };
 }

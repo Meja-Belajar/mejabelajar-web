@@ -60,8 +60,7 @@ const RegisterPage = () => {
           phone_number: former.values.phone_number,
           bod: former.values.bod,
           confirm_password: former.values.confirm_password,
-          created_by: former.values.user_name,
-        });
+        } as RegisterUserRequest);
 
         dispatch(setCurrentUser(registerResponse));
         console.log(registerResponse);

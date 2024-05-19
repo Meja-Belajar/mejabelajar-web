@@ -1,11 +1,12 @@
 import { adminServiceApi } from "../envConfig";
 
 import { AdminDTO, toAdminDTO } from "@src/models/dtos/adminDTO";
-import { MentorDTO } from "@src/models/dtos/mentorDTO";
+import { MentorDTO, toMentorDTO } from "@src/models/dtos/mentorDTO";
 import {
   Example,
   ValidateAdminResponse,
 } from "@src/models/responses/adminResponse";
+import { MentorApplicationResponse, Example as ExampleMentor } from "@src/models/responses/mentorResponse";
 
 export class AdminService {
   static async verify({ id }: { id: string }): Promise<AdminDTO> {
@@ -29,11 +30,45 @@ export class AdminService {
     mentor_id,
   }: {
     mentor_id: string;
-  }): Promise<MentorDTO> {}
+  }): Promise<MentorDTO> {
+    try {
+      // const response = await fetch(adminServiceApi.approveMentor, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ mentor_id }),
+      // });
+
+      const mentor: MentorApplicationResponse = ExampleMentor.MentorApplicationResponse;
+
+      return toMentorDTO(mentor);
+    } catch (e) {
+      console.error("Error approving mentor:", e);
+      throw new Error("Failed to approve mentor");
+    }
+  }
 
   static async rejectMentor({
     mentor_id,
   }: {
     mentor_id: string;
-  }): Promise<MentorDTO> {}
+  }): Promise<MentorDTO> {
+    try {
+      // const response = await fetch(adminServiceApi.rejectMentor, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ mentor_id }),
+      // });
+
+      const mentor: MentorApplicationResponse = ExampleMentor.MentorApplicationResponse;
+
+      return toMentorDTO(mentor);
+    } catch (e) {
+      console.error("Error rejecting mentor:", e);
+      throw new Error("Failed to reject mentor");
+    }
+  }
 }

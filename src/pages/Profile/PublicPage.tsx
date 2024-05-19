@@ -48,7 +48,7 @@ const PublicPage = () => {
           description: former.values.description,
           profile_picture: former.values.profile_picture,
           bod: former.values.bod,
-        });
+        } as UpdateUserRequest);
 
         dispatch(setCurrentUser(updateResponse));
         console.log(updateResponse);

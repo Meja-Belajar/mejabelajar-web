@@ -1,6 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import AdminAnnouncement from "@src/pages/Admin/AdminAnnouncement.tsx";
 import AdminLandingPage from "@src/pages/Admin/AdminLandingPage.tsx";
 import AdminNewMentor from "@src/pages/Admin/AdminNewMentor.tsx";
 import AdminOverview from "@src/pages/Admin/AdminOverview.tsx";
