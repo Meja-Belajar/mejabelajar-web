@@ -9,6 +9,8 @@ import { motion } from "framer-motion";
 import "@src/assets/global.css";
 import { animate, exit, initial } from "@src/assets/pageTransitions";
 
+const recommendations = ["Calculus", "Tom Holland", "Algebra"];
+
 const SearchDefault = () => {
   const [search, setSearch] = useState<string>("");
   const navigate = useNavigate();
@@ -32,6 +34,20 @@ const SearchDefault = () => {
           className="py-5"
         />
       </form>
+      <div className="mt-2 flex flex-row gap-3">
+        {recommendations.map((recommendation, index) => (
+          <button
+            key={index}
+            onClick={() => {
+              setSearch(recommendation);
+              navigate(`/search/${encodeURIComponent(recommendation)}`);
+            }}
+            className="lato-regular rounded-full border px-2 py-1 text-sm transition ease-soft-spring hover:border-blue-accent-300"
+          >
+            {recommendation}
+          </button>
+        ))}
+      </div>
     </>
   );
 };

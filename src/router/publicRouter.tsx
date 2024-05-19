@@ -1,6 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import AdminAnnouncement from "@src/pages/Admin/AdminAnnouncement.tsx";
 import AdminLandingPage from "@src/pages/Admin/AdminLandingPage.tsx";
 import AdminNewMentor from "@src/pages/Admin/AdminNewMentor.tsx";
 import AdminOverview from "@src/pages/Admin/AdminOverview.tsx";
@@ -34,8 +33,7 @@ const PublicRouter = () => {
 
       <Route path="/admin" element={<AdminLandingPage />}>
         <Route index element={<AdminOverview />} />
-        <Route path="announcement" element={<AdminAnnouncement />} />
-        <Route path="report" element={<AdminNewMentor />} />
+        <Route path="application" element={<AdminNewMentor />} />
       </Route>
 
       {/* future enchancement routes */}

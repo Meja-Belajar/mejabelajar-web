@@ -39,7 +39,7 @@ export const useForm = <T extends object>({
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    console.log("submit");
     const validation = validateField();
     console.log(validation);
 
@@ -51,7 +51,14 @@ export const useForm = <T extends object>({
 
     console.log(values);
     if (parsedValues.success) {
-      setErrorMessages({} as T);
+      for (const name in values) {
+        if (errorMessages[name]) {
+          setErrorMessages((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        }
+      }
 
       return false;
     } else {
