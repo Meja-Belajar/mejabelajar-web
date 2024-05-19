@@ -51,7 +51,7 @@ const LoginPage = () => {
     onSubmit: async () => {
       try {
         dispatch(setUserLoading(true));
-        console.log(former.values);
+
         const loginResponse: UserDTO = await UserService.login({
           email: former.values.email,
           password: former.values.password,
@@ -59,7 +59,6 @@ const LoginPage = () => {
 
         // error validation already handled by loginResponse
         dispatch(setCurrentUser(loginResponse));
-        console.log(loginResponse);
 
         navigate("/");
       } catch (error) {
@@ -101,7 +100,11 @@ const LoginPage = () => {
 
         <form
           className="w-[90%] rounded-lg bg-white p-5 drop-shadow-2xl lg:w-1/3"
-          onSubmit={former.onSubmitHandler}
+          onSubmit={(e) => {
+            e.preventDefault();
+            console.log("submit");
+            former.onSubmitHandler(e)
+          }}
         >
           <div className="m-3">
             <h1 className="open-sans-600 text-xl">Welcome back!</h1>
@@ -117,12 +120,9 @@ const LoginPage = () => {
               label="Email / Username"
               value={former.values.email}
               onChange={former.onChangeHandler}
-              errorMessage={
-                former.errorMessages.email && former.errorMessages.email
-              }
               required
             />
-            {/* {former.errorMessages.email && <p className='text-red-600 text-xs m-3'>{former.errorMessages.email}</p>} */}
+            {former.errorMessages.email && <p className='text-red-600 text-xs m-2'>{former.errorMessages.email}</p>}
             <Input
               name="password"
               type={isVisible ? "text" : "password"}
@@ -132,9 +132,6 @@ const LoginPage = () => {
               required
               value={former.values.password}
               onChange={former.onChangeHandler}
-              errorMessage={
-                former.errorMessages.password && former.errorMessages.password
-              }
               endContent={
                 <button
                   className="focus:outline-none"
@@ -149,8 +146,8 @@ const LoginPage = () => {
                 </button>
               }
             />
-            {/* {former.errorMessages.password && <p className='text-red-600 text-xs m-3'>{former.errorMessages.password}</p>} */}
-          </div>
+            {former.errorMessages.password && <p className='text-red-600 text-xs m-2'>{former.errorMessages.password}</p>}
+          </div>  
 
           <div className="m-3 flex items-end justify-end pb-2 pt-2">
             <Link
@@ -160,13 +157,12 @@ const LoginPage = () => {
               Forget Password ?
             </Link>
           </div>
-          <div className="m-3 flex flex-col items-center justify-center">
+          <div className="flex items-center justify-center px-3">
             <Button
               type="submit"
               color="default"
               variant="solid"
               className="w-full bg-blue-accent-300 text-black"
-              isLoading={isUserLoading}
             >
               Login
             </Button>

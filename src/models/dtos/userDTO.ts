@@ -1,3 +1,4 @@
+import { ImageUrl } from "@src/assets/imageUrl";
 import {
   GetUserByIdResponse,
   LoginUserResponse,
@@ -31,7 +32,7 @@ export const toUserDTO = (
     email: data.data.email,
     phone_number: data.data.phone_number,
     description: data.data.description,
-    profile_picture: data.data.profile_picture,
+    profile_picture: data.data.profile_picture || ImageUrl.NO_PROFILE_IMAGE,
     bod: data.data.bod,
     isMentor: data.data.is_mentor,
   };
