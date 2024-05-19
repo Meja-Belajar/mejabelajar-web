@@ -103,7 +103,7 @@ const LoginPage = () => {
           onSubmit={(e) => {
             e.preventDefault();
             console.log("submit");
-            former.onSubmitHandler(e)
+            former.onSubmitHandler(e);
           }}
         >
           <div className="m-3">
@@ -122,7 +122,11 @@ const LoginPage = () => {
               onChange={former.onChangeHandler}
               required
             />
-            {former.errorMessages.email && <p className='text-red-600 text-xs m-2'>{former.errorMessages.email}</p>}
+            {former.errorMessages.email && (
+              <p className="m-2 text-xs text-red-600">
+                {former.errorMessages.email}
+              </p>
+            )}
             <Input
               name="password"
               type={isVisible ? "text" : "password"}
@@ -146,8 +150,12 @@ const LoginPage = () => {
                 </button>
               }
             />
-            {former.errorMessages.password && <p className='text-red-600 text-xs m-2'>{former.errorMessages.password}</p>}
-          </div>  
+            {former.errorMessages.password && (
+              <p className="m-2 text-xs text-red-600">
+                {former.errorMessages.password}
+              </p>
+            )}
+          </div>
 
           <div className="m-3 flex items-end justify-end pb-2 pt-2">
             <Link

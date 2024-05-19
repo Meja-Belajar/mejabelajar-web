@@ -1,10 +1,11 @@
-import { ImageUrl } from "@src/assets/imageUrl";
 import {
   GetUserByIdResponse,
   LoginUserResponse,
   RegisterUserResponse,
   UpdateUserResponse,
 } from "../responses/userResponse";
+
+import { ImageUrl } from "@src/assets/imageUrl";
 
 export interface UserDTO {
   user_id: string;

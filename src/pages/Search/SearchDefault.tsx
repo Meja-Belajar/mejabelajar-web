@@ -35,20 +35,18 @@ const SearchDefault = () => {
         />
       </form>
       <div className="mt-2 flex flex-row gap-3">
-        {
-          recommendations.map((recommendation, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setSearch(recommendation);
-                navigate(`/search/${encodeURIComponent(recommendation)}`);
-              }}
-              className="border rounded-full px-2 text-sm py-1 lato-regular transition ease-soft-spring hover:border-blue-accent-300"
-            >
-              {recommendation}
-            </button>
-          ))
-        }
+        {recommendations.map((recommendation, index) => (
+          <button
+            key={index}
+            onClick={() => {
+              setSearch(recommendation);
+              navigate(`/search/${encodeURIComponent(recommendation)}`);
+            }}
+            className="lato-regular rounded-full border px-2 py-1 text-sm transition ease-soft-spring hover:border-blue-accent-300"
+          >
+            {recommendation}
+          </button>
+        ))}
       </div>
     </>
   );

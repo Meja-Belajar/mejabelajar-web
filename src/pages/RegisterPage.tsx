@@ -126,7 +126,11 @@ const RegisterPage = () => {
                 value={former.values.user_name}
                 onChange={former.onChangeHandler}
               />
-              {former.errorMessages.user_name && (<p className='text-red-600 text-xs m-2'>{former.errorMessages.user_name}</p>)}
+              {former.errorMessages.user_name && (
+                <p className="m-2 text-xs text-red-600">
+                  {former.errorMessages.user_name}
+                </p>
+              )}
               <Input
                 name="email"
                 type="email"
@@ -136,7 +140,11 @@ const RegisterPage = () => {
                 value={former.values.email}
                 onChange={former.onChangeHandler}
               />
-              {former.errorMessages.email && (<p className='text-red-600 text-xs m-2'>{former.errorMessages.email}</p>)}
+              {former.errorMessages.email && (
+                <p className="m-2 text-xs text-red-600">
+                  {former.errorMessages.email}
+                </p>
+              )}
               <Input
                 name="phone_number"
                 type="text"
@@ -146,7 +154,11 @@ const RegisterPage = () => {
                 value={former.values.phone_number}
                 onChange={former.onChangeHandler}
               />
-              {former.errorMessages.phone_number && (<p className='text-red-600 text-xs m-2'>{former.errorMessages.phone_number}</p>)}
+              {former.errorMessages.phone_number && (
+                <p className="m-2 text-xs text-red-600">
+                  {former.errorMessages.phone_number}
+                </p>
+              )}
               <Input
                 name="bod"
                 type="date"
@@ -161,7 +173,11 @@ const RegisterPage = () => {
                 key="outside"
                 max={DateUtil.minAge()}
               />
-              {former.errorMessages.bod && (<p className='text-red-600 text-xs m-2'>{former.errorMessages.bod}</p>)}
+              {former.errorMessages.bod && (
+                <p className="m-2 text-xs text-red-600">
+                  {former.errorMessages.bod}
+                </p>
+              )}
               <Input
                 name="password"
                 type={isVisible ? "text" : "password"}
@@ -187,7 +203,11 @@ const RegisterPage = () => {
                   </button>
                 }
               />
-              {former.errorMessages.password && (<p className='text-red-600 text-xs m-2'>{former.errorMessages.password}</p>)}
+              {former.errorMessages.password && (
+                <p className="m-2 text-xs text-red-600">
+                  {former.errorMessages.password}
+                </p>
+              )}
               <Input
                 name="confirm_password"
                 type={isVisible ? "text" : "password"}
@@ -213,7 +233,11 @@ const RegisterPage = () => {
                   </button>
                 }
               />
-              {former.errorMessages.confirm_password && (<p className='text-red-600 text-xs m-2'>{former.errorMessages.confirm_password}</p>)}
+              {former.errorMessages.confirm_password && (
+                <p className="m-2 text-xs text-red-600">
+                  {former.errorMessages.confirm_password}
+                </p>
+              )}
             </div>
 
             <div className="m-3 flex items-end justify-end pb-2 pt-2">
