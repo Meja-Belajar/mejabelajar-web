@@ -44,6 +44,15 @@ const MentorLanding = () => {
     return <ErrorPage code={404} message={mentorState.error} />;
   }
 
+  if (mentorState.data?.isActive === false) {
+    return (
+      <ErrorPage
+        code={403}
+        message="Your account is currently inactive. Please contact admin@mejabelajar.edu"
+      />
+    );
+  }
+
   return (
     <>
       <Navigation />

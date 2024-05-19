@@ -85,7 +85,7 @@ export class Example {
       description: "I am a Student",
       profile_picture: "",
       bod: "2000-01-01T00:00:00.000Z",
-      is_mentor: false,
+      is_mentor: true,
     },
   };
 

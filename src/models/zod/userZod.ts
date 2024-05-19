@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { DateUtil } from "@src/utils/dateUtil";
+
 // schema for user login
 export const LoginUserSchema = z.object({
   email: z
@@ -27,7 +29,15 @@ export const RegisterUserSchema = z
       .min(10, { message: "Phone number must be at least 10 characters" })
       .max(15, { message: "Phone number must be at most 15 characters" })
       .regex(/^[0-9]+$/, { message: "Phone number must be a number" }),
-    bod: z.coerce.date({ required_error: "Date of birth is required" }),
+    bod: z.coerce
+      .date({ required_error: "Date of birth is required" })
+      .min(new Date("1900-01-01"), {
+        message: "Date of birth must be after 1900-01-01",
+      })
+      .refine((data) => DateUtil.isAgeValid(data), {
+        message: "You must be at least 17 years old",
+        path: ["bod"],
+      }),
     password: z
       .string({ required_error: "Password is required" })
       .min(8, { message: "Password must be at least 8 characters" })

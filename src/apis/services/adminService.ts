@@ -6,7 +6,10 @@ import {
   Example,
   ValidateAdminResponse,
 } from "@src/models/responses/adminResponse";
-import { MentorApplicationResponse, Example as ExampleMentor } from "@src/models/responses/mentorResponse";
+import {
+  Example as ExampleMentor,
+  MentorApplicationResponse,
+} from "@src/models/responses/mentorResponse";
 
 export class AdminService {
   static async verify({ id }: { id: string }): Promise<AdminDTO> {
@@ -40,7 +43,8 @@ export class AdminService {
       //   body: JSON.stringify({ mentor_id }),
       // });
 
-      const mentor: MentorApplicationResponse = ExampleMentor.MentorApplicationResponse;
+      const mentor: MentorApplicationResponse =
+        ExampleMentor.MentorApplicationResponse;
 
       return toMentorDTO(mentor);
     } catch (e) {
@@ -63,7 +67,8 @@ export class AdminService {
       //   body: JSON.stringify({ mentor_id }),
       // });
 
-      const mentor: MentorApplicationResponse = ExampleMentor.MentorApplicationResponse;
+      const mentor: MentorApplicationResponse =
+        ExampleMentor.MentorApplicationResponse;
 
       return toMentorDTO(mentor);
     } catch (e) {

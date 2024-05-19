@@ -77,7 +77,11 @@ const UserLanding = () => {
               </div>
               <div
                 className="open-sans-600 flex w-full cursor-pointer flex-row items-center gap-3 rounded-xl border-2 border-blue-accent-100 p-4 pr-12 transition ease-out hover:bg-blue-accent-300 hover:bg-opacity-50"
-                onClick={() => navigate("/mentor")}
+                onClick={() => {
+                  currentUser?.isMentor
+                    ? navigate("/mentor")
+                    : navigate("/profile/application");
+                }}
               >
                 <img
                   src={ImageUrl.TO_ROLE_MENTOR}

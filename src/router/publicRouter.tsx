@@ -29,7 +29,6 @@ const PublicRouter = () => {
       <Route path="/history/*" element={<Navigate to="/login" />} />
       <Route path="/tutoring/*" element={<Navigate to="/login" />} />
       <Route path="/mentoring/*" element={<Navigate to="/login" />} />
-      <Route path="/admin/*" element={<Navigate to="/login" />} />
 
       <Route path="/admin" element={<AdminLandingPage />}>
         <Route index element={<AdminOverview />} />
@@ -37,7 +36,7 @@ const PublicRouter = () => {
       </Route>
 
       {/* future enchancement routes */}
-      {/* <Route path="/about/*" element={<ConstructionPage />} />
+      <Route path="/about/*" element={<ConstructionPage />} />
       <Route path="/overview/*" element={<ConstructionPage />} />
       <Route path="/idea/*" element={<ConstructionPage />} />
       <Route path="/tutor/*" element={<ConstructionPage />} />
@@ -47,7 +46,7 @@ const PublicRouter = () => {
       <Route path="/mobileapps/*" element={<ConstructionPage />} />
       <Route path="/faq/*" element={<ConstructionPage />} />
       <Route path="/announcement/*" element={<ConstructionPage />} />
-      <Route path="/promotion/*" element={<ConstructionPage />} /> */}
+      <Route path="/promotion/*" element={<ConstructionPage />} />
     </Routes>
   );
 };

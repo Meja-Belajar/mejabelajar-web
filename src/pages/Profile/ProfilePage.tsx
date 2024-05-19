@@ -81,6 +81,18 @@ const ProfilePage = () => {
             >
               Notifications
             </NavLink>
+            <NavLink
+              to="/profile/application"
+              className="open-sans-600 flex w-[90%] items-center rounded-full border-purple-accent-500 px-3 py-2.5 hover:border md:w-auto"
+              style={({ isActive }) => {
+                return {
+                  border: isActive ? "solid 1px #B46EFB" : "",
+                };
+              }}
+              onClick={() => setIsVisible(false)}
+            >
+              Become A Mentor
+            </NavLink>
             <a
               onClick={handleLogout}
               className="open-sans-600 flex w-[90%] cursor-pointer items-center rounded-full px-3 py-2.5 hover:border hover:border-red-500 md:w-auto"

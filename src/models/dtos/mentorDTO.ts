@@ -23,7 +23,7 @@ export interface MentorDTO {
   rating: number;
   total_teaching_hours: number;
   teaching_frequency: number;
-
+  isActive: boolean;
   courses: CourseDTO[];
   reviews: ReviewDTO[];
 }
@@ -47,6 +47,7 @@ export const toMentorsDTO = (
     rating: mentor.rating,
     total_teaching_hours: mentor.total_teaching_hours,
     teaching_frequency: mentor.teaching_frequency,
+    isActive: true,
     courses: mentor.courses.map((course) => ({
       course_id: course.course_id,
       name: course.name,
@@ -77,6 +78,7 @@ export const toMentorDTO = (data: GetMentorByIdResponse): MentorDTO => {
     rating: data.data.rating,
     total_teaching_hours: data.data.total_teaching_hours,
     teaching_frequency: data.data.teaching_frequency,
+    isActive: false,
     courses: data.data.courses.map((course) => ({
       course_id: course.course_id,
       name: course.name,

@@ -8,6 +8,7 @@ import ErrorPage from "@src/pages/ErrorPage.tsx";
 import MentorLanding from "@src/pages/Landing/MentorLanding.tsx";
 import UserLanding from "@src/pages/Landing/UserLandingPage.tsx";
 import MentoringPage from "@src/pages/MentoringPage.tsx";
+import MentorApplication from "@src/pages/Profile/MentorApplication";
 import NotificationPage from "@src/pages/Profile/NotificationPage.tsx";
 import Profile from "@src/pages/Profile/ProfilePage.tsx";
 import PublicPage from "@src/pages/Profile/PublicPage.tsx";
@@ -39,9 +40,9 @@ const AuthRouter = () => {
       <Route path="/profile" element={<Profile />}>
         <Route index element={<PublicPage />} />
         <Route path="notification" element={<NotificationPage />} />
+        <Route path="application" element={<MentorApplication />} />
       </Route>
-      <Route path="/history" element={<ConstructionPage />} />
-      <Route path="/tutoring" element={<ConstructionPage />} />
+
       <Route path="/mentoring/:mentorId" element={<MentoringPage />} />
 
       {/* exclusive to admin */}
@@ -50,18 +51,8 @@ const AuthRouter = () => {
         <Route path="application" element={<AdminNewMentor />} />
       </Route>
 
-      {/* future enchancement routes */}
-      {/* <Route path="/about/*" element={<ConstructionPage />} />
-      <Route path="/overview/*" element={<ConstructionPage />} />
-      <Route path="/idea/*" element={<ConstructionPage />} />
-      <Route path="/tutor/*" element={<ConstructionPage />} />
-      <Route path="/investors/*" element={<ConstructionPage />} />
-      <Route path="/universities/*" element={<ConstructionPage />} />
-      <Route path="/supports/*" element={<ConstructionPage />} />
-      <Route path="/mobileapps/*" element={<ConstructionPage />} />
-      <Route path="/faq/*" element={<ConstructionPage />} />
-      <Route path="/announcement/*" element={<ConstructionPage />} />
-      <Route path="/promotion/*" element={<ConstructionPage />} /> */}
+      <Route path="/history" element={<ConstructionPage />} />
+      <Route path="/tutoring" element={<ConstructionPage />} />
     </Routes>
   );
 };

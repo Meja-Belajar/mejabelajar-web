@@ -9,6 +9,7 @@ export interface MentorApplicationRequest {
   description: string;
   profile_picture: string;
   bod: string;
+  courses: string[];
 }
 
 export interface GetMentorByIdRequest {

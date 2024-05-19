@@ -170,7 +170,6 @@ const RegisterPage = () => {
                 value={former.values.bod?.toString()}
                 onChange={former.onChangeHandler}
                 key="outside"
-                max={DateUtil.minAge()}
               />
               {former.errorMessages.bod && (
                 <p className="m-2 text-xs text-red-600">

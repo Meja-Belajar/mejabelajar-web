@@ -35,7 +35,10 @@ type BookingState = {
 
 const BookingCard = (props: BookingCardProps) => {
   const { book } = props;
-  const isActive = DateUtil.compare(book?.date, new Date().toISOString());
+  const isActive = DateUtil.compareDate(
+    DateUtil.fromISO(book?.date),
+    DateUtil.getToday(),
+  );
 
   return (
     <section className="flex  w-full flex-col items-center justify-center p-3">
