@@ -12,8 +12,12 @@ export interface MentorApplicationRequest {
   courses: string[];
 }
 
-export interface GetMentorByIdRequest {
+export interface GetMentorByMentorIdRequest {
   mentor_id: string;
+}
+
+export interface GetMentorByUserIdRequest {
+  user_id: string;
 }
 
 export interface UpdateMentorRequest {

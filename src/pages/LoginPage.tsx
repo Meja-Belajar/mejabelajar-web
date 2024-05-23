@@ -102,7 +102,6 @@ const LoginPage = () => {
           className="w-[90%] rounded-lg bg-white p-5 drop-shadow-2xl lg:w-1/3"
           onSubmit={(e) => {
             e.preventDefault();
-            console.log("submit");
             former.onSubmitHandler(e);
           }}
         >

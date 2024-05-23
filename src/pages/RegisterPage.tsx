@@ -32,8 +32,6 @@ import { UserDTO } from "@src/models/dtos/userDTO";
 import { RegisterUserRequest } from "@src/models/requests/userRequest";
 import { RegisterUserSchema } from "@src/models/zod/userZod";
 
-import { DateUtil } from "@src/utils/dateUtil";
-
 import "@src/assets/global.css";
 import { animate, exit, initial } from "@src/assets/pageTransitions";
 
@@ -67,9 +65,9 @@ const RegisterPage = () => {
 
         navigate("/");
       } catch (error) {
-        if (error instanceof Error) {
-          dispatch(setUserError(error.toString()));
-        }
+        if (error instanceof Error) dispatch(setUserError(error.toString()));
+        
+        return alert("Failed to register user. Please try again.");
       } finally {
         dispatch(setUserLoading(false));
       }

@@ -1,26 +1,19 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import {
   faBan,
   faBell,
-  faBellSlash,
   faCheck,
   faEllipsisVertical,
-  faEye,
   faMessage,
   faMoneyBill,
-  faPencil,
   faPhone,
   faSortDown,
-  faSortUp,
-  faTrash,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
-  Divider,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -32,7 +25,7 @@ import {
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import { BookingService } from "@src/apis/services/bookingService";
 import { MentorService } from "@src/apis/services/mentorService";
@@ -42,9 +35,8 @@ import { useFetch } from "@src/hooks/useFetch";
 import { BookingDTO } from "@src/models/dtos/bookingDTO";
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
 
-import BookingLists from "@src/assets/data/BookingLists.json";
-import { PopularMentors } from "@src/assets/data/userLandingData";
 import "@src/assets/global.css";
+import { DateUtil } from "@src/utils/dateUtil";
 
 const AdminOverview = () => {
   const allBookings = useFetch<{}, BookingDTO[]>({
@@ -59,14 +51,21 @@ const AdminOverview = () => {
 
   const [isMentorsView, setIsMentorView] = useState<boolean>(false);
 
-  const navigate = useNavigate();
-
-  if (availableMentors.isLoading || allBookings.isLoading)
+  if (availableMentors.isLoading || allBookings.isLoading) {
     return (
       <div className="mt-20 flex items-center justify-center px-7">
         <FontAwesomeIcon icon={faBell} spin className="text-3xl" />
       </div>
     );
+  }
+
+  if(availableMentors.error || allBookings.error) {
+    return (
+      <div className="mt-20 flex items-center justify-center px-7">
+        <h1 className="text-3xl text-red-500">Failed to fetch data</h1>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -167,7 +166,7 @@ const AdminOverview = () => {
         <section className="mt-20">
           <div>
             <span className="open-sans-600 mr-1 text-3xl">Bookings</span>
-            <sup className="-top-3">{BookingLists.length}</sup>
+            <sup className="-top-3">{allBookings.data!.length}</sup>
           </div>
 
           <Table
@@ -186,14 +185,14 @@ const AdminOverview = () => {
             </TableHeader>
 
             <TableBody>
-              {BookingLists.map((booking, index) => (
+              {allBookings.data!.map((booking, index) => (
                 <TableRow key={`${index}/${booking.id}`}>
-                  <TableCell>{booking.userId}</TableCell>
-                  <TableCell>{booking.courseId}</TableCell>
-                  <TableCell>{booking.courseId}</TableCell>
-                  <TableCell>{booking.createdAt}</TableCell>
-                  <TableCell>{booking.createdAt}</TableCell>
-                  <TableCell>{booking.createdAt}</TableCell>
+                  <TableCell>{booking.id}</TableCell>
+                  <TableCell>{booking.mentor.name}</TableCell>
+                  <TableCell>{booking.course.name}</TableCell>
+                  <TableCell>{DateUtil.toLocalString(DateUtil.fromISO(booking.date))}</TableCell>
+                  <TableCell>{booking.location}</TableCell>
+                  <TableCell>{DateUtil.isPast(DateUtil.fromISO(booking.date))}</TableCell>
                   <TableCell>
                     <Tooltip content="Approve Booking">
                       <span className="cursor-pointer text-lg text-default-400 active:opacity-50">

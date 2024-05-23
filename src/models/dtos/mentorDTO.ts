@@ -67,7 +67,7 @@ export const toMentorsDTO = (
 export const toMentorDTO = (data: GetMentorByIdResponse): MentorDTO => {
   return {
     mentor_id: data.data.mentor_id,
-    username: data.data.user_name,
+    username: data.data.username,
     university: data.data.university,
     email: data.data.email,
     phone_number: data.data.phone_number,
@@ -79,7 +79,7 @@ export const toMentorDTO = (data: GetMentorByIdResponse): MentorDTO => {
     total_teaching_hours: data.data.total_teaching_hours,
     teaching_frequency: data.data.teaching_frequency,
     isActive: false,
-    courses: data.data.courses.map((course) => ({
+    courses: data?.data?.courses?.map((course) => ({
       course_id: course.course_id,
       name: course.name,
       detail: course.detail,
@@ -88,7 +88,7 @@ export const toMentorDTO = (data: GetMentorByIdResponse): MentorDTO => {
       course_start_time: course.course_start_time,
       course_end_time: course.course_end_time,
     })),
-    reviews: data.data.reviews.map((review) => ({
+    reviews: data?.data?.reviews?.map((review) => ({
       review_id: review.review_id,
       description: review.description,
     })),

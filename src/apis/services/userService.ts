@@ -1,6 +1,6 @@
 import { userServiceApi } from "@src/apis/envConfig";
 
-import { UserDTO, toUserDTO } from "@src/models/dtos/userDTO";
+import { UserDTO, fromLoginResponseToDTO, toUserDTO } from "@src/models/dtos/userDTO";
 import {
   LoginUserRequest,
   RegisterUserRequest,
@@ -17,16 +17,15 @@ import {
 export class UserService {
   static async register(requestData: RegisterUserRequest): Promise<UserDTO> {
     try {
-      // const response = await fetch(userServiceApi.register, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(requestData),
-      // });
+      const response = await fetch(userServiceApi.register, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
 
-      const registerResponse: RegisterUserResponse =
-        Example.RegisterUserResponse;
+      const registerResponse: RegisterUserResponse = await response.json()
 
       if (registerResponse.code !== 201) {
         throw new Error(registerResponse.message);
@@ -45,21 +44,22 @@ export class UserService {
 
   static async login(requestData: LoginUserRequest): Promise<UserDTO> {
     try {
-      // const response = await fetch(userServiceApi.login, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(requestData),
-      // });
+      const response = await fetch(userServiceApi.login, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(requestData),
+      });
 
-      const loginResponse: LoginUserResponse = Example.LoginUserResponse;
+      const loginResponse: LoginUserResponse = await response.json();
 
       if (loginResponse.code !== 200) {
         throw new Error(loginResponse.message);
       }
 
-      const userDTO: UserDTO = toUserDTO(loginResponse);
+      const userDTO: UserDTO = fromLoginResponseToDTO(loginResponse);
 
       localStorage.setItem("user", JSON.stringify(userDTO));
 
@@ -82,7 +82,7 @@ export class UserService {
     if (localStorage.getItem("user")) {
       localStorage.removeItem("user");
     }
-
+    
     return null;
   }
 
@@ -111,9 +111,15 @@ export class UserService {
 
   static async getUserById({ userId }: { userId: string }): Promise<UserDTO> {
     try {
-      // const response = await fetch(`${userServiceApi.getUserById}/${userId}`);
+      const response = await fetch(`${userServiceApi.getUserById}/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
-      const userResponse: GetUserByIdResponse = Example.GetUserByIdResponse;
+      const userResponse: GetUserByIdResponse = await response.json();
 
       if (userResponse.code !== 200) {
         throw new Error(userResponse.message);

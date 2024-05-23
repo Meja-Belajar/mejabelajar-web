@@ -6,7 +6,8 @@ import {
   toMentorsDTO,
 } from "@src/models/dtos/mentorDTO";
 import {
-  GetMentorByIdRequest,
+  GetMentorByMentorIdRequest,
+  GetMentorByUserIdRequest,
   MentorApplicationRequest,
   UpdateMentorRequest,
 } from "@src/models/requests/mentorRequest";
@@ -39,6 +40,7 @@ export class MentorService {
       throw new Error("Failed to fetch mentors");
     }
   }
+
   static async getAllMentors(): Promise<MentorDTO[]> {
     try {
       // const response = await fetch(`${mentorServiceApi.getAllMentors}`);
@@ -57,16 +59,50 @@ export class MentorService {
     }
   }
 
-  static async getMentorById({
+  static async getMentorByMentorId({
     mentor_id,
-  }: GetMentorByIdRequest): Promise<MentorDTO> {
+  }: GetMentorByMentorIdRequest): Promise<MentorDTO> {
     try {
-      // const response = await fetch(`${mentorServiceApi.getMentor}${mentor_id}`);
+      
+      const response = await fetch(`${mentorServiceApi.getMentorByMentorId}/${mentor_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
-      const mentor: GetMentorByIdResponse = Example.GetMentorByIdResponse;
+      const mentor: GetMentorByIdResponse = await response.json();
 
       if (mentor.code != 200) {
-        throw new Error("Mentor not found");
+        throw new Error(mentor.message);
+      }
+
+      return toMentorDTO(mentor);
+    } catch (e) {
+      console.error(`Error fetching mentor: ${e}`);
+      throw new Error(`${e}`);
+    }
+  }
+
+  static async getMentorByUserId({
+    user_id,
+  }: GetMentorByUserIdRequest): Promise<MentorDTO> {
+    try {
+      const response = await fetch(`${mentorServiceApi.getMentorByUserId}/${user_id}`,
+        { 
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      const mentor: GetMentorByIdResponse = await response.json();
+
+      if (mentor.code != 200) {
+        throw new Error(mentor.message);
       }
 
       return toMentorDTO(mentor);

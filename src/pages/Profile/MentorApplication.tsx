@@ -88,7 +88,7 @@ const MentorApplication = () => {
 
             <div className="max-w-md py-1 sm:px-6">
               <h1 className="mb-1 text-lg font-semibold">Your current data</h1>
-              <p className="mb-5 text-xs">
+              <p className="mb-5 text-xs text-purple-accent-500">
                 If the data is invalid, please update it first through the
                 profile page.
               </p>

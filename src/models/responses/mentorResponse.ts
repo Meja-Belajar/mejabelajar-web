@@ -99,7 +99,7 @@ export interface GetMentorQueryResponse extends BaseResponse {
 
 export interface GetMentorByIdResponse extends BaseResponse {
   data: {
-    user_name: string;
+    username: string;
     university: string;
     email: string;
     phone_number: string;

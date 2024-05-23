@@ -2,15 +2,16 @@ import { BaseResponse } from "./baseResponse";
 
 export interface LoginUserResponse extends BaseResponse {
   data: {
-    id: string;
-    user_name: string;
-    university: string;
-    email: string;
-    phone_number: string;
-    description?: string;
-    profile_picture?: string;
     bod: string;
+    description?: string;
+    email: string;
+    id: string;
+    is_active: boolean;
     is_mentor: boolean;
+    phone_number: string;
+    profile_picture?: string;
+    university: string;
+    username: string;
   };
 }
 

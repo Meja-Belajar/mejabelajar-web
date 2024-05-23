@@ -1,14 +1,14 @@
-import { create } from "domain";
 
 export const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 // userService
 export const userServiceApi = {
-  login: `${baseUrl}/user/login`,
-  register: `${baseUrl}/user/register`,
+  login: `${baseUrl}/users/login`,
+  register: `${baseUrl}/users/register`,
+  getUserById: `${baseUrl}/auth/users`,
+
   logout: `${baseUrl}/user/logout`,
   update: `${baseUrl}/user/update`,
-  getUserById: `${baseUrl}/user/getUserById`,
 };
 
 // tokenService
@@ -18,6 +18,9 @@ export const tokenServiceApi = {
 
 // mentorService
 export const mentorServiceApi = {
+  getMentorByMentorId: `${baseUrl}/auth/mentors/`,
+  getMentorByUserId: `${baseUrl}/auth/mentors/by-user`,
+
   getMentors: `${baseUrl}/mentor/getAllMentors`,
   getMentor: `${baseUrl}/mentor/`,
   getPopularMentors: `${baseUrl}/mentor/getPopularMentors`,
