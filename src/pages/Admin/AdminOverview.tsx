@@ -25,18 +25,19 @@ import {
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
+import { useFetch } from "@src/hooks";
 import { motion } from "framer-motion";
 
 import { BookingService } from "@src/apis/services/bookingService";
 import { MentorService } from "@src/apis/services/mentorService";
 
-import { useFetch } from "@src/hooks/useFetch";
-
 import { BookingDTO } from "@src/models/dtos/bookingDTO";
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
 
-import "@src/assets/global.css";
 import { DateUtil } from "@src/utils/dateUtil";
+import { NumberUtil } from "@src/utils/numberUtil";
+
+import "@src/assets/global.css";
 
 const AdminOverview = () => {
   const allBookings = useFetch<{}, BookingDTO[]>({
@@ -59,7 +60,7 @@ const AdminOverview = () => {
     );
   }
 
-  if(availableMentors.error || allBookings.error) {
+  if (availableMentors.error || allBookings.error) {
     return (
       <div className="mt-20 flex items-center justify-center px-7">
         <h1 className="text-3xl text-red-500">Failed to fetch data</h1>
@@ -132,16 +133,20 @@ const AdminOverview = () => {
                 <div className="mt-5 flex flex-row items-end justify-between">
                   <div>
                     <div className="text-l text-gray-700">
-                      <FontAwesomeIcon icon={faMessage} />
+                      <FontAwesomeIcon icon={faMessage} className="mr-1" />
                       <span className="ml-3">{mentor.email}</span>
                     </div>
                     <div className="text-lg text-gray-700">
-                      <FontAwesomeIcon icon={faPhone} />
-                      <span className="ml-3">{mentor.phone_number}</span>
+                      <FontAwesomeIcon icon={faPhone} className="mr-1" />
+                      <span className="text-md ml-3">
+                        {mentor.phone_number}
+                      </span>
                     </div>
                     <div className="text-lg text-gray-700">
-                      <FontAwesomeIcon icon={faMoneyBill} />
-                      <span className="ml-3">{mentor.revenue}</span>
+                      <FontAwesomeIcon icon={faMoneyBill} className="mr-1" />
+                      <span className="ml-3">
+                        {NumberUtil.formatToRupiah(mentor.revenue)}
+                      </span>
                     </div>
                   </div>
 
@@ -190,9 +195,15 @@ const AdminOverview = () => {
                   <TableCell>{booking.id}</TableCell>
                   <TableCell>{booking.mentor.name}</TableCell>
                   <TableCell>{booking.course.name}</TableCell>
-                  <TableCell>{DateUtil.toLocalString(DateUtil.fromISO(booking.date))}</TableCell>
+                  <TableCell>
+                    {DateUtil.toLocalString(DateUtil.fromISO(booking.date))}
+                  </TableCell>
                   <TableCell>{booking.location}</TableCell>
-                  <TableCell>{DateUtil.isPast(DateUtil.fromISO(booking.date))}</TableCell>
+                  <TableCell>
+                    {DateUtil.isPast(DateUtil.fromISO(booking.date))
+                      ? "Expired"
+                      : "On Going"}
+                  </TableCell>
                   <TableCell>
                     <Tooltip content="Approve Booking">
                       <span className="cursor-pointer text-lg text-default-400 active:opacity-50">

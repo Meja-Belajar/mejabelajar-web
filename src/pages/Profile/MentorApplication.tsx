@@ -72,6 +72,26 @@ const MentorApplication = () => {
     }
   };
 
+  if(currentUser?.isMentor) {
+    return (
+      <motion.main
+        initial={initial}
+        animate={animate}
+        exit={exit}
+        className="min-h-screen w-full py-1 md:w-2/3 lg:w-3/4"
+      >
+
+        <div className="min-h-screen flex items-start justify-center">
+          <div className="mt-20 text-center">
+            <p className="text-lg mt-5">
+              You can't submit another application because you already submitted one.
+            </p>
+          </div>
+        </div>
+      </motion.main>
+    );
+  }
+
   return (
     <>
       <motion.main

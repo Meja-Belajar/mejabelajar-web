@@ -66,7 +66,7 @@ const RegisterPage = () => {
         navigate("/");
       } catch (error) {
         if (error instanceof Error) dispatch(setUserError(error.toString()));
-        
+
         return alert("Failed to register user. Please try again.");
       } finally {
         dispatch(setUserLoading(false));

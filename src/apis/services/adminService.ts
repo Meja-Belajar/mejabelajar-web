@@ -1,7 +1,7 @@
 import { adminServiceApi } from "../envConfig";
 
 import { AdminDTO, toAdminDTO } from "@src/models/dtos/adminDTO";
-import { MentorDTO, toMentorDTO } from "@src/models/dtos/mentorDTO";
+import { MentorDTO, fromMentorApplication } from "@src/models/dtos/mentorDTO";
 import {
   Example,
   ValidateAdminResponse,
@@ -46,7 +46,7 @@ export class AdminService {
       const mentor: MentorApplicationResponse =
         ExampleMentor.MentorApplicationResponse;
 
-      return toMentorDTO(mentor);
+      return fromMentorApplication(mentor);
     } catch (e) {
       console.error("Error approving mentor:", e);
       throw new Error("Failed to approve mentor");
@@ -70,7 +70,7 @@ export class AdminService {
       const mentor: MentorApplicationResponse =
         ExampleMentor.MentorApplicationResponse;
 
-      return toMentorDTO(mentor);
+      return fromMentorApplication(mentor);
     } catch (e) {
       console.error("Error rejecting mentor:", e);
       throw new Error("Failed to reject mentor");

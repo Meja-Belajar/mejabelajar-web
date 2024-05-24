@@ -1,6 +1,7 @@
 import {
   CreateBookingResponse,
   GetBookingByIdResponse,
+  GetBookingsByMentorIdResponse,
   GetBookingsByUserIdResponse,
   UpdateBookingResponse,
 } from "../responses/bookingReponse";
@@ -34,7 +35,7 @@ export interface BookingDTO {
 }
 
 export const toBookingsDTO = (
-  data: GetBookingsByUserIdResponse,
+  data: GetBookingsByUserIdResponse | GetBookingsByMentorIdResponse,
 ): BookingDTO[] => {
   return data.data.map((booking) => ({
     id: booking.id,

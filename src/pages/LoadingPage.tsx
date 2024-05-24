@@ -9,6 +9,12 @@ type LoadingPageProps = {
   message: string;
 };
 
+/**
+ * LoadingPage is a component that displays a loading animation and a loading message.
+ *
+ * @param {LoadingPageProps} props - The props object
+ * @param {string} props.message - The message to display
+ */
 const LoadingPage = (props: LoadingPageProps) => {
   const { message } = props;
 

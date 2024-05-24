@@ -20,10 +20,7 @@ export interface UserDTO {
 }
 
 export const toUserDTO = (
-  data:
-    | RegisterUserResponse
-    | UpdateUserResponse
-    | GetUserByIdResponse,
+  data: RegisterUserResponse | UpdateUserResponse | GetUserByIdResponse,
 ): UserDTO => {
   return {
     user_id: data.data.id,
@@ -38,10 +35,7 @@ export const toUserDTO = (
   };
 };
 
-export const fromLoginResponseToDTO = (
-  data: LoginUserResponse,
-) : UserDTO => {
-  
+export const fromLoginResponseToDTO = (data: LoginUserResponse): UserDTO => {
   return {
     user_id: data.data.id,
     username: data.data.username,
@@ -53,4 +47,4 @@ export const fromLoginResponseToDTO = (
     bod: data.data.bod,
     isMentor: data.data.is_mentor,
   };
-}
+};

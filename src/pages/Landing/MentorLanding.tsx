@@ -41,7 +41,7 @@ const MentorLanding = () => {
   }
 
   if (mentorState.error) {
-    // setTimeout(() => navigate("/profile/application"), 1000);
+    setTimeout(() => navigate("/profile/application"), 2000);
     return <ErrorPage code={404} message={mentorState.error} />;
   }
 

@@ -28,7 +28,7 @@ import { useFetch } from "@src/hooks/useFetch";
 
 import { CourseDTO } from "@src/models/dtos/courseDTO";
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
-import { GetMentorByIdRequest } from "@src/models/requests/mentorRequest";
+import { GetMentorByMentorIdRequest } from "@src/models/requests/mentorRequest";
 
 import { AppUtil } from "@src/utils/appUtil";
 import { DateUtil } from "@src/utils/dateUtil";
@@ -94,9 +94,9 @@ const MentoringPage = () => {
   const [scrollBehavior, setScrollBehavior] =
     useState<ModalProps["scrollBehavior"]>("inside");
 
-  const mentor = useFetch<GetMentorByIdRequest, MentorDTO>({
-    fetchProps: { mentor_id: mentorId } as GetMentorByIdRequest,
-    fetchCallback: MentorService.getMentorById,
+  const mentor = useFetch<GetMentorByMentorIdRequest, MentorDTO>({
+    fetchProps: { mentor_id: mentorId } as GetMentorByMentorIdRequest,
+    fetchCallback: MentorService.getMentorByMentorId,
   });
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -250,8 +250,8 @@ const MentoringPage = () => {
                   <div className="mx-auto max-w-sm overflow-hidden rounded-lg">
                     <img
                       className="h-full w-full max-w-full object-cover"
-                      src={mentorData.profile_picture}
-                      alt={mentorData.username}
+                      src={mentorData?.profile_picture}
+                      alt={mentorData?.username}
                     />
                   </div>
                 </div>
@@ -261,12 +261,12 @@ const MentoringPage = () => {
                 <div className="flex flex-row items-start justify-between">
                   <div className="flex flex-row items-start gap-3">
                     <h1 className="open-sans-700 font-bold leading-9 text-gray-900 sm:text-3xl">
-                      {mentorData.username}
+                      {mentorData?.username}
                     </h1>
                     <div className="flex flex-row items-center rounded-full border-2 border-yellow-300 px-2 py-1">
                       <img src={Image.star} alt="star" className="w-4" />
                       <p className="open-sans-600 text-xs text-yellow-400">
-                        {mentorData.rating}
+                        {mentorData?.rating}
                       </p>
                     </div>
                   </div>
@@ -290,16 +290,16 @@ const MentoringPage = () => {
 
                 <p className="mt-2 text-sm font-medium uppercase text-gray-900">
                   <span className="font-semibold text-blue-500">
-                    {mentorData.university}
+                    {mentorData?.university}
                   </span>
                 </p>
 
                 <p className="mt-3 pr-10 text-justify text-base text-gray-600">
-                  {mentorData.description}
+                  {mentorData?.description}
                 </p>
 
                 <div className="mt-8">
-                  {mentorData.courses.map((course) => (
+                  {mentorData?.courses?.map((course) => (
                     <div
                       className="mt-4 flex items-center justify-start"
                       key={course.course_id}
@@ -420,6 +420,7 @@ const MentoringPage = () => {
         </>
       );
     }
+
     return (
       <>
         <ModalHeader className="flex flex-col gap-1 text-xl">
@@ -460,7 +461,7 @@ const MentoringPage = () => {
             <h1 className="open-sans-600 mt-3 text-red-500">
               Please make the payment through this QRIS.
             </h1>
-            <img src={ImageUrl.qris} alt="" />
+            <img src={ImageUrl.QRIS} alt="qris_image" />
           </div>
         </ModalBody>
         <ModalFooter>

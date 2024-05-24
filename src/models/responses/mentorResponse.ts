@@ -2,10 +2,10 @@ import { BaseResponse } from "./baseResponse";
 
 export interface GetPopularMentorsResponse extends BaseResponse {
   data: {
-    user_name: string;
+    username: string;
     university: string;
     email: string;
-    phone_number: string;
+    phone: string;
     description?: string;
     profile_picture?: string;
     bod: string;
@@ -35,10 +35,10 @@ export interface GetPopularMentorsResponse extends BaseResponse {
 
 export interface GetAllMentorsResponse extends BaseResponse {
   data: {
-    user_name: string;
+    username: string;
     university: string;
     email: string;
-    phone_number: string;
+    phone: string;
     description?: string;
     profile_picture?: string;
     bod: string;
@@ -67,10 +67,10 @@ export interface GetAllMentorsResponse extends BaseResponse {
 
 export interface GetMentorQueryResponse extends BaseResponse {
   data: {
-    user_name: string;
+    username: string;
     university: string;
     email: string;
-    phone_number: string;
+    phone: string;
     description?: string;
     profile_picture?: string;
     bod: string;
@@ -129,9 +129,75 @@ export interface GetMentorByIdResponse extends BaseResponse {
   };
 }
 
+export interface GetMentorByMentorIdResponse extends BaseResponse {
+  data: {
+    username: string;
+    university: string;
+    email: string;
+    phone_number: string;
+    description?: string;
+    profile_picture?: string;
+    bod: string;
+
+    mentor_id: string;
+    revenue: number;
+    rating: number;
+    total_teaching_hours: number;
+    teaching_frequency: number;
+    is_active: boolean;
+
+    courses: {
+      course_id: string;
+      name: string;
+      detail: string;
+      rating: number;
+      hourly_rate: number;
+      course_start_time: string;
+      course_end_time: string;
+    }[];
+    reviews: {
+      review_id: string;
+      description: string;
+    }[];
+  };
+}
+
+export interface GetMentorByUserIdResponse extends BaseResponse {
+  data: {
+    username: string;
+    university: string;
+    email: string;
+    phone_number: string;
+    description?: string;
+    profile_picture?: string;
+    bod: string;
+
+    mentor_id: string;
+    revenue: number;
+    rating: number;
+    total_teaching_hours: number;
+    teaching_frequency: number;
+    is_active: boolean;
+
+    courses: {
+      course_id: string;
+      name: string;
+      detail: string;
+      rating: number;
+      hourly_rate: number;
+      course_start_time: string;
+      course_end_time: string;
+    }[];
+    reviews: {
+      review_id: string;
+      description: string;
+    }[];
+  };
+}
+
 export interface MentorApplicationResponse extends BaseResponse {
   data: {
-    user_name: string;
+    username: string;
     university: string;
     email: string;
     phone_number: string;
@@ -164,10 +230,10 @@ export interface MentorApplicationResponse extends BaseResponse {
 export interface GetAllMentorApplicationResponse extends BaseResponse {
   data: [
     {
-      user_name: string;
+      username: string;
       university: string;
       email: string;
-      phone_number: string;
+      phone: string;
       description?: string;
       profile_picture?: string;
       bod: string;
@@ -197,7 +263,7 @@ export interface GetAllMentorApplicationResponse extends BaseResponse {
 
 export interface UpdateMentorResponse extends BaseResponse {
   data: {
-    user_name: string;
+    username: string;
     university: string;
     email: string;
     phone_number: string;
@@ -234,10 +300,10 @@ export class Example {
     data: [
       {
         mentor_id: "1sdfs",
-        user_name: "John Doe",
+        username: "John Doe",
         university: "University of California, Berkeley",
         email: "john@mail.com",
-        phone_number: "080-1234-5678",
+        phone: "080-1234-5678",
         description:
           "I am a student at UC Berkeley. I am studying computer science and I am interested in machine learning and artificial intelligence.",
         profile_picture:
@@ -286,10 +352,10 @@ export class Example {
     data: [
       {
         mentor_id: "1sdfs",
-        user_name: "John Doe",
+        username: "John Doe",
         university: "University of California, Berkeley",
         email: "john@mail.com",
-        phone_number: "080-1234-5678",
+        phone: "080-1234-5678",
         description:
           "I am a student at UC Berkeley. I am studying computer science and I am interested in machine learning and artificial intelligence.",
         profile_picture:
@@ -338,10 +404,10 @@ export class Example {
     data: [
       {
         mentor_id: "1sdfs",
-        user_name: "John Doe",
+        username: "John Doe",
         university: "University of California, Berkeley",
         email: "john@mail.com",
-        phone_number: "080-1234-5678",
+        phone: "080-1234-5678",
         description:
           "I am a student at UC Berkeley. I am studying computer science and I am interested in machine learning and artificial intelligence.",
         profile_picture:
@@ -388,7 +454,7 @@ export class Example {
     code: 200,
     message: "Success",
     data: {
-      user_name: "Rico Tandrio",
+      username: "Rico Tandrio",
       university: "BINUS University",
       email: "ricotandrio@mejabelajar.edu",
       phone_number: "081234567890",
@@ -426,7 +492,7 @@ export class Example {
     code: 201,
     message: "Success",
     data: {
-      user_name: "Rico Tandrio",
+      username: "Rico Tandrio",
       university: "BINUS University",
       email: "ricotandrio@mejabelajar.edu",
       phone_number: "081234567890",
@@ -450,10 +516,10 @@ export class Example {
     message: "Success",
     data: [
       {
-        user_name: "Rico Tandrio",
+        username: "Rico Tandrio",
         university: "BINUS University",
         email: "ricotandrio@mejabelajar.edu",
-        phone_number: "081234567890",
+        phone: "081234567890",
         description: "I am a Student",
         profile_picture: "",
         bod: "2000-01-01T00:00:00.000Z",
@@ -489,7 +555,7 @@ export class Example {
     code: 200,
     message: "Success",
     data: {
-      user_name: "Rico Tandrio",
+      username: "Rico Tandrio",
       university: "BINUS University",
       email: "ricotandrio@mejabelajar.edu",
       phone_number: "081234567890",

@@ -99,7 +99,7 @@ const UserLanding = () => {
           </section>
 
           {/* user schedule section  */}
-          <BookingsWrapper userId={currentUser.id} />
+          <BookingsWrapper userId={currentUser.user_id} />
 
           {/* popular courses this week */}
           <WeeklyPopularCoursesWrapper />

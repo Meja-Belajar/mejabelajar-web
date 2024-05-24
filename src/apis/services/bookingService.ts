@@ -7,15 +7,18 @@ import {
 } from "@src/models/dtos/bookingDTO";
 import {
   CreateBookingRequest,
+  DeleteBookingRequest,
   GetAllBookingsByMentorIdRequest,
   GetAllBookingsByUserIdRequest,
   GetBookingByIdRequest,
 } from "@src/models/requests/bookingRequest";
 import {
   CreateBookingResponse,
+  DeleteBookingResponse,
   Example,
   GetAllBookings,
   GetBookingByIdResponse,
+  GetBookingsByMentorIdResponse,
   GetBookingsByUserIdResponse,
 } from "@src/models/responses/bookingReponse";
 
@@ -24,10 +27,18 @@ export class BookingService {
     user_id,
   }: GetAllBookingsByUserIdRequest): Promise<BookingDTO[]> {
     try {
-      // const response = await fetch(`${bookingServiceApi.getAllBookings}/${user_id}`);
+      const response = await fetch(
+        `${bookingServiceApi.getBookingsByUserId}/${user_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        },
+      );
 
-      const bookings: GetBookingsByUserIdResponse =
-        Example.GetBookingsByUserIdResponse;
+      const bookings: GetBookingsByUserIdResponse = await response.json();
 
       if (bookings.data.length === 0) {
         throw new Error("No bookings found");
@@ -44,10 +55,18 @@ export class BookingService {
     mentor_id,
   }: GetAllBookingsByMentorIdRequest): Promise<BookingDTO[]> {
     try {
-      // const response = await fetch(`${bookingServiceApi.getBookingsByMentorId}/${mentor_id}`);
+      const response = await fetch(
+        `${bookingServiceApi.getBookingsByMentorId}/${mentor_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        },
+      );
 
-      const bookings: GetBookingsByUserIdResponse =
-        Example.GetBookingsByUserIdResponse;
+      const bookings: GetBookingsByMentorIdResponse = await response.json();
 
       if (bookings.data.length === 0) {
         throw new Error("No bookings found");
@@ -98,16 +117,16 @@ export class BookingService {
 
   static async create(booking: CreateBookingRequest): Promise<BookingDTO> {
     try {
-      // const response = await fetch(bookingServiceApi.createBooking, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(booking),
-      // });
+      const response = await fetch(bookingServiceApi.createBooking, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(booking),
+      });
 
-      const createdBooking: CreateBookingResponse =
-        Example.CreateBookingResponse;
+      const createdBooking: CreateBookingResponse = await response.json();
 
       if (createdBooking.code !== 201) {
         throw new Error(createdBooking.message);
@@ -117,6 +136,31 @@ export class BookingService {
     } catch (e) {
       console.error("Error creating booking:", e);
       throw new Error("Failed to create booking");
+    }
+  }
+
+  static async delete({
+    id,
+  }: DeleteBookingRequest): Promise<DeleteBookingResponse> {
+    try {
+      const response = await fetch(`${bookingServiceApi.deleteBooking}/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const deletedBooking: DeleteBookingResponse = await response.json();
+
+      if (deletedBooking.code !== 200) {
+        throw new Error(deletedBooking.message);
+      }
+
+      return deletedBooking;
+    } catch (e) {
+      console.error("Error deleting booking:", e);
+      throw new Error("Failed to delete booking");
     }
   }
 }

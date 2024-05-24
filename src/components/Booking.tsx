@@ -19,6 +19,7 @@ import "@src/assets/global.css";
 type BookingCardProps = {
   key: string;
   book: BookingDTO;
+  isMentor: boolean;
 };
 
 type BookingsWrapperProps = {
@@ -34,7 +35,7 @@ type BookingState = {
 };
 
 const BookingCard = (props: BookingCardProps) => {
-  const { book } = props;
+  const { book, isMentor } = props;
   const isActive = DateUtil.compareDate(
     DateUtil.fromISO(book?.date),
     DateUtil.getToday(),
@@ -58,16 +59,18 @@ const BookingCard = (props: BookingCardProps) => {
             <div
               className="mt-3 flex min-w-16 items-center justify-center rounded-full px-3 py-2"
               style={{
-                backgroundColor: isActive ? "#B46EFB" : "red",
+                backgroundColor: isActive ? "green" : "red",
               }}
             >
-              <p className="text-xs text-white-accent-1">
+              <p className="text-xs text-white">
                 {isActive
                   ? DateUtil.getDifference(
                       DateUtil.fromISO(book.date),
                       DateUtil.getToday(),
                     )
-                  : "LATE"}
+                  : isMentor
+                    ? "Expired"
+                    : "Late"}
               </p>
             </div>
           </div>
@@ -106,9 +109,13 @@ const BookingCard = (props: BookingCardProps) => {
                 icon={faPerson}
                 className="mr-1 w-[15%] text-gray-400"
               />
-              <p className="text-sm text-gray-400">Mentor</p>
+              <p className="text-sm text-gray-400">
+                {isMentor ? "Mentee" : "Mentor"}
+              </p>
             </div>
-            <p className="text-sm text-gray-400">{book.mentor.name}</p>
+            <p className="text-sm text-gray-400">
+              {isMentor ? book.user.name : book.mentor.name}
+            </p>
           </div>
         </section>
       </section>
@@ -178,7 +185,13 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
 
     return bookings.items
       .slice(0, bookings.onShow)
-      .map((book) => <BookingCard key={book.id} book={book} />);
+      .map((book) => (
+        <BookingCard
+          key={book.id}
+          book={book}
+          isMentor={userId ? false : true}
+        />
+      ));
   }, [bookings]);
 
   const renderShowBookingsButton = () => {

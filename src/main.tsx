@@ -10,12 +10,10 @@ import Router from "@src/router/Router.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    {/* <React.StrictMode> */}
     <NextUIProvider>
       <BrowserRouter>
         <Router />
       </BrowserRouter>
     </NextUIProvider>
-    {/* </React.StrictMode> */}
   </Provider>,
 );

@@ -32,6 +32,12 @@ type NavigationProps = {
   disabled?: boolean;
 };
 
+/**
+ * Navigation is a component that displays the navigation bar and search bar.
+ *
+ * @param {NavigationProps} props - The props object
+ * @param {boolean} props.disabled - Whether the navigation bar is disabled
+ */
 const Navigation = (props: NavigationProps) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");

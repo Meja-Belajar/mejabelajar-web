@@ -1,6 +1,10 @@
 import { userServiceApi } from "@src/apis/envConfig";
 
-import { UserDTO, fromLoginResponseToDTO, toUserDTO } from "@src/models/dtos/userDTO";
+import {
+  UserDTO,
+  fromLoginResponseToDTO,
+  toUserDTO,
+} from "@src/models/dtos/userDTO";
 import {
   LoginUserRequest,
   RegisterUserRequest,
@@ -22,10 +26,11 @@ export class UserService {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(requestData),
       });
 
-      const registerResponse: RegisterUserResponse = await response.json()
+      const registerResponse: RegisterUserResponse = await response.json();
 
       if (registerResponse.code !== 201) {
         throw new Error(registerResponse.message);
@@ -82,7 +87,7 @@ export class UserService {
     if (localStorage.getItem("user")) {
       localStorage.removeItem("user");
     }
-    
+
     return null;
   }
 

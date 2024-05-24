@@ -7,6 +7,18 @@ import Instagram from "./social/instagram.svg";
 import Twitter from "./social/twitter.svg";
 import Whatsapp from "./social/whatsapp.svg";
 
+/**
+ * This class is used to store all the image urls that are used in the application.
+ * @class Image
+ * @exports mejaBelajar - The meja belajar icon
+ * @exports star - The star icon
+ * @exports facebook - The facebook icon
+ * @exports instagram - The instagram icon
+ * @exports twitter - The twitter icon
+ * @exports whatsapp - The whatsapp icon
+ * @exports teacherTeaching - The teacher teaching image
+ * @exports teacherTeachingBlurred - The teacher teaching image blurred
+ */
 export class Image {
   static mejaBelajar = MejaBelajar;
   static star = Star;
