@@ -33,6 +33,7 @@ const PublicPage = () => {
       phone_number: currentUser.phone_number,
       description: currentUser.description,
       profile_picture: currentUser.profile_picture,
+      university: currentUser.university,
       bod: currentUser.bod,
     } as UpdateUserRequest,
     validationSchema: UpdateProfileSchema,
@@ -47,6 +48,7 @@ const PublicPage = () => {
           phone_number: former.values.phone_number,
           description: former.values.description,
           profile_picture: former.values.profile_picture,
+          university: former.values.university,
           bod: former.values.bod,
         } as UpdateUserRequest);
 
@@ -129,6 +131,23 @@ const PublicPage = () => {
                   {former.errorMessages.email && (
                     <p className="mt-2 text-xs italic text-red-500">
                       {former.errorMessages.email}
+                    </p>
+                  )}
+                </div>
+
+                <div className="mb-2 sm:mb-6">
+                  <input
+                    name="university"
+                    type="text"
+                    className="block w-full rounded-lg border border-indigo-300 bg-gray-100 p-2.5 text-sm text-indigo-900 focus:border-indigo-500 focus:ring-indigo-500 "
+                    placeholder="BINUS University"
+                    value={former.values.university}
+                    onChange={former.onChangeHandler}
+                    required
+                  />
+                  {former.errorMessages.university && (
+                    <p className="mt-2 text-xs italic text-red-500">
+                      {former.errorMessages.university}
                     </p>
                   )}
                 </div>

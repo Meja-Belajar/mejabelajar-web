@@ -162,7 +162,16 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
             mentor_id: mentorId!,
           });
 
-      setBookings({ ...bookings, isLoading: false, items: response });
+      const sortedResponse = response.sort((a, b) => {
+        return DateUtil.compareDate(
+          DateUtil.fromISO(a.date),
+          DateUtil.fromISO(b.date),
+        )
+          ? -1
+          : 1;
+      });
+
+      setBookings({ ...bookings, isLoading: false, items: sortedResponse });
     } catch (e) {
       if (e instanceof Error) {
         setBookings({ ...bookings, isLoading: false, error: e.message });

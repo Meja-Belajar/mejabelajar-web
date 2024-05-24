@@ -8,6 +8,7 @@ import { CalendarDate, Time } from "@internationalized/date";
 import {
   Button,
   DateInput,
+  Input,
   Modal,
   ModalBody,
   ModalContent,
@@ -38,6 +39,8 @@ import "@src/assets/global.css";
 import { ImageUrl } from "@src/assets/imageUrl";
 import { Image } from "@src/assets/images/Image";
 import { animate, exit, initial } from "@src/assets/pageTransitions";
+import { CreateBookingRequest } from "@src/models/requests/bookingRequest";
+import { BookingService } from "@src/apis/services/bookingService";
 
 type scheduleProps = {
   date: {
@@ -101,6 +104,9 @@ const MentoringPage = () => {
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const navigate = useNavigate();
+
+  const currentUser = useSelector((state: any) => state.user.currentUser);
+  const [location, setLocation] = useState<string>("");
 
   useMemo(() => {
     if (!selectedCourse) {
@@ -195,45 +201,45 @@ const MentoringPage = () => {
     setSelectedCourse(course);
   };
 
-  const handleBookingCreation = (onClose: () => void) => {
+  const handleBookingCreation = async (onClose: () => void) => {
     try {
       setCreateBookingIsLoading(true);
-      // const response = BookingService.create({
-      //   user_id: currentUser?.id,
-      //   mentor_id: mentor?.data?.mentor_id,
-      //   course_id: selectedCourse?.course_id,
-      //   schedule: {
-      //     from: DateUtil.toISODate(
-      //       DateUtil.fromUniversalDate({
-      //         ...schedule.date,
-      //         ...schedule.from,
-      //       }),
-      //     ),
-      //     to: DateUtil.toISODate(
-      //       DateUtil.fromUniversalDate({
-      //         ...schedule.date,
-      //         ...schedule.to,
-      //       }),
-      //     ),
-      //   },
-      //   invoice: {
-      //     payment_method: "QRIS",
-      //     payment_name: "Mentoring Payment",
-      //     payment_status: "success",
-      //     payment_amount: price,
-      //   },
-      // } as CreateBookingRequest);
-      setTimeout(() => {
-        setCreateBookingIsLoading(false);
-        handleSuccessEffect();
-        onClose();
-      }, 2000);
+      const response = await BookingService.create({
+        user_id: currentUser.user_id,
+        mentor_id: mentor.data!.mentor_id,
+        course_id: selectedCourse.course_id,
+        scheduled_at: DateUtil.toISOString(
+          DateUtil.fromUniversalDate({
+            ...schedule.date,
+            ...schedule.from,
+          })
+        ),
+        scheduled_location: "Based on discussion with mentor",
+        created_at: DateUtil.toISOString(new Date()),
+        invoice: {
+          payment_method: "QRIS",
+          payment_name: "Mentoring Payment",
+          payment_status: "success",
+          payment_amount: price.totalPrice,
+        },
+      } as unknown as CreateBookingRequest);
+
+      console.log(response);
+
+
+      setCreateBookingIsLoading(false);
+      handleSuccessEffect();
+      onClose();
 
       setTimeout(() => {
         navigate("/");
-      }, 4000);
+      }, 2000);
+
     } catch (e) {
+      
       setWarning(`Something went wrong, please try again later: ${e}`);
+      return alert('Failed to create booking');
+      
     }
   };
 
@@ -321,6 +327,14 @@ const MentoringPage = () => {
                       </label>
                     </div>
                   ))}
+
+                  {
+                    !mentorData?.courses && (
+                      <p className="mt-4 text-sm text-red-500">
+                        **This mentor doesn't have any course available right now.**
+                      </p>
+                    )
+                  }
                 </div>
 
                 <div className="mt-8 border-t pt-5 sm:mr-10">
@@ -362,7 +376,7 @@ const MentoringPage = () => {
                     />
                   </div>
                 </div>
-
+                
                 <div className="mt-8 flex flex-row items-center justify-between border-t py-4 sm:mr-10 sm:space-y-0">
                   <div className="flex items-end">
                     <h1 className="text-3xl font-bold">
@@ -370,10 +384,13 @@ const MentoringPage = () => {
                     </h1>
                   </div>
                   <Button
-                    onPress={onOpen}
+                    onPress={ mentorData?.courses && onOpen }
                     className="bg-purple-accent-500 px-10 py-6 text-white"
+                    style={{
+                      cursor: mentorData?.courses ? "pointer" : "not-allowed",
+                    }}
                   >
-                    Create Booking
+                    { mentorData?.courses ? "Book" : "No course available" }
                   </Button>
                 </div>
                 <div className="mt-10 flex flex-col items-center justify-between space-y-4 py-4 sm:flex-row sm:space-y-0"></div>

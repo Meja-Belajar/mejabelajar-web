@@ -20,6 +20,7 @@ import {
 
 export class UserService {
   static async register(requestData: RegisterUserRequest): Promise<UserDTO> {
+    console.log(requestData)
     try {
       const response = await fetch(userServiceApi.register, {
         method: "POST",

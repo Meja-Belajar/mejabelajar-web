@@ -2,17 +2,15 @@ export interface CreateBookingRequest {
   user_id: string;
   mentor_id: string;
   course_id: string;
-  schedule: {
-    from: string;
-    to: string;
-  };
+  scheduled_at: string;
+  scheduled_location: string;
+  created_at: string;
   invoice: {
     payment_method: string;
     payment_name: string;
     payment_status: string;
     payment_amount: number;
   };
-  location: string;
 }
 
 export interface UpdateBookingRequest {

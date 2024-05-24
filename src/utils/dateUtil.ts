@@ -163,10 +163,20 @@ export class DateUtil extends Date {
    * @method toISODate
    * @description Converts a date object to an ISO date string.
    * @param date The date object.
-   * @returns The ISO date string format (e.g. 2022-01-01T12:00:00.000Z)
+   * @returns The ISO date string format (e.g. 2022-01-01)
    */
   static toISODate(date: Date): string {
     return date.toISOString().split("T")[0];
+  }
+
+  /**
+   * @method toISOString
+   * @description Converts a date object to an ISO string.
+   * @param date The date object.
+   * @returns The ISO string format (e.g. 2022-01-01T12:00:00.000Z)
+   */
+  static toISOString(date: Date): string {
+    return date.toISOString();
   }
 
   /**
@@ -189,10 +199,10 @@ export class DateUtil extends Date {
     year: number;
     month: number;
     day: number;
-    hour: number;
-    minute: number;
+    hour?: number;
+    minute?: number;
   }): Date {
-    return new Date(year, month, day, hour, minute);
+    return new Date(year, month - 1, day, hour, minute);
   }
 
   /**
@@ -210,7 +220,7 @@ export class DateUtil extends Date {
   } {
     return {
       year: date.getFullYear(),
-      month: date.getMonth(),
+      month: date.getMonth() - 1,
       day: date.getDate(),
       hour: date.getHours(),
       minute: date.getMinutes(),

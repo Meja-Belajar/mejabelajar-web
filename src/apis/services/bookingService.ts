@@ -117,6 +117,8 @@ export class BookingService {
 
   static async create(booking: CreateBookingRequest): Promise<BookingDTO> {
     try {
+      console.log(booking);
+
       const response = await fetch(bookingServiceApi.createBooking, {
         method: "POST",
         headers: {
@@ -127,7 +129,9 @@ export class BookingService {
       });
 
       const createdBooking: CreateBookingResponse = await response.json();
-
+      
+      console.log(createdBooking);
+      
       if (createdBooking.code !== 201) {
         throw new Error(createdBooking.message);
       }

@@ -134,6 +134,7 @@ export class MentorService {
     requestData: MentorApplicationRequest,
   ): Promise<MentorDTO> {
     try {
+      console.log(requestData);
       const response = await fetch(`${mentorServiceApi.registerMentor}`, {
         method: "POST",
         headers: {

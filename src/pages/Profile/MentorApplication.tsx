@@ -49,7 +49,6 @@ const MentorApplication = () => {
       return alert("Please attach your CV.");
     }
 
-    console.log(selectedCourse);
     try {
       const response = await MentorService.registerMentor({
         user_id: currentUser?.user_id,
