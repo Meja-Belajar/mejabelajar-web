@@ -24,8 +24,8 @@ export const bookingServiceApi = {
   getBookingsByMentorId: `${baseUrl}/auth/bookings/mentor`,
   deleteBooking: `${baseUrl}/auth/booking`,
   createBooking: `${baseUrl}/auth/booking`,
+  getAllBookings: `${baseUrl}/auth/bookings`,
 
-  getAllBookings: `${baseUrl}/booking/getAllBookings`,
   getBooking: `${baseUrl}/booking/getBooking`,
   bookMentor: `${baseUrl}/booking/bookMentor`,
   cancelBooking: `${baseUrl}/booking/cancelBooking`,

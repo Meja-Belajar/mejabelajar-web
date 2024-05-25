@@ -58,5 +58,5 @@ export const useFetch = <Request extends object, ResponseDTO extends object>({
     fetchData();
   }, []);
 
-  return { data, isLoading, error };
+  return { data, setData, isLoading, error };
 };

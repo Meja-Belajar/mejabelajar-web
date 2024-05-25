@@ -52,20 +52,138 @@ const AdminOverview = () => {
 
   const [isMentorsView, setIsMentorView] = useState<boolean>(false);
 
-  if (availableMentors.isLoading || allBookings.isLoading) {
-    return (
-      <div className="mt-20 flex items-center justify-center px-7">
-        <FontAwesomeIcon icon={faBell} spin className="text-3xl" />
-      </div>
-    );
-  }
+  const renderAvailableMentor = () => {
+    if(availableMentors.isLoading || availableMentors.error || !availableMentors.data) {
+      return (
+        <div className="mt-20 flex items-center justify-center px-7">
+          {availableMentors.error && <h1 className="text-3xl text-red-500">Failed to fetch data</h1>}
+        </div>
+      )
+    }
 
-  if (availableMentors.error || allBookings.error) {
     return (
-      <div className="mt-20 flex items-center justify-center px-7">
-        <h1 className="text-3xl text-red-500">Failed to fetch data</h1>
+      <div className="mt-10">
+        {isMentorsView &&
+          availableMentors.data.map((mentor, index) => (
+            <div
+              key={`${index}/${mentor.mentor_id}`}
+              className="bg-blue-accent-500 mt-3 w-full rounded-2xl border bg-white px-8 py-6 text-black "
+            >
+              <div className="mt-2 flex flex-col items-start justify-between sm:flex-row sm:items-center">
+                <h1 className="text-xl">{mentor.mentor_id}</h1>
+                <h2 className="text-2xl">{mentor.username}</h2>
+              </div>
+              <div className="mt-5 flex flex-row items-end justify-between">
+                <div>
+                  <div className="text-l text-gray-700">
+                    <FontAwesomeIcon icon={faMessage} className="mr-1" />
+                    <span className="ml-3">{mentor.email}</span>
+                  </div>
+                  <div className="text-lg text-gray-700">
+                    <FontAwesomeIcon icon={faPhone} className="mr-1" />
+                    <span className="text-md ml-3">
+                      {mentor.phone_number}
+                    </span>
+                  </div>
+                  <div className="text-lg text-gray-700">
+                    <FontAwesomeIcon icon={faMoneyBill} className="mr-1" />
+                    <span className="ml-3">
+                      {NumberUtil.formatToRupiah(mentor.revenue)}
+                    </span>
+                  </div>
+                </div>
+
+                <a href={`mailto:${mentor.email}`}>
+                  <Button
+                    startContent={
+                      <FontAwesomeIcon
+                        icon={faMessage}
+                        className="text-white"
+                      />
+                    }
+                    className="mt-3 bg-blue-accent-300 text-white"
+                  >
+                    Message
+                  </Button>
+                </a>
+              </div>
+            </div>
+          ))}
       </div>
-    );
+    )
+
+    
+  }
+  
+  const renderAllBookings = () => {
+    
+    if(allBookings.isLoading || allBookings.error || !allBookings.data) {
+      return (
+        <div className="mt-20 flex items-center justify-center px-7">
+          {allBookings.error && <h1 className="text-3xl text-red-500">Failed to fetch data</h1>}
+        </div>
+      )
+    }
+
+    const handleRemove = (id: string) => {
+      if(!allBookings.data) return;
+
+      const newBookings = allBookings.data.filter((booking) => booking.id !== id);
+      allBookings.setData(newBookings);
+    }
+
+    const handleApprove = () => {
+      return alert("Booking session has been accepted");
+    }
+    
+    return (
+      <Table
+        removeWrapper
+        aria-label="Collection Transaction"
+        className="mt-10"
+      >
+        <TableHeader>
+          <TableColumn>User</TableColumn>
+          <TableColumn>Mentor</TableColumn>
+          <TableColumn>Course</TableColumn>
+          <TableColumn>Time</TableColumn>
+          <TableColumn>Location</TableColumn>
+          <TableColumn>Status</TableColumn>
+          <TableColumn>Action</TableColumn>
+        </TableHeader>
+
+        <TableBody>
+          {allBookings.data.map((booking, index) => (
+            <TableRow key={`${index}/${booking.id}`}>
+              <TableCell>{booking.id}</TableCell>
+              <TableCell>{booking.mentor.name}</TableCell>
+              <TableCell>{booking.course.name}</TableCell>
+              <TableCell>
+                {DateUtil.toLocalString(DateUtil.fromISO(booking.date))}
+              </TableCell>
+              <TableCell>{booking.location}</TableCell>
+              <TableCell>
+                {DateUtil.isPast(DateUtil.fromISO(booking.date))
+                  ? "Expired"
+                  : "On Going"}
+              </TableCell>
+              <TableCell className="flex flex-row pr-4 items-center justify-center">
+                <Tooltip content="Approve Booking">
+                  <span className="cursor-pointer text-lg text-default-400 active:opacity-50" onClick={handleApprove}>
+                    <FontAwesomeIcon icon={faCheck} className="ml-3" />
+                  </span>
+                </Tooltip>
+                <Tooltip color="danger" content="Cancel Booking" >
+                  <span className="cursor-pointer text-lg text-danger active:opacity-50" onClick={() => handleRemove(booking.id)}>
+                    <FontAwesomeIcon icon={faX} className="ml-3" />
+                  </span>
+                </Tooltip>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    )
   }
 
   return (
@@ -79,7 +197,7 @@ const AdminOverview = () => {
               </h3>
 
               <h1 className="open-sans-600 text-3xl">
-                {allBookings.data?.length}
+                {allBookings.data?.length || 0}
               </h1>
             </div>
 
@@ -88,7 +206,7 @@ const AdminOverview = () => {
                 Total Mentors
               </h3>
               <h1 className="open-sans-600 text-3xl">
-                {availableMentors.data?.length}
+                {availableMentors.data?.length || 0}
               </h1>
             </div>
           </div>
@@ -119,107 +237,15 @@ const AdminOverview = () => {
           </nav>
         </motion.div>
 
-        <div className="mt-10">
-          {isMentorsView &&
-            availableMentors.data!.map((mentor, index) => (
-              <div
-                key={`${index}/${mentor.mentor_id}`}
-                className="bg-blue-accent-500 mt-3 w-full rounded-2xl border bg-white px-8 py-6 text-black "
-              >
-                <div className="mt-2 flex flex-col items-start justify-between sm:flex-row sm:items-center">
-                  <h1 className="text-xl">{mentor.mentor_id}</h1>
-                  <h2 className="text-2xl">{mentor.username}</h2>
-                </div>
-                <div className="mt-5 flex flex-row items-end justify-between">
-                  <div>
-                    <div className="text-l text-gray-700">
-                      <FontAwesomeIcon icon={faMessage} className="mr-1" />
-                      <span className="ml-3">{mentor.email}</span>
-                    </div>
-                    <div className="text-lg text-gray-700">
-                      <FontAwesomeIcon icon={faPhone} className="mr-1" />
-                      <span className="text-md ml-3">
-                        {mentor.phone_number}
-                      </span>
-                    </div>
-                    <div className="text-lg text-gray-700">
-                      <FontAwesomeIcon icon={faMoneyBill} className="mr-1" />
-                      <span className="ml-3">
-                        {NumberUtil.formatToRupiah(mentor.revenue)}
-                      </span>
-                    </div>
-                  </div>
-
-                  <a href={`mailto:${mentor.email}`}>
-                    <Button
-                      startContent={
-                        <FontAwesomeIcon
-                          icon={faMessage}
-                          className="text-white"
-                        />
-                      }
-                      className="mt-3 bg-blue-accent-300 text-white"
-                    >
-                      Message
-                    </Button>
-                  </a>
-                </div>
-              </div>
-            ))}
-        </div>
+        {renderAvailableMentor()}
 
         <section className="mt-20">
           <div>
             <span className="open-sans-600 mr-1 text-3xl">Bookings</span>
-            <sup className="-top-3">{allBookings.data!.length}</sup>
+            <sup className="-top-3">{allBookings.data!.length || 0}</sup>
           </div>
 
-          <Table
-            removeWrapper
-            aria-label="Collection Transaction"
-            className="mt-10"
-          >
-            <TableHeader>
-              <TableColumn>User</TableColumn>
-              <TableColumn>Mentor</TableColumn>
-              <TableColumn>Course</TableColumn>
-              <TableColumn>Time</TableColumn>
-              <TableColumn>Location</TableColumn>
-              <TableColumn>Status</TableColumn>
-              <TableColumn>Action</TableColumn>
-            </TableHeader>
-
-            <TableBody>
-              {allBookings.data!.map((booking, index) => (
-                <TableRow key={`${index}/${booking.id}`}>
-                  <TableCell>{booking.id}</TableCell>
-                  <TableCell>{booking.mentor.name}</TableCell>
-                  <TableCell>{booking.course.name}</TableCell>
-                  <TableCell>
-                    {DateUtil.toLocalString(DateUtil.fromISO(booking.date))}
-                  </TableCell>
-                  <TableCell>{booking.location}</TableCell>
-                  <TableCell>
-                    {DateUtil.isPast(DateUtil.fromISO(booking.date))
-                      ? "Expired"
-                      : "On Going"}
-                  </TableCell>
-                  <TableCell>
-                    <Tooltip content="Approve Booking">
-                      <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
-                        <FontAwesomeIcon icon={faCheck} className="ml-3" />
-                      </span>
-                    </Tooltip>
-                    <Tooltip color="danger" content="Cancel Booking">
-                      <span className="cursor-pointer text-lg text-danger active:opacity-50">
-                        <FontAwesomeIcon icon={faX} className="ml-3" />
-                      </span>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          {renderAllBookings()}
         </section>
       </motion.div>
     </>
@@ -231,12 +257,12 @@ const PopOverComponent = ({ index, booking }: any) => {
 
   const handleCancel = () => {
     setIsPopOver(false);
-    console.log("Cancel");
+    return alert("Booking session has been canceled");
   };
 
   const handleAccept = () => {
     setIsPopOver(false);
-    console.log("Accept");
+    return alert("Booking session has been accepted");
   };
 
   return (

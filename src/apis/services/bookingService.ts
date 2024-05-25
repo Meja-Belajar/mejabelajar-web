@@ -90,7 +90,7 @@ export class BookingService {
       // const response = await fetch(`${bookingServiceApi.getBooking}/${id}`);
 
       const booking: GetBookingByIdResponse = Example.GetBookingByIdResponse;
-
+      
       if (booking.code !== 200) {
         throw new Error(booking.message);
       }
@@ -99,20 +99,26 @@ export class BookingService {
     } catch (e) {
       if (e instanceof Error)
         console.error(`Error fetching booking: ${e.name} - ${e.message}`);
-
       throw new Error("Failed to fetch booking");
     }
   }
 
   static async getAllBookings(): Promise<BookingDTO[]> {
     try {
-      // const response = await fetch(bookingServiceApi.getAllBookings);
+      const response = await fetch(`${bookingServiceApi.getAllBookings}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
-      const bookings: GetAllBookings = Example.GetAllBookings;
+      const bookings: GetAllBookings = await response.json();
 
       if (bookings.data.length === 0) {
         throw new Error("No bookings found");
       }
+      console.log(bookings);
 
       return toBookingsDTO(bookings);
     } catch (e) {

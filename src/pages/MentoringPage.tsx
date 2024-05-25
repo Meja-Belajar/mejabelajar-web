@@ -225,14 +225,14 @@ const MentoringPage = () => {
       } as unknown as CreateBookingRequest);
 
       console.log(response);
-
-      setCreateBookingIsLoading(false);
-      handleSuccessEffect();
-      onClose();
-
       setTimeout(() => {
-        navigate("/");
+        setCreateBookingIsLoading(false);
+        handleSuccessEffect();
+        onClose();
       }, 2000);
+
+      setTimeout(() => navigate("/"), 3000);
+
     } catch (e) {
       setWarning(`Something went wrong, please try again later: ${e}`);
       return alert("Failed to create booking");
