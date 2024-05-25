@@ -17,6 +17,7 @@ import {
 } from "@nextui-org/react";
 import { useForm } from "@src/hooks";
 import { motion } from "framer-motion";
+import { parse } from "path";
 
 import { UserService } from "@src/apis/services/userService";
 
@@ -32,10 +33,10 @@ import { UserDTO } from "@src/models/dtos/userDTO";
 import { RegisterUserRequest } from "@src/models/requests/userRequest";
 import { RegisterUserSchema } from "@src/models/zod/userZod";
 
+import { DateUtil } from "@src/utils/dateUtil";
+
 import "@src/assets/global.css";
 import { animate, exit, initial } from "@src/assets/pageTransitions";
-import { DateUtil } from "@src/utils/dateUtil";
-import { parse } from "path";
 
 const RegisterPage = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -54,13 +55,19 @@ const RegisterPage = () => {
         dispatch(setUserLoading(true));
 
         const splitDate = former.values.bod.split("-");
-        
+
         const registerResponse: UserDTO = await UserService.register({
           user_name: former.values.user_name,
           email: former.values.email,
           password: former.values.password,
           phone_number: former.values.phone_number,
-          bod: DateUtil.toISOString(new Date(parseInt(splitDate[0]), parseInt(splitDate[1]), parseInt(splitDate[2]))),
+          bod: DateUtil.toISOString(
+            new Date(
+              parseInt(splitDate[0]),
+              parseInt(splitDate[1]),
+              parseInt(splitDate[2]),
+            ),
+          ),
           profile_picture: "",
           confirm_password: former.values.confirm_password,
         } as RegisterUserRequest);

@@ -24,7 +24,8 @@ export class AdminService {
 
       return toAdminDTO(admin);
     } catch (e) {
-      console.error("Error verifying admin:", e);
+      if (e instanceof Error)
+        console.error(`Error verifying admin: ${e.name} - ${e.message}`);
       throw new Error("Failed to verify admin");
     }
   }
@@ -48,7 +49,8 @@ export class AdminService {
 
       return fromMentorApplication(mentor);
     } catch (e) {
-      console.error("Error approving mentor:", e);
+      if (e instanceof Error)
+        console.error(`Error approving mentor: ${e.name} - ${e.message}`);
       throw new Error("Failed to approve mentor");
     }
   }
@@ -72,7 +74,8 @@ export class AdminService {
 
       return fromMentorApplication(mentor);
     } catch (e) {
-      console.error("Error rejecting mentor:", e);
+      if (e instanceof Error)
+        console.error(`Error rejecting mentor: ${e.name} - ${e.message}`);
       throw new Error("Failed to reject mentor");
     }
   }

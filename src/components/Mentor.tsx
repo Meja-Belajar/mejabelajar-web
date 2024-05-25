@@ -64,7 +64,11 @@ const WeeklyPopularMentorWrapper = () => {
   });
 
   const renderPopularMentors = useCallback(() => {
-    if (popularMentors.isLoading) {
+    if (
+      popularMentors.isLoading ||
+      !popularMentors.data ||
+      popularMentors.error
+    ) {
       return <SkeletonMentorCard />;
     }
 
@@ -159,7 +163,7 @@ const SearchMentorWrapper = (props: SearchMentorWrapperProps) => {
   const { data } = props;
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {data.map((mentor, index) => (
+      {data?.map((mentor, index) => (
         <div
           className="col-span-1 m-2 flex items-center justify-center bg-white-accent-1"
           key={index}

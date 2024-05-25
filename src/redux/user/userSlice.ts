@@ -9,7 +9,7 @@ type InitialState = {
 };
 
 const initialState = <InitialState>{
-  currentUser: isUserAlreadyLogin(),
+  currentUser: await isUserAlreadyLogin(),
   isUserLoading: false,
   userError: "",
 };

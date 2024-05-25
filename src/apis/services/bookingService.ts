@@ -46,7 +46,9 @@ export class BookingService {
 
       return toBookingsDTO(bookings);
     } catch (e) {
-      console.error("Error fetching bookings:", e);
+      if (e instanceof Error)
+        console.error(`Error fetching bookings: ${e.name} - ${e.message}`);
+
       throw new Error("Failed to fetch bookings");
     }
   }
@@ -74,7 +76,9 @@ export class BookingService {
 
       return toBookingsDTO(bookings);
     } catch (e) {
-      console.error("Error fetching bookings:", e);
+      if (e instanceof Error)
+        console.error(`Error fetching bookings: ${e.name} - ${e.message}`);
+
       throw new Error("Failed to fetch bookings");
     }
   }
@@ -93,7 +97,9 @@ export class BookingService {
 
       return toBookingDTO(booking);
     } catch (e) {
-      console.error("Error fetching booking:", e);
+      if (e instanceof Error)
+        console.error(`Error fetching booking: ${e.name} - ${e.message}`);
+
       throw new Error("Failed to fetch booking");
     }
   }
@@ -110,7 +116,8 @@ export class BookingService {
 
       return toBookingsDTO(bookings);
     } catch (e) {
-      console.error("Error fetching bookings:", e);
+      if (e instanceof Error)
+        console.error(`Error fetching bookings: ${e.name} - ${e.message}`);
       throw new Error("Failed to fetch bookings");
     }
   }
@@ -129,16 +136,17 @@ export class BookingService {
       });
 
       const createdBooking: CreateBookingResponse = await response.json();
-      
+
       console.log(createdBooking);
-      
+
       if (createdBooking.code !== 201) {
         throw new Error(createdBooking.message);
       }
 
       return toBookingDTO(createdBooking);
     } catch (e) {
-      console.error("Error creating booking:", e);
+      if (e instanceof Error)
+        console.error(`Error creating booking: ${e.name} - ${e.message}`);
       throw new Error("Failed to create booking");
     }
   }
@@ -163,7 +171,8 @@ export class BookingService {
 
       return deletedBooking;
     } catch (e) {
-      console.error("Error deleting booking:", e);
+      if (e instanceof Error)
+        console.error(`Error deleting booking: ${e.name} - ${e.message}`);
       throw new Error("Failed to delete booking");
     }
   }

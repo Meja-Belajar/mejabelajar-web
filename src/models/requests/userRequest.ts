@@ -17,14 +17,14 @@ export interface LoginUserRequest {
 export interface UpdateUserRequest {
   id: string;
   user_name: string;
-  university: string;
   email: string;
   phone_number: string;
   description?: string;
   profile_picture?: string;
+  university: string;
   bod: string;
 }
 
 export interface GetUserByIdRequest {
-  id: string;
+  userId: string;
 }

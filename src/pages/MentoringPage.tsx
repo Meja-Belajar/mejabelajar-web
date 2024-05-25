@@ -21,6 +21,7 @@ import {
 import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
 
+import { BookingService } from "@src/apis/services/bookingService";
 import { MentorService } from "@src/apis/services/mentorService";
 
 import Navigation from "@src/components/Navigation";
@@ -29,6 +30,7 @@ import { useFetch } from "@src/hooks/useFetch";
 
 import { CourseDTO } from "@src/models/dtos/courseDTO";
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
+import { CreateBookingRequest } from "@src/models/requests/bookingRequest";
 import { GetMentorByMentorIdRequest } from "@src/models/requests/mentorRequest";
 
 import { AppUtil } from "@src/utils/appUtil";
@@ -39,8 +41,6 @@ import "@src/assets/global.css";
 import { ImageUrl } from "@src/assets/imageUrl";
 import { Image } from "@src/assets/images/Image";
 import { animate, exit, initial } from "@src/assets/pageTransitions";
-import { CreateBookingRequest } from "@src/models/requests/bookingRequest";
-import { BookingService } from "@src/apis/services/bookingService";
 
 type scheduleProps = {
   date: {
@@ -212,7 +212,7 @@ const MentoringPage = () => {
           DateUtil.fromUniversalDate({
             ...schedule.date,
             ...schedule.from,
-          })
+          }),
         ),
         scheduled_location: "Based on discussion with mentor",
         created_at: DateUtil.toISOString(new Date()),
@@ -226,7 +226,6 @@ const MentoringPage = () => {
 
       console.log(response);
 
-
       setCreateBookingIsLoading(false);
       handleSuccessEffect();
       onClose();
@@ -234,16 +233,21 @@ const MentoringPage = () => {
       setTimeout(() => {
         navigate("/");
       }, 2000);
-
     } catch (e) {
-      
       setWarning(`Something went wrong, please try again later: ${e}`);
-      return alert('Failed to create booking');
-      
+      return alert("Failed to create booking");
     }
   };
 
   const renderStore = useCallback(() => {
+    if (mentor.error || !mentor.data) {
+      return (
+        <div className="mt-20 flex items-center justify-center px-7">
+          <h1 className="text-red-500">{mentor.error}</h1>
+        </div>
+      );
+    }
+
     const mentorData = mentor.data as MentorDTO;
 
     return (
@@ -328,13 +332,12 @@ const MentoringPage = () => {
                     </div>
                   ))}
 
-                  {
-                    !mentorData?.courses && (
-                      <p className="mt-4 text-sm text-red-500">
-                        **This mentor doesn't have any course available right now.**
-                      </p>
-                    )
-                  }
+                  {!mentorData?.courses && (
+                    <p className="mt-4 text-sm text-red-500">
+                      **This mentor doesn't have any course available right
+                      now.**
+                    </p>
+                  )}
                 </div>
 
                 <div className="mt-8 border-t pt-5 sm:mr-10">
@@ -376,7 +379,7 @@ const MentoringPage = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="mt-8 flex flex-row items-center justify-between border-t py-4 sm:mr-10 sm:space-y-0">
                   <div className="flex items-end">
                     <h1 className="text-3xl font-bold">
@@ -384,13 +387,13 @@ const MentoringPage = () => {
                     </h1>
                   </div>
                   <Button
-                    onPress={ mentorData?.courses && onOpen }
+                    onPress={mentorData?.courses && onOpen}
                     className="bg-purple-accent-500 px-10 py-6 text-white"
                     style={{
                       cursor: mentorData?.courses ? "pointer" : "not-allowed",
                     }}
                   >
-                    { mentorData?.courses ? "Book" : "No course available" }
+                    {mentorData?.courses ? "Book" : "No course available"}
                   </Button>
                 </div>
                 <div className="mt-10 flex flex-col items-center justify-between space-y-4 py-4 sm:flex-row sm:space-y-0"></div>
@@ -502,13 +505,13 @@ const MentoringPage = () => {
     >
       <Navigation />
 
-      {mentor.isLoading && (
+      {mentor.isLoading ? (
         <div className="mt-20 flex items-center justify-center px-7">
           <FontAwesomeIcon icon={faSpinner} spin className="text-3xl" />
         </div>
+      ) : (
+        renderStore()
       )}
-
-      {!mentor.isLoading && mentor.data && renderStore()}
     </motion.div>
   );
 };

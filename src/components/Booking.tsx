@@ -44,8 +44,8 @@ const BookingCard = (props: BookingCardProps) => {
   return (
     <section className="flex  w-full flex-col items-center justify-center p-3">
       <section className="w-[90%] rounded-2xl bg-white p-5 pb-8">
-        <section className="flex w-full flex-row flex-wrap justify-between p-2">
-          <div className="">
+        <section className="flex w-[98%] flex-row flex-wrap justify-between p-2">
+          <div className="px-3">
             <div>
               <h2 className="text-md open-sans-300 text-blue-accent-300">
                 Mentoring Details
@@ -76,10 +76,10 @@ const BookingCard = (props: BookingCardProps) => {
           </div>
         </section>
 
-        <section className="mb-5 mt-2 w-full border border-gray-300" />
+        <section className="mx-4 mb-5 mt-2 w-[98%] border border-gray-300" />
 
         <section className="flex flex-col items-start justify-center">
-          <div className="flex w-full flex-col flex-wrap items-start p-1 sm:flex-row sm:items-center md:w-1/2">
+          <div className="flex w-full flex-col flex-wrap items-start py-1 sm:flex-row sm:items-start md:w-3/4">
             <div className="flex w-1/2 flex-row ">
               <FontAwesomeIcon
                 icon={faClock}
@@ -92,7 +92,7 @@ const BookingCard = (props: BookingCardProps) => {
             </p>
           </div>
 
-          <div className="flex w-full flex-col flex-wrap items-start p-1 sm:flex-row sm:items-center md:w-1/2">
+          <div className="flex w-full flex-col flex-wrap items-start py-1 sm:flex-row sm:items-center md:w-3/4">
             <div className="flex w-1/2 flex-row ">
               <FontAwesomeIcon
                 icon={faMapLocation}
@@ -103,7 +103,7 @@ const BookingCard = (props: BookingCardProps) => {
             <p className="text-sm text-gray-400">{book.location}</p>
           </div>
 
-          <div className="flex w-full flex-col flex-wrap items-start p-1 sm:flex-row sm:items-center md:w-1/2">
+          <div className="flex w-full flex-col flex-wrap items-start py-1 sm:flex-row sm:items-center md:w-3/4">
             <div className="flex w-1/2 flex-row ">
               <FontAwesomeIcon
                 icon={faPerson}
@@ -153,7 +153,7 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
     error: "",
   } as BookingState);
 
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     try {
       setBookings({ ...bookings, isLoading: true });
       const response: BookingDTO[] = userId
@@ -177,10 +177,10 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
         setBookings({ ...bookings, isLoading: false, error: e.message });
       }
     }
-  };
+  }, [userId, mentorId]);
 
   const renderBookings = useCallback(() => {
-    if (bookings.isLoading) {
+    if (bookings.isLoading || bookings.error) {
       return <SkeletonBookingCard />;
     }
 

@@ -1,10 +1,6 @@
 import { userServiceApi } from "@src/apis/envConfig";
 
-import {
-  UserDTO,
-  fromLoginResponseToDTO,
-  toUserDTO,
-} from "@src/models/dtos/userDTO";
+import { UserDTO, toUserDTO } from "@src/models/dtos/userDTO";
 import {
   LoginUserRequest,
   RegisterUserRequest,
@@ -20,7 +16,7 @@ import {
 
 export class UserService {
   static async register(requestData: RegisterUserRequest): Promise<UserDTO> {
-    console.log(requestData)
+    console.log(requestData);
     try {
       const response = await fetch(userServiceApi.register, {
         method: "POST",
@@ -43,7 +39,8 @@ export class UserService {
 
       return userDTO;
     } catch (e) {
-      console.error("Error registering user:", e);
+      if (e instanceof Error)
+        console.error(`Error registering user: ${e.name} - ${e.message}`);
       throw new Error(`Failed to register user. Please try again.`);
     }
   }
@@ -65,20 +62,40 @@ export class UserService {
         throw new Error(loginResponse.message);
       }
 
-      const userDTO: UserDTO = fromLoginResponseToDTO(loginResponse);
+      const userDTO: UserDTO = toUserDTO(loginResponse);
 
       localStorage.setItem("user", JSON.stringify(userDTO));
 
       return userDTO;
     } catch (e) {
-      console.error("Error login user:", e);
+      if (e instanceof Error)
+        console.error(`Error logging in: ${e.name} - ${e.message}`);
       throw new Error("Failed to login. Please try again.");
     }
   }
 
-  static isLogged(): UserDTO | null {
+  static async isLogged(): Promise<UserDTO | null> {
     if (localStorage.getItem("user")) {
-      return JSON.parse(localStorage.getItem("user")!);
+      // get user from local storage to check if user is already logged in or not
+      const user = JSON.parse(localStorage.getItem("user")!);
+
+      try {
+        // fetch user from server to get the latest data
+        const response = await UserService.getUserById({
+          userId: user.user_id,
+        });
+
+        // update user in local storage
+        localStorage.setItem("user", JSON.stringify(response));
+
+        return response;
+      } catch (e) {
+        if (e instanceof Error)
+          console.error(
+            `Error fetching latest user data: ${e.name} - ${e.message}`,
+          );
+        return user;
+      }
     } else {
       return null;
     }
@@ -94,15 +111,16 @@ export class UserService {
 
   static async update(requestData: UpdateUserRequest): Promise<UserDTO> {
     try {
-      // const response = await fetch(userServiceApi.update, {
-      //   method: "PUT",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(requestData),
-      // });
+      const response = await fetch(userServiceApi.update, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(requestData),
+      });
 
-      const updateResponse: UpdateUserResponse = Example.UpdateUserResponse;
+      const updateResponse: UpdateUserResponse = await response.json();
 
       if (updateResponse.code !== 200) {
         throw new Error(updateResponse.message);
@@ -110,7 +128,8 @@ export class UserService {
 
       return toUserDTO(updateResponse);
     } catch (e) {
-      console.error("Error updating user:", e);
+      if (e instanceof Error)
+        console.error(`Error updating user: ${e.name} - ${e.message}`);
       throw new Error("Failed to update user. Please try again.");
     }
   }
@@ -133,7 +152,8 @@ export class UserService {
 
       return toUserDTO(userResponse);
     } catch (e) {
-      console.error("Error fetching user:", e);
+      if (e instanceof Error)
+        console.error(`Error fetching user: ${e.name} - ${e.message}`);
       throw new Error("Failed to fetch user");
     }
   }

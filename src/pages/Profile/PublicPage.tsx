@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { faSave, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@nextui-org/react";
-import { useForm } from "@src/hooks";
+import { useFetch, useForm } from "@src/hooks";
 import { motion } from "framer-motion";
 
 import { UserService } from "@src/apis/services/userService";
@@ -15,7 +15,11 @@ import {
   setUserLoading,
 } from "@src/redux/user/userSelectors";
 
-import { UpdateUserRequest } from "@src/models/requests/userRequest";
+import { UserDTO } from "@src/models/dtos/userDTO";
+import {
+  GetUserByIdRequest,
+  UpdateUserRequest,
+} from "@src/models/requests/userRequest";
 import { UpdateProfileSchema } from "@src/models/zod/userZod";
 
 import { animate, exit, initial } from "@src/assets/pageTransitions";
@@ -23,11 +27,13 @@ import { animate, exit, initial } from "@src/assets/pageTransitions";
 const PublicPage = () => {
   const navigate = useNavigate();
   const currentUser = useSelector((state: any) => state.user.currentUser);
+  const userLoading = useSelector((state: any) => state.user.isUserLoading);
+
   const dispatch = useDispatch();
 
   const former = useForm<UpdateUserRequest>({
     initialValues: {
-      id: currentUser.id,
+      id: currentUser.user_id,
       user_name: currentUser.username,
       email: currentUser.email,
       phone_number: currentUser.phone_number,
@@ -38,6 +44,7 @@ const PublicPage = () => {
     } as UpdateUserRequest,
     validationSchema: UpdateProfileSchema,
     onSubmit: async () => {
+      if (userLoading) return;
       try {
         dispatch(setUserLoading(true));
 
@@ -53,13 +60,14 @@ const PublicPage = () => {
         } as UpdateUserRequest);
 
         dispatch(setCurrentUser(updateResponse));
-        console.log(updateResponse);
 
         navigate("/");
       } catch (error) {
         if (error instanceof Error) {
           dispatch(setUserError(error.toString()));
         }
+
+        return alert("Failed to update user");
       } finally {
         dispatch(setUserLoading(false));
       }
@@ -209,8 +217,11 @@ const PublicPage = () => {
                       <FontAwesomeIcon icon={faSave} className="text-md" />
                     }
                     className="mr-5"
+                    style={{
+                      cursor: userLoading ? "not-allowed" : "pointer",
+                    }}
                   >
-                    Save Changes
+                    {userLoading ? "Saving..." : "Save"}
                   </Button>
                   <Button
                     color="danger"

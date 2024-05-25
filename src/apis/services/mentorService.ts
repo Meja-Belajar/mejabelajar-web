@@ -46,7 +46,8 @@ export class MentorService {
 
       return fromGetPopularMentors(mentors);
     } catch (e) {
-      console.error(`Error fetching mentors: ${e}`);
+      if (e instanceof Error)
+        console.error(`Error fetching mentors: ${e.name} - ${e.message}`);
       throw new Error("Failed to fetch mentors");
     }
   }
@@ -69,7 +70,8 @@ export class MentorService {
 
       return fromGetPopularMentors(mentors);
     } catch (e) {
-      console.error(`Error fetching mentors: ${e}`);
+      if (e instanceof Error)
+        console.error(`Error fetching mentors: ${e.name} - ${e.message}`);
       throw new Error("Failed to fetch mentors");
     }
   }
@@ -97,7 +99,8 @@ export class MentorService {
 
       return fromGetMentorByMentorId(mentor);
     } catch (e) {
-      console.error(`Error fetching mentor: ${e}`);
+      if (e instanceof Error)
+        console.error(`Error fetching mentor: ${e.name} - ${e.message}`);
       throw new Error(`${e}`);
     }
   }
@@ -125,7 +128,8 @@ export class MentorService {
 
       return fromGetMentorByUserId(mentor);
     } catch (e) {
-      console.error(`Error fetching mentor: ${e}`);
+      if (e instanceof Error)
+        console.error(`Error fetching mentor: ${e.name} - ${e.message}`);
       throw new Error(`${e}`);
     }
   }
@@ -152,7 +156,8 @@ export class MentorService {
 
       return fromUpdateMentor(mentor);
     } catch (e) {
-      console.error(`Error registering mentor: ${e}`);
+      if (e instanceof Error)
+        console.error(`Error registering mentor: ${e.name} - ${e.message}`);
       throw new Error("Failed to register mentor");
     }
   }
@@ -170,7 +175,8 @@ export class MentorService {
 
       return toMentorsDTO(mentor);
     } catch (e) {
-      console.error(`Error fetching registered mentor: ${e}`);
+      if (e instanceof Error)
+        console.error(`Error registering mentor: ${e.name} - ${e.message}`);
       throw new Error("Failed to register mentor");
     }
   }
@@ -195,7 +201,8 @@ export class MentorService {
 
       return fromUpdateMentor(mentor);
     } catch (e) {
-      console.error(`Error updating mentor: ${e}`);
+      if (e instanceof Error)
+        console.error(`Error updating mentor: ${e.name} - ${e.message}`);
       throw new Error("Failed to update mentor");
     }
   }
@@ -220,7 +227,8 @@ export class MentorService {
 
       return toMentorsDTO(mentor);
     } catch (e) {
-      console.error(`Error fetching mentor: ${e}`);
+      if (e instanceof Error)
+        console.error(`Error fetching mentor: ${e.name} - ${e.message}`);
       throw new Error("Failed to fetch mentor");
     }
   }

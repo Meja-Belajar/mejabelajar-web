@@ -9,11 +9,13 @@ export interface NotificationDTO {
 
 export const toNotificationDTO = (
   data: GetNotificationByIdResponse,
-): NotificationDTO => {
-  return {
-    notification_id: data.notification_id,
-    title: data.title,
-    description: data.description,
-    created_at: data.created_at,
-  };
+): NotificationDTO[] => {
+  return data?.data?.map((notification) => {
+    return {
+      notification_id: notification.notification_id,
+      title: notification.title,
+      description: notification.description,
+      created_at: notification.created_at,
+    };
+  });
 };

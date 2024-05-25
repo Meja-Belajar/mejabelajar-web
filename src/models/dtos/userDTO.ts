@@ -24,20 +24,6 @@ export const toUserDTO = (
 ): UserDTO => {
   return {
     user_id: data.data.id,
-    username: data.data.user_name,
-    university: data.data.university,
-    email: data.data.email,
-    phone_number: data.data.phone_number,
-    description: data.data.description,
-    profile_picture: data.data.profile_picture || ImageUrl.NO_PROFILE_IMAGE,
-    bod: data.data.bod,
-    isMentor: data.data.is_mentor,
-  };
-};
-
-export const fromLoginResponseToDTO = (data: LoginUserResponse): UserDTO => {
-  return {
-    user_id: data.data.id,
     username: data.data.username,
     university: data.data.university,
     email: data.data.email,

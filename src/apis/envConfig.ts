@@ -9,18 +9,12 @@ export const userServiceApi = {
   update: `${baseUrl}/user/update`,
 };
 
-// tokenService
-export const tokenServiceApi = {
-  refreshToken: `${baseUrl}/token/refresh`,
-};
-
 // mentorService
 export const mentorServiceApi = {
   getPopularMentors: `${baseUrl}/auth/mentors/popular`,
   getAllMentors: `${baseUrl}/auth/mentors`,
   getMentorByMentorId: `${baseUrl}/auth/mentors`,
   getMentorByUserId: `${baseUrl}/auth/mentors/by-user`,
-
   registerMentor: `${baseUrl}/auth/mentors/register`,
 };
 
@@ -41,4 +35,8 @@ export const bookingServiceApi = {
 export const adminServiceApi = {
   verify: `${baseUrl}/admin/verify`,
   getAllBookings: `${baseUrl}/admin/getAllBookings`,
+};
+
+export const notificationServiceApi = {
+  getAllNotificationsByUserId: `${baseUrl}/auth/bookings/notification`,
 };
