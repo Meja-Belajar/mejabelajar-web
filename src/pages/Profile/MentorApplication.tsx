@@ -49,7 +49,6 @@ const MentorApplication = () => {
       return alert("Please attach your CV.");
     }
 
-    console.log(selectedCourse);
     try {
       const response = await MentorService.registerMentor({
         user_id: currentUser?.user_id,
@@ -72,6 +71,26 @@ const MentorApplication = () => {
     }
   };
 
+  if (currentUser?.isMentor) {
+    return (
+      <motion.main
+        initial={initial}
+        animate={animate}
+        exit={exit}
+        className="min-h-screen w-full py-1 md:w-2/3 lg:w-3/4"
+      >
+        <div className="flex min-h-screen items-start justify-center">
+          <div className="mt-20 text-center">
+            <p className="mt-5 text-lg">
+              You can't submit another application because you already submitted
+              one.
+            </p>
+          </div>
+        </div>
+      </motion.main>
+    );
+  }
+
   return (
     <>
       <motion.main
@@ -88,7 +107,7 @@ const MentorApplication = () => {
 
             <div className="max-w-md py-1 sm:px-6">
               <h1 className="mb-1 text-lg font-semibold">Your current data</h1>
-              <p className="mb-5 text-xs">
+              <p className="mb-5 text-xs text-purple-accent-500">
                 If the data is invalid, please update it first through the
                 profile page.
               </p>

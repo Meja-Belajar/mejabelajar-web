@@ -19,6 +19,7 @@ import "@src/assets/global.css";
 type BookingCardProps = {
   key: string;
   book: BookingDTO;
+  isMentor: boolean;
 };
 
 type BookingsWrapperProps = {
@@ -34,7 +35,7 @@ type BookingState = {
 };
 
 const BookingCard = (props: BookingCardProps) => {
-  const { book } = props;
+  const { book, isMentor } = props;
   const isActive = DateUtil.compareDate(
     DateUtil.fromISO(book?.date),
     DateUtil.getToday(),
@@ -43,8 +44,8 @@ const BookingCard = (props: BookingCardProps) => {
   return (
     <section className="flex  w-full flex-col items-center justify-center p-3">
       <section className="w-[90%] rounded-2xl bg-white p-5 pb-8">
-        <section className="flex w-full flex-row flex-wrap justify-between p-2">
-          <div className="">
+        <section className="flex w-[98%] flex-row flex-wrap justify-between p-2">
+          <div className="px-3">
             <div>
               <h2 className="text-md open-sans-300 text-blue-accent-300">
                 Mentoring Details
@@ -58,25 +59,27 @@ const BookingCard = (props: BookingCardProps) => {
             <div
               className="mt-3 flex min-w-16 items-center justify-center rounded-full px-3 py-2"
               style={{
-                backgroundColor: isActive ? "#B46EFB" : "red",
+                backgroundColor: isActive ? "green" : "red",
               }}
             >
-              <p className="text-xs text-white-accent-1">
+              <p className="text-xs text-white">
                 {isActive
                   ? DateUtil.getDifference(
                       DateUtil.fromISO(book.date),
                       DateUtil.getToday(),
                     )
-                  : "LATE"}
+                  : isMentor
+                    ? "Expired"
+                    : "Late"}
               </p>
             </div>
           </div>
         </section>
 
-        <section className="mb-5 mt-2 w-full border border-gray-300" />
+        <section className="mx-4 mb-5 mt-2 w-[98%] border border-gray-300" />
 
         <section className="flex flex-col items-start justify-center">
-          <div className="flex w-full flex-col flex-wrap items-start p-1 sm:flex-row sm:items-center md:w-1/2">
+          <div className="flex w-full flex-col flex-wrap items-start py-1 sm:flex-row sm:items-start md:w-3/4">
             <div className="flex w-1/2 flex-row ">
               <FontAwesomeIcon
                 icon={faClock}
@@ -89,7 +92,7 @@ const BookingCard = (props: BookingCardProps) => {
             </p>
           </div>
 
-          <div className="flex w-full flex-col flex-wrap items-start p-1 sm:flex-row sm:items-center md:w-1/2">
+          <div className="flex w-full flex-col flex-wrap items-start py-1 sm:flex-row sm:items-center md:w-3/4">
             <div className="flex w-1/2 flex-row ">
               <FontAwesomeIcon
                 icon={faMapLocation}
@@ -100,15 +103,19 @@ const BookingCard = (props: BookingCardProps) => {
             <p className="text-sm text-gray-400">{book.location}</p>
           </div>
 
-          <div className="flex w-full flex-col flex-wrap items-start p-1 sm:flex-row sm:items-center md:w-1/2">
+          <div className="flex w-full flex-col flex-wrap items-start py-1 sm:flex-row sm:items-center md:w-3/4">
             <div className="flex w-1/2 flex-row ">
               <FontAwesomeIcon
                 icon={faPerson}
                 className="mr-1 w-[15%] text-gray-400"
               />
-              <p className="text-sm text-gray-400">Mentor</p>
+              <p className="text-sm text-gray-400">
+                {isMentor ? "Mentee" : "Mentor"}
+              </p>
             </div>
-            <p className="text-sm text-gray-400">{book.mentor.name}</p>
+            <p className="text-sm text-gray-400">
+              {isMentor ? book.user.name : book.mentor.name}
+            </p>
           </div>
         </section>
       </section>
@@ -146,7 +153,7 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
     error: "",
   } as BookingState);
 
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     try {
       setBookings({ ...bookings, isLoading: true });
       const response: BookingDTO[] = userId
@@ -155,16 +162,48 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
             mentor_id: mentorId!,
           });
 
-      setBookings({ ...bookings, isLoading: false, items: response });
+      const today = DateUtil.getToday();
+
+      const futureItems = response.filter((item) => {
+        const itemDate = DateUtil.fromISO(item.date);
+        return DateUtil.compareDate(itemDate, today);
+      });
+
+      const expiredItems = response.filter((item) => {
+        const itemDate = DateUtil.fromISO(item.date);
+        return !DateUtil.compareDate(itemDate, today);
+      });
+
+      const sortedFutureItems = futureItems.sort((a, b) => {
+        return DateUtil.compareDate(
+          DateUtil.fromISO(a.date),
+          DateUtil.fromISO(b.date),
+        )
+          ? 1
+          : -1;
+      });
+
+      const sortedExpiredItems = expiredItems.sort((a, b) => {
+        return DateUtil.compareDate(
+          DateUtil.fromISO(a.date),
+          DateUtil.fromISO(b.date),
+        )
+          ? -1
+          : 1;
+      });
+
+      const sortedResponse = [...sortedFutureItems, ...sortedExpiredItems];
+
+      setBookings({ ...bookings, isLoading: false, items: sortedResponse });
     } catch (e) {
       if (e instanceof Error) {
         setBookings({ ...bookings, isLoading: false, error: e.message });
       }
     }
-  };
+  }, [userId, mentorId]);
 
   const renderBookings = useCallback(() => {
-    if (bookings.isLoading) {
+    if (bookings.isLoading || bookings.error) {
       return <SkeletonBookingCard />;
     }
 
@@ -178,7 +217,13 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
 
     return bookings.items
       .slice(0, bookings.onShow)
-      .map((book) => <BookingCard key={book.id} book={book} />);
+      .map((book) => (
+        <BookingCard
+          key={book.id}
+          book={book}
+          isMentor={userId ? false : true}
+        />
+      ));
   }, [bookings]);
 
   const renderShowBookingsButton = () => {

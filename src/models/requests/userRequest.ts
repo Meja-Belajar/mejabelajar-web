@@ -4,6 +4,7 @@ export interface RegisterUserRequest {
   email: string;
   phone_number: string;
   bod: string;
+  profile_picture?: string;
   password: string;
   confirm_password: string;
 }
@@ -16,14 +17,14 @@ export interface LoginUserRequest {
 export interface UpdateUserRequest {
   id: string;
   user_name: string;
-  university: string;
   email: string;
   phone_number: string;
-  description: string;
-  profile_picture: string;
+  description?: string;
+  profile_picture?: string;
+  university: string;
   bod: string;
 }
 
 export interface GetUserByIdRequest {
-  id: string;
+  userId: string;
 }

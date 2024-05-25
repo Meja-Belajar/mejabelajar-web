@@ -1,14 +1,14 @@
 import { adminServiceApi } from "../envConfig";
 
 import { AdminDTO, toAdminDTO } from "@src/models/dtos/adminDTO";
-import { MentorDTO, toMentorDTO } from "@src/models/dtos/mentorDTO";
+import { MentorDTO, fromRegisterMentor } from "@src/models/dtos/mentorDTO";
 import {
   Example,
   ValidateAdminResponse,
 } from "@src/models/responses/adminResponse";
 import {
   Example as ExampleMentor,
-  MentorApplicationResponse,
+  RegisterMentorResponse,
 } from "@src/models/responses/mentorResponse";
 
 export class AdminService {
@@ -24,7 +24,9 @@ export class AdminService {
 
       return toAdminDTO(admin);
     } catch (e) {
-      console.error("Error verifying admin:", e);
+      if (e instanceof Error) {
+        console.error(`Error verifying admin: ${e.name} - ${e.message}`);
+      }
       throw new Error("Failed to verify admin");
     }
   }
@@ -43,12 +45,14 @@ export class AdminService {
       //   body: JSON.stringify({ mentor_id }),
       // });
 
-      const mentor: MentorApplicationResponse =
-        ExampleMentor.MentorApplicationResponse;
+      const mentor: RegisterMentorResponse =
+        ExampleMentor.RegisterMentorResponse;
 
-      return toMentorDTO(mentor);
+      return fromRegisterMentor(mentor);
     } catch (e) {
-      console.error("Error approving mentor:", e);
+      if (e instanceof Error) {
+        console.error(`Error approving mentor: ${e.name} - ${e.message}`);
+      }
       throw new Error("Failed to approve mentor");
     }
   }
@@ -67,12 +71,14 @@ export class AdminService {
       //   body: JSON.stringify({ mentor_id }),
       // });
 
-      const mentor: MentorApplicationResponse =
-        ExampleMentor.MentorApplicationResponse;
+      const mentor: RegisterMentorResponse =
+        ExampleMentor.RegisterMentorResponse;
 
-      return toMentorDTO(mentor);
+      return fromRegisterMentor(mentor);
     } catch (e) {
-      console.error("Error rejecting mentor:", e);
+      if (e instanceof Error) {
+        console.error(`Error rejecting mentor: ${e.name} - ${e.message}`);
+      }
       throw new Error("Failed to reject mentor");
     }
   }

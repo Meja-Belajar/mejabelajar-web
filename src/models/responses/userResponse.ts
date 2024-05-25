@@ -2,22 +2,23 @@ import { BaseResponse } from "./baseResponse";
 
 export interface LoginUserResponse extends BaseResponse {
   data: {
-    id: string;
-    user_name: string;
-    university: string;
-    email: string;
-    phone_number: string;
-    description?: string;
-    profile_picture?: string;
     bod: string;
+    description?: string;
+    email: string;
+    id: string;
+    is_active: boolean;
     is_mentor: boolean;
+    phone_number: string;
+    profile_picture?: string;
+    university: string;
+    username: string;
   };
 }
 
 export interface RegisterUserResponse extends BaseResponse {
   data: {
     id: string;
-    user_name: string;
+    username: string;
     university: string;
     email: string;
     phone_number: string;
@@ -31,7 +32,7 @@ export interface RegisterUserResponse extends BaseResponse {
 export interface GetUserByIdResponse extends BaseResponse {
   data: {
     id: string;
-    user_name: string;
+    username: string;
     university: string;
     email: string;
     phone_number: string;
@@ -45,7 +46,7 @@ export interface GetUserByIdResponse extends BaseResponse {
 export interface UpdateUserResponse extends BaseResponse {
   data: {
     id: string;
-    user_name: string;
+    username: string;
     university: string;
     email: string;
     phone_number: string;
@@ -62,7 +63,7 @@ export class Example {
     message: "Login success",
     data: {
       id: "1",
-      user_name: "Rico Tandrio",
+      username: "Rico Tandrio",
       university: "BINUS University",
       email: "ricotandrio@mejabelajar.edu",
       phone_number: "081234567890",
@@ -70,6 +71,7 @@ export class Example {
       profile_picture: "",
       bod: "2000-01-01T00:00:00.000Z",
       is_mentor: false,
+      is_active: true,
     },
   };
 
@@ -78,7 +80,7 @@ export class Example {
     message: "Register success",
     data: {
       id: "1",
-      user_name: "Rico Tandrio",
+      username: "Rico Tandrio",
       university: "BINUS University",
       email: "ricotandrio@mejabelajar.edu",
       phone_number: "081234567890",
@@ -94,7 +96,7 @@ export class Example {
     message: "Login success",
     data: {
       id: "1",
-      user_name: "Rico Tandrio",
+      username: "Rico Tandrio",
       university: "BINUS University",
       email: "ricotandrio@mejabelajar.edu",
       phone_number: "081234567890",
@@ -110,7 +112,7 @@ export class Example {
     message: "Update success",
     data: {
       id: "1",
-      user_name: "Rico Tandrio",
+      username: "Rico Tandrio",
       university: "BINUS University",
       email: "ricotandrio@mejabelajar.edu",
       phone_number: "081234567890",

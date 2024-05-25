@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { faSave, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@nextui-org/react";
-import { useForm } from "@src/hooks";
+import { useFetch, useForm } from "@src/hooks";
 import { motion } from "framer-motion";
 
 import { UserService } from "@src/apis/services/userService";
@@ -15,7 +15,11 @@ import {
   setUserLoading,
 } from "@src/redux/user/userSelectors";
 
-import { UpdateUserRequest } from "@src/models/requests/userRequest";
+import { UserDTO } from "@src/models/dtos/userDTO";
+import {
+  GetUserByIdRequest,
+  UpdateUserRequest,
+} from "@src/models/requests/userRequest";
 import { UpdateProfileSchema } from "@src/models/zod/userZod";
 
 import { animate, exit, initial } from "@src/assets/pageTransitions";
@@ -23,20 +27,24 @@ import { animate, exit, initial } from "@src/assets/pageTransitions";
 const PublicPage = () => {
   const navigate = useNavigate();
   const currentUser = useSelector((state: any) => state.user.currentUser);
+  const userLoading = useSelector((state: any) => state.user.isUserLoading);
+
   const dispatch = useDispatch();
 
   const former = useForm<UpdateUserRequest>({
     initialValues: {
-      id: currentUser.id,
+      id: currentUser.user_id,
       user_name: currentUser.username,
       email: currentUser.email,
       phone_number: currentUser.phone_number,
       description: currentUser.description,
       profile_picture: currentUser.profile_picture,
+      university: currentUser.university,
       bod: currentUser.bod,
     } as UpdateUserRequest,
     validationSchema: UpdateProfileSchema,
     onSubmit: async () => {
+      if (userLoading) return;
       try {
         dispatch(setUserLoading(true));
 
@@ -47,17 +55,19 @@ const PublicPage = () => {
           phone_number: former.values.phone_number,
           description: former.values.description,
           profile_picture: former.values.profile_picture,
+          university: former.values.university,
           bod: former.values.bod,
         } as UpdateUserRequest);
 
         dispatch(setCurrentUser(updateResponse));
-        console.log(updateResponse);
 
         navigate("/");
       } catch (error) {
         if (error instanceof Error) {
           dispatch(setUserError(error.toString()));
         }
+
+        return alert("Failed to update user");
       } finally {
         dispatch(setUserLoading(false));
       }
@@ -92,7 +102,7 @@ const PublicPage = () => {
                 />
               </div>
 
-              <p className="sm:text-md open-sans-600 mt-8 text-xs opacity-80">{`ID: ${currentUser.id}`}</p>
+              <p className="sm:text-md open-sans-600 mt-8 text-xs opacity-80">{`ID: ${currentUser.user_id}`}</p>
 
               <form
                 className="mt-8 items-center text-[#202142] sm:mt-3"
@@ -129,6 +139,23 @@ const PublicPage = () => {
                   {former.errorMessages.email && (
                     <p className="mt-2 text-xs italic text-red-500">
                       {former.errorMessages.email}
+                    </p>
+                  )}
+                </div>
+
+                <div className="mb-2 sm:mb-6">
+                  <input
+                    name="university"
+                    type="text"
+                    className="block w-full rounded-lg border border-indigo-300 bg-gray-100 p-2.5 text-sm text-indigo-900 focus:border-indigo-500 focus:ring-indigo-500 "
+                    placeholder="BINUS University"
+                    value={former.values.university}
+                    onChange={former.onChangeHandler}
+                    required
+                  />
+                  {former.errorMessages.university && (
+                    <p className="mt-2 text-xs italic text-red-500">
+                      {former.errorMessages.university}
                     </p>
                   )}
                 </div>
@@ -190,8 +217,11 @@ const PublicPage = () => {
                       <FontAwesomeIcon icon={faSave} className="text-md" />
                     }
                     className="mr-5"
+                    style={{
+                      cursor: userLoading ? "not-allowed" : "pointer",
+                    }}
                   >
-                    Save Changes
+                    {userLoading ? "Saving..." : "Save"}
                   </Button>
                   <Button
                     color="danger"

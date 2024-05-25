@@ -30,7 +30,7 @@ export interface GetBookingsByUserIdResponse extends BaseResponse {
   }[];
 }
 
-export interface GetBookingByMentorIdResponse extends BaseResponse {
+export interface GetBookingsByMentorIdResponse extends BaseResponse {
   data: {
     id: string;
     user: {
@@ -217,7 +217,7 @@ export class Example {
     ],
   };
 
-  static GetBookingsByMentorIdResponse: GetBookingByMentorIdResponse = {
+  static GetBookingsByMentorIdResponse: GetBookingsByMentorIdResponse = {
     code: 200,
     message: "Success",
     data: [

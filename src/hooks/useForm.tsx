@@ -8,6 +8,38 @@ type useFormProps<T> = {
   onSubmit: () => void;
 };
 
+/**
+ * @description useForm is a custom hook that handles form state, validation, and submission.
+ *
+ * @template T - The type of the form values
+ *
+ * @param {useFormProps<T>} props - The properties for the form
+ *
+ * @returns {values} - The form values
+ * @returns {errorMessages} - The error messages for each form field
+ * @returns {isError} - A boolean indicating whether an error occurred during form submission
+ * @returns {onChangeHandler} - The function to handle form input changes
+ * @returns {onSubmitHandler} - The function to handle form submission
+ * @returns {setIsError} - The function to set the isError state
+ * @returns {clearField} - The function to clear the form fields
+ *
+ * @example
+ * const { values, errorMessages, isError, onChangeHandler, onSubmitHandler, setIsError, clearField } = useForm<LoginForm>({
+ *   initialValues: {
+ *     email: "",
+ *     password: "",
+ *   },
+ *   validationSchema: LoginFormSchema,
+ *   onSubmit: async () => {
+ *     try {
+ *       await AuthService.login(values);
+ *       history.push("/dashboard");
+ *     } catch (error) {
+ *       setIsError(true);
+ *     }
+ *   },
+ * });
+ */
 export const useForm = <T extends object>({
   initialValues,
   validationSchema,
@@ -39,9 +71,7 @@ export const useForm = <T extends object>({
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submit");
     const validation = validateField();
-    console.log(validation);
 
     if (!validation) onSubmit();
   };
@@ -49,7 +79,6 @@ export const useForm = <T extends object>({
   const validateField = (): boolean => {
     const parsedValues = validationSchema.safeParse(values);
 
-    console.log(values);
     if (parsedValues.success) {
       for (const name in values) {
         if (errorMessages[name]) {

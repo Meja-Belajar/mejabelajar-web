@@ -1,3 +1,6 @@
+/**
+ * @description CourseDTO is a data transfer object that represents the data of a course.
+ */
 export interface CourseDTO {
   course_id: string;
   name: string;

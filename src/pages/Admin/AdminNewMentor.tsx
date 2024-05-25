@@ -29,7 +29,7 @@ import "@src/assets/global.css";
 const AdminNewMentor = () => {
   const newMentorsApp = useFetch<{}, MentorDTO[]>({
     fetchProps: {},
-    fetchCallback: () => MentorService.getMentorApplications(),
+    fetchCallback: () => MentorService.getAllMentorApplications(),
   });
 
   const [error, setError] = useState<string>("");

@@ -18,6 +18,7 @@ import { useFetch } from "@src/hooks/useFetch";
 
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
 
+import { PopularMentors } from "@src/assets/data/userLandingData";
 import { Image as ImageClass } from "@src/assets/images/Image";
 
 type MentorCardProps = {
@@ -33,40 +34,6 @@ type MentorState = {
 type SearchMentorWrapperProps = {
   data: MentorDTO[];
 };
-
-// const MentorCard = (props: MentorCardProps) => {
-//   const { mentor } = props;
-//   const navigate = useNavigate();
-
-//   return (
-//     <Card
-//       key={mentor?.mentor_id}
-//       className="w-56 border-2 py-4 shadow-sm hover:scale-110"
-//       onClick={() => navigate(`/mentoring/${mentor?.mentor_id}`)}
-//     >
-//       <CardHeader className="flex-col flex-wrap items-start px-4 pb-0 pt-2">
-//         <p className="open-sans-600 text-tiny uppercase">
-//           {mentor?.university}
-//         </p>
-//         <div className="line-clamp-1 max-w-[240px] overflow-hidden text-ellipsis text-default-500">
-//           <small>{mentor?.courses[0]?.name}</small>
-//         </div>
-//         <h4 className="open-sans-600 text-large">{mentor?.username}</h4>
-//       </CardHeader>
-//       <CardBody className="flex items-center overflow-visible py-2">
-//         <Image
-//           alt="Card background"
-//           className="max-h-36 cursor-pointer rounded-xl  object-cover"
-//           src={mentor?.profile_picture}
-//           width={270}
-//           onClick={() => {
-//             navigate(`/mentoring/${mentor?.mentor_id}`);
-//           }}
-//         />
-//       </CardBody>
-//     </Card>
-//   );
-// };
 
 const SkeletonMentorCard = () => {
   return (
@@ -97,7 +64,11 @@ const WeeklyPopularMentorWrapper = () => {
   });
 
   const renderPopularMentors = useCallback(() => {
-    if (popularMentors.isLoading) {
+    if (
+      popularMentors.isLoading ||
+      !popularMentors.data ||
+      popularMentors.error
+    ) {
       return <SkeletonMentorCard />;
     }
 
@@ -150,17 +121,17 @@ const MentorCard = (props: MentorCardProps) => {
   return (
     <Card
       key={mentor?.mentor_id}
-      className="flex w-[90vw] flex-row justify-between border-2 px-4 py-4 shadow-sm hover:scale-110 sm:w-[60vw] md:w-[50vw] lg:w-[30vw] xl:w-[25vw]"
+      className="justify flex w-[90vw] flex-row border-2 px-4 py-4 shadow-sm hover:scale-110 sm:w-[60vw] md:w-[50vw] lg:w-[30vw] xl:w-[25vw]"
     >
-      <div className="flex items-center overflow-visible border py-2">
+      <div className="flex items-center overflow-visible py-2">
         <Image
           alt="Card background"
-          className="aspect-square w-32 rounded-xl  object-cover"
+          className="aspect-square max-w-20 rounded-xl  object-cover"
           src={mentor?.profile_picture}
           width={270}
         />
       </div>
-      <div className="flex-col flex-wrap items-start px-4 pb-0 pt-2">
+      <div className="w-full flex-col flex-wrap items-start px-4 pb-0 pt-2">
         <h4 className="open-sans-600 line-clamp-1 text-large">
           {mentor?.username}
         </h4>
@@ -192,7 +163,7 @@ const SearchMentorWrapper = (props: SearchMentorWrapperProps) => {
   const { data } = props;
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {data.map((mentor, index) => (
+      {data?.map((mentor, index) => (
         <div
           className="col-span-1 m-2 flex items-center justify-center bg-white-accent-1"
           key={index}

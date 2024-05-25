@@ -8,6 +8,7 @@ import { CalendarDate, Time } from "@internationalized/date";
 import {
   Button,
   DateInput,
+  Input,
   Modal,
   ModalBody,
   ModalContent,
@@ -20,6 +21,7 @@ import {
 import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
 
+import { BookingService } from "@src/apis/services/bookingService";
 import { MentorService } from "@src/apis/services/mentorService";
 
 import Navigation from "@src/components/Navigation";
@@ -28,7 +30,8 @@ import { useFetch } from "@src/hooks/useFetch";
 
 import { CourseDTO } from "@src/models/dtos/courseDTO";
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
-import { GetMentorByIdRequest } from "@src/models/requests/mentorRequest";
+import { CreateBookingRequest } from "@src/models/requests/bookingRequest";
+import { GetMentorByMentorIdRequest } from "@src/models/requests/mentorRequest";
 
 import { AppUtil } from "@src/utils/appUtil";
 import { DateUtil } from "@src/utils/dateUtil";
@@ -94,13 +97,16 @@ const MentoringPage = () => {
   const [scrollBehavior, setScrollBehavior] =
     useState<ModalProps["scrollBehavior"]>("inside");
 
-  const mentor = useFetch<GetMentorByIdRequest, MentorDTO>({
-    fetchProps: { mentor_id: mentorId } as GetMentorByIdRequest,
-    fetchCallback: MentorService.getMentorById,
+  const mentor = useFetch<GetMentorByMentorIdRequest, MentorDTO>({
+    fetchProps: { mentor_id: mentorId } as GetMentorByMentorIdRequest,
+    fetchCallback: MentorService.getMentorByMentorId,
   });
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const navigate = useNavigate();
+
+  const currentUser = useSelector((state: any) => state.user.currentUser);
+  const [location, setLocation] = useState<string>("");
 
   useMemo(() => {
     if (!selectedCourse) {
@@ -195,49 +201,52 @@ const MentoringPage = () => {
     setSelectedCourse(course);
   };
 
-  const handleBookingCreation = (onClose: () => void) => {
+  const handleBookingCreation = async (onClose: () => void) => {
     try {
       setCreateBookingIsLoading(true);
-      // const response = BookingService.create({
-      //   user_id: currentUser?.id,
-      //   mentor_id: mentor?.data?.mentor_id,
-      //   course_id: selectedCourse?.course_id,
-      //   schedule: {
-      //     from: DateUtil.toISODate(
-      //       DateUtil.fromUniversalDate({
-      //         ...schedule.date,
-      //         ...schedule.from,
-      //       }),
-      //     ),
-      //     to: DateUtil.toISODate(
-      //       DateUtil.fromUniversalDate({
-      //         ...schedule.date,
-      //         ...schedule.to,
-      //       }),
-      //     ),
-      //   },
-      //   invoice: {
-      //     payment_method: "QRIS",
-      //     payment_name: "Mentoring Payment",
-      //     payment_status: "success",
-      //     payment_amount: price,
-      //   },
-      // } as CreateBookingRequest);
+      const response = await BookingService.create({
+        user_id: currentUser.user_id,
+        mentor_id: mentor.data!.mentor_id,
+        course_id: selectedCourse.course_id,
+        scheduled_at: DateUtil.toISOString(
+          DateUtil.fromUniversalDate({
+            ...schedule.date,
+            ...schedule.from,
+          }),
+        ),
+        scheduled_location: "Based on discussion with mentor",
+        created_at: DateUtil.toISOString(new Date()),
+        invoice: {
+          payment_method: "QRIS",
+          payment_name: "Mentoring Payment",
+          payment_status: "success",
+          payment_amount: price.totalPrice,
+        },
+      } as unknown as CreateBookingRequest);
+
+      console.log(response);
       setTimeout(() => {
         setCreateBookingIsLoading(false);
         handleSuccessEffect();
         onClose();
       }, 2000);
 
-      setTimeout(() => {
-        navigate("/");
-      }, 4000);
+      setTimeout(() => navigate("/"), 3000);
     } catch (e) {
       setWarning(`Something went wrong, please try again later: ${e}`);
+      return alert("Failed to create booking");
     }
   };
 
   const renderStore = useCallback(() => {
+    if (mentor.error || !mentor.data) {
+      return (
+        <div className="mt-20 flex items-center justify-center px-7">
+          <h1 className="text-red-500">{mentor.error}</h1>
+        </div>
+      );
+    }
+
     const mentorData = mentor.data as MentorDTO;
 
     return (
@@ -250,8 +259,8 @@ const MentoringPage = () => {
                   <div className="mx-auto max-w-sm overflow-hidden rounded-lg">
                     <img
                       className="h-full w-full max-w-full object-cover"
-                      src={mentorData.profile_picture}
-                      alt={mentorData.username}
+                      src={mentorData?.profile_picture}
+                      alt={mentorData?.username}
                     />
                   </div>
                 </div>
@@ -261,12 +270,12 @@ const MentoringPage = () => {
                 <div className="flex flex-row items-start justify-between">
                   <div className="flex flex-row items-start gap-3">
                     <h1 className="open-sans-700 font-bold leading-9 text-gray-900 sm:text-3xl">
-                      {mentorData.username}
+                      {mentorData?.username}
                     </h1>
                     <div className="flex flex-row items-center rounded-full border-2 border-yellow-300 px-2 py-1">
                       <img src={Image.star} alt="star" className="w-4" />
                       <p className="open-sans-600 text-xs text-yellow-400">
-                        {mentorData.rating}
+                        {mentorData?.rating}
                       </p>
                     </div>
                   </div>
@@ -290,16 +299,16 @@ const MentoringPage = () => {
 
                 <p className="mt-2 text-sm font-medium uppercase text-gray-900">
                   <span className="font-semibold text-blue-500">
-                    {mentorData.university}
+                    {mentorData?.university}
                   </span>
                 </p>
 
                 <p className="mt-3 pr-10 text-justify text-base text-gray-600">
-                  {mentorData.description}
+                  {mentorData?.description}
                 </p>
 
                 <div className="mt-8">
-                  {mentorData.courses.map((course) => (
+                  {mentorData?.courses?.map((course) => (
                     <div
                       className="mt-4 flex items-center justify-start"
                       key={course.course_id}
@@ -321,6 +330,13 @@ const MentoringPage = () => {
                       </label>
                     </div>
                   ))}
+
+                  {!mentorData?.courses && (
+                    <p className="mt-4 text-sm text-red-500">
+                      **This mentor doesn't have any course available right
+                      now.**
+                    </p>
+                  )}
                 </div>
 
                 <div className="mt-8 border-t pt-5 sm:mr-10">
@@ -370,10 +386,13 @@ const MentoringPage = () => {
                     </h1>
                   </div>
                   <Button
-                    onPress={onOpen}
+                    onPress={mentorData?.courses && onOpen}
                     className="bg-purple-accent-500 px-10 py-6 text-white"
+                    style={{
+                      cursor: mentorData?.courses ? "pointer" : "not-allowed",
+                    }}
                   >
-                    Create Booking
+                    {mentorData?.courses ? "Book" : "No course available"}
                   </Button>
                 </div>
                 <div className="mt-10 flex flex-col items-center justify-between space-y-4 py-4 sm:flex-row sm:space-y-0"></div>
@@ -420,6 +439,7 @@ const MentoringPage = () => {
         </>
       );
     }
+
     return (
       <>
         <ModalHeader className="flex flex-col gap-1 text-xl">
@@ -460,7 +480,7 @@ const MentoringPage = () => {
             <h1 className="open-sans-600 mt-3 text-red-500">
               Please make the payment through this QRIS.
             </h1>
-            <img src={ImageUrl.qris} alt="" />
+            <img src={ImageUrl.QRIS} alt="qris_image" />
           </div>
         </ModalBody>
         <ModalFooter>
@@ -484,13 +504,13 @@ const MentoringPage = () => {
     >
       <Navigation />
 
-      {mentor.isLoading && (
+      {mentor.isLoading ? (
         <div className="mt-20 flex items-center justify-center px-7">
           <FontAwesomeIcon icon={faSpinner} spin className="text-3xl" />
         </div>
+      ) : (
+        renderStore()
       )}
-
-      {!mentor.isLoading && mentor.data && renderStore()}
     </motion.div>
   );
 };

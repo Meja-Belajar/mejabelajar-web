@@ -32,6 +32,12 @@ type NavigationProps = {
   disabled?: boolean;
 };
 
+/**
+ * Navigation is a component that displays the navigation bar and search bar.
+ *
+ * @param {NavigationProps} props - The props object
+ * @param {boolean} props.disabled - Whether the navigation bar is disabled
+ */
 const Navigation = (props: NavigationProps) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
@@ -126,7 +132,7 @@ const Navigation = (props: NavigationProps) => {
           </form>
           <Link
             to="/profile"
-            className="relative mr-4 hidden aspect-square w-10 overflow-hidden rounded-full border md:block"
+            className="relative mr-4 aspect-square w-10 overflow-hidden rounded-full border"
           >
             <img
               src={currentUser?.profile_picture}

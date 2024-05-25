@@ -1,10 +1,14 @@
 import {
   CreateBookingResponse,
   GetBookingByIdResponse,
+  GetBookingsByMentorIdResponse,
   GetBookingsByUserIdResponse,
   UpdateBookingResponse,
 } from "../responses/bookingReponse";
 
+/**
+ * @description BookingDTO is a data transfer object that represents the data of a booking.
+ */
 export interface BookingDTO {
   id: string;
   user: {
@@ -34,7 +38,7 @@ export interface BookingDTO {
 }
 
 export const toBookingsDTO = (
-  data: GetBookingsByUserIdResponse,
+  data: GetBookingsByUserIdResponse | GetBookingsByMentorIdResponse,
 ): BookingDTO[] => {
   return data.data.map((booking) => ({
     id: booking.id,

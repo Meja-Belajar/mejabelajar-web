@@ -1,5 +1,15 @@
+/**
+ * This class is used to store all the image urls that are used in the application.
+ * @class ImageUrl
+ * @exports QRIS - The QRIS image
+ * @exports NO_PROFILE_IMAGE - The no profile image
+ * @exports TUTORING - The tutoring image
+ * @exports MENTORING - The mentoring image
+ * @exports LOGBOOK - The logbook image
+ * @exports TO_ROLE_MENTOR - The to role mentor image
+ * @exports TO_ROLE_USER - The to role user image
+ */
 export class ImageUrl {
-  static qris = "https://qris.online/homepage/images/assets/pay/api/icon-3.jpg";
   static QRIS = "https://qris.online/homepage/images/assets/pay/api/icon-3.jpg";
   static NO_PROFILE_IMAGE =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png";

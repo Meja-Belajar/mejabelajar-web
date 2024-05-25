@@ -7,6 +7,9 @@ import {
 
 import { ImageUrl } from "@src/assets/imageUrl";
 
+/**
+ * @description UserDTO is a data transfer object that represents the data of a user.
+ */
 export interface UserDTO {
   user_id: string;
   username: string;
@@ -20,15 +23,11 @@ export interface UserDTO {
 }
 
 export const toUserDTO = (
-  data:
-    | LoginUserResponse
-    | RegisterUserResponse
-    | UpdateUserResponse
-    | GetUserByIdResponse,
+  data: RegisterUserResponse | UpdateUserResponse | GetUserByIdResponse,
 ): UserDTO => {
   return {
     user_id: data.data.id,
-    username: data.data.user_name,
+    username: data.data.username,
     university: data.data.university,
     email: data.data.email,
     phone_number: data.data.phone_number,

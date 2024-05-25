@@ -16,7 +16,7 @@ import Navigation from "@src/components/Navigation";
 import { useFetch } from "@src/hooks/useFetch";
 
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
-import { GetMentorByIdRequest } from "@src/models/requests/mentorRequest";
+import { GetMentorByUserIdRequest } from "@src/models/requests/mentorRequest";
 
 import LoadingPage from "@src/pages/LoadingPage";
 
@@ -31,9 +31,9 @@ const MentorLanding = () => {
   const navigate = useNavigate();
   const currentUser = useSelector((state: any) => state.user.currentUser);
 
-  const mentorState = useFetch<GetMentorByIdRequest, MentorDTO>({
-    fetchProps: { mentor_id: currentUser.user_id },
-    fetchCallback: MentorService.getMentorById,
+  const mentorState = useFetch<GetMentorByUserIdRequest, MentorDTO>({
+    fetchProps: { user_id: currentUser.user_id },
+    fetchCallback: MentorService.getMentorByUserId,
   });
 
   if (mentorState.isLoading) {
@@ -41,6 +41,7 @@ const MentorLanding = () => {
   }
 
   if (mentorState.error) {
+    setTimeout(() => navigate("/profile/application"), 2000);
     return <ErrorPage code={404} message={mentorState.error} />;
   }
 

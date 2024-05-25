@@ -1,26 +1,19 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import {
   faBan,
   faBell,
-  faBellSlash,
   faCheck,
   faEllipsisVertical,
-  faEye,
   faMessage,
   faMoneyBill,
-  faPencil,
   faPhone,
   faSortDown,
-  faSortUp,
-  faTrash,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
-  Divider,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -32,18 +25,18 @@ import {
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useFetch } from "@src/hooks";
+import { motion } from "framer-motion";
 
 import { BookingService } from "@src/apis/services/bookingService";
 import { MentorService } from "@src/apis/services/mentorService";
 
-import { useFetch } from "@src/hooks/useFetch";
-
 import { BookingDTO } from "@src/models/dtos/bookingDTO";
 import { MentorDTO } from "@src/models/dtos/mentorDTO";
 
-import BookingLists from "@src/assets/data/BookingLists.json";
-import { PopularMentors } from "@src/assets/data/userLandingData";
+import { DateUtil } from "@src/utils/dateUtil";
+import { NumberUtil } from "@src/utils/numberUtil";
+
 import "@src/assets/global.css";
 
 const AdminOverview = () => {
@@ -59,14 +52,155 @@ const AdminOverview = () => {
 
   const [isMentorsView, setIsMentorView] = useState<boolean>(false);
 
-  const navigate = useNavigate();
+  const renderAvailableMentor = () => {
+    if (
+      availableMentors.isLoading ||
+      availableMentors.error ||
+      !availableMentors.data
+    ) {
+      return (
+        <div className="mt-20 flex items-center justify-center px-7">
+          {availableMentors.error && (
+            <h1 className="text-3xl text-red-500">Failed to fetch data</h1>
+          )}
+        </div>
+      );
+    }
 
-  if (availableMentors.isLoading || allBookings.isLoading)
     return (
-      <div className="mt-20 flex items-center justify-center px-7">
-        <FontAwesomeIcon icon={faBell} spin className="text-3xl" />
+      <div className="mt-10">
+        {isMentorsView &&
+          availableMentors.data.map((mentor, index) => (
+            <div
+              key={`${index}/${mentor.mentor_id}`}
+              className="bg-blue-accent-500 mt-3 w-full rounded-2xl border bg-white px-8 py-6 text-black "
+            >
+              <div className="mt-2 flex flex-col items-start justify-between sm:flex-row sm:items-center">
+                <h1 className="text-xl">{mentor.mentor_id}</h1>
+                <h2 className="text-2xl">{mentor.username}</h2>
+              </div>
+              <div className="mt-5 flex flex-row items-end justify-between">
+                <div>
+                  <div className="text-l text-gray-700">
+                    <FontAwesomeIcon icon={faMessage} className="mr-1" />
+                    <span className="ml-3">{mentor.email}</span>
+                  </div>
+                  <div className="text-lg text-gray-700">
+                    <FontAwesomeIcon icon={faPhone} className="mr-1" />
+                    <span className="text-md ml-3">{mentor.phone_number}</span>
+                  </div>
+                  <div className="text-lg text-gray-700">
+                    <FontAwesomeIcon icon={faMoneyBill} className="mr-1" />
+                    <span className="ml-3">
+                      {NumberUtil.formatToRupiah(mentor.revenue)}
+                    </span>
+                  </div>
+                </div>
+
+                <a href={`mailto:${mentor.email}`}>
+                  <Button
+                    startContent={
+                      <FontAwesomeIcon
+                        icon={faMessage}
+                        className="text-white"
+                      />
+                    }
+                    className="mt-3 bg-blue-accent-300 text-white"
+                  >
+                    Message
+                  </Button>
+                </a>
+              </div>
+            </div>
+          ))}
       </div>
     );
+  };
+
+  const renderAllBookings = () => {
+    if (allBookings.isLoading || allBookings.error || !allBookings.data) {
+      return (
+        <div className="mt-20 flex items-center justify-center px-7">
+          {allBookings.error && (
+            <h1 className="text-3xl text-red-500">Failed to fetch data</h1>
+          )}
+        </div>
+      );
+    }
+
+    const handleRemove = async (id: string) => {
+      if (!allBookings.data) return;
+
+      try {
+        const response = await BookingService.delete({ id: id });
+
+        if (response) alert("Booking session has been canceled");
+
+        allBookings.refresh();
+      } catch (e) {
+        alert("Failed to cancel booking session");
+      }
+    };
+
+    const handleApprove = () => {
+      return alert("Booking session has been accepted");
+    };
+
+    return (
+      <Table
+        removeWrapper
+        aria-label="Collection Transaction"
+        className="mt-10"
+      >
+        <TableHeader>
+          <TableColumn>User</TableColumn>
+          <TableColumn>Mentor</TableColumn>
+          <TableColumn>Course</TableColumn>
+          <TableColumn>Time</TableColumn>
+          <TableColumn>Location</TableColumn>
+          <TableColumn>Status</TableColumn>
+          <TableColumn>Action</TableColumn>
+        </TableHeader>
+
+        <TableBody>
+          {allBookings.data.map((booking, index) => (
+            <TableRow key={`${index}/${booking.id}`}>
+              <TableCell>{booking.id}</TableCell>
+              <TableCell>{booking.mentor.name}</TableCell>
+              <TableCell>{booking.course.name}</TableCell>
+              <TableCell>
+                {DateUtil.toLocalString(DateUtil.fromISO(booking.date))}
+              </TableCell>
+              <TableCell>{booking.location}</TableCell>
+              <TableCell>
+                {DateUtil.isPast(DateUtil.fromISO(booking.date))
+                  ? "Expired"
+                  : "On Going"}
+              </TableCell>
+              <TableCell className="flex flex-row items-center justify-center pr-4">
+                <Tooltip content="Approve Booking">
+                  <span
+                    className="cursor-pointer text-lg text-default-400 active:opacity-50"
+                    onClick={handleApprove}
+                  >
+                    <FontAwesomeIcon icon={faCheck} className="ml-3" />
+                  </span>
+                </Tooltip>
+                <Tooltip color="danger" content="Cancel Booking">
+                  <span
+                    className="cursor-pointer text-lg text-danger active:opacity-50"
+                    onClick={() => handleRemove(booking.id)}
+                  >
+                    <FontAwesomeIcon icon={faX} className="ml-3" />
+                  </span>
+                </Tooltip>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    );
+  };
 
   return (
     <>
@@ -79,7 +213,7 @@ const AdminOverview = () => {
               </h3>
 
               <h1 className="open-sans-600 text-3xl">
-                {allBookings.data?.length}
+                {allBookings.data?.length || 0}
               </h1>
             </div>
 
@@ -88,7 +222,7 @@ const AdminOverview = () => {
                 Total Mentors
               </h3>
               <h1 className="open-sans-600 text-3xl">
-                {availableMentors.data?.length}
+                {availableMentors.data?.length || 0}
               </h1>
             </div>
           </div>
@@ -119,97 +253,15 @@ const AdminOverview = () => {
           </nav>
         </motion.div>
 
-        <div className="mt-10">
-          {isMentorsView &&
-            availableMentors.data!.map((mentor, index) => (
-              <div
-                key={`${index}/${mentor.mentor_id}`}
-                className="bg-blue-accent-500 mt-3 w-full rounded-2xl border bg-white px-8 py-6 text-black "
-              >
-                <div className="mt-2 flex flex-col items-start justify-between sm:flex-row sm:items-center">
-                  <h1 className="text-xl">{mentor.mentor_id}</h1>
-                  <h2 className="text-2xl">{mentor.username}</h2>
-                </div>
-                <div className="mt-5 flex flex-row items-end justify-between">
-                  <div>
-                    <div className="text-l text-gray-700">
-                      <FontAwesomeIcon icon={faMessage} />
-                      <span className="ml-3">{mentor.email}</span>
-                    </div>
-                    <div className="text-lg text-gray-700">
-                      <FontAwesomeIcon icon={faPhone} />
-                      <span className="ml-3">{mentor.phone_number}</span>
-                    </div>
-                    <div className="text-lg text-gray-700">
-                      <FontAwesomeIcon icon={faMoneyBill} />
-                      <span className="ml-3">{mentor.revenue}</span>
-                    </div>
-                  </div>
-
-                  <a href={`mailto:${mentor.email}`}>
-                    <Button
-                      startContent={
-                        <FontAwesomeIcon
-                          icon={faMessage}
-                          className="text-white"
-                        />
-                      }
-                      className="mt-3 bg-blue-accent-300 text-white"
-                    >
-                      Message
-                    </Button>
-                  </a>
-                </div>
-              </div>
-            ))}
-        </div>
+        {renderAvailableMentor()}
 
         <section className="mt-20">
           <div>
             <span className="open-sans-600 mr-1 text-3xl">Bookings</span>
-            <sup className="-top-3">{BookingLists.length}</sup>
+            <sup className="-top-3">{allBookings.data!.length || 0}</sup>
           </div>
 
-          <Table
-            removeWrapper
-            aria-label="Collection Transaction"
-            className="mt-10"
-          >
-            <TableHeader>
-              <TableColumn>User</TableColumn>
-              <TableColumn>Mentor</TableColumn>
-              <TableColumn>Course</TableColumn>
-              <TableColumn>Time</TableColumn>
-              <TableColumn>Location</TableColumn>
-              <TableColumn>Status</TableColumn>
-              <TableColumn>Action</TableColumn>
-            </TableHeader>
-
-            <TableBody>
-              {BookingLists.map((booking, index) => (
-                <TableRow key={`${index}/${booking.id}`}>
-                  <TableCell>{booking.userId}</TableCell>
-                  <TableCell>{booking.courseId}</TableCell>
-                  <TableCell>{booking.courseId}</TableCell>
-                  <TableCell>{booking.createdAt}</TableCell>
-                  <TableCell>{booking.createdAt}</TableCell>
-                  <TableCell>{booking.createdAt}</TableCell>
-                  <TableCell>
-                    <Tooltip content="Approve Booking">
-                      <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
-                        <FontAwesomeIcon icon={faCheck} className="ml-3" />
-                      </span>
-                    </Tooltip>
-                    <Tooltip color="danger" content="Cancel Booking">
-                      <span className="cursor-pointer text-lg text-danger active:opacity-50">
-                        <FontAwesomeIcon icon={faX} className="ml-3" />
-                      </span>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          {renderAllBookings()}
         </section>
       </motion.div>
     </>
@@ -221,12 +273,12 @@ const PopOverComponent = ({ index, booking }: any) => {
 
   const handleCancel = () => {
     setIsPopOver(false);
-    console.log("Cancel");
+    return alert("Booking session has been canceled");
   };
 
   const handleAccept = () => {
     setIsPopOver(false);
-    console.log("Accept");
+    return alert("Booking session has been accepted");
   };
 
   return (

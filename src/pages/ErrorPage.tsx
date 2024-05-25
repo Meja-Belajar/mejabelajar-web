@@ -10,6 +10,13 @@ type ErrorPageProps = {
   message: string;
 };
 
+/**
+ * ErrorPage is a component that displays an error message and a corresponding error code.
+ *
+ * @param {ErrorPageProps} props - The props object
+ * @param {number} props.code - The error code to display
+ * @param {string} props.message - The error message to display
+ */
 const ErrorPage = (props: ErrorPageProps) => {
   const { code, message } = props;
 
