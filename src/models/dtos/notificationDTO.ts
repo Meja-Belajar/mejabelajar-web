@@ -1,5 +1,8 @@
 import { GetNotificationByIdResponse } from "../responses/notification";
 
+/**
+ * @description NotificationDTO is a data transfer object that represents the data of a notification.
+ */
 export interface NotificationDTO {
   notification_id: string;
   title: string;

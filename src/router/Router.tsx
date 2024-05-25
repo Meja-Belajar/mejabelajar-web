@@ -11,6 +11,9 @@ import LoadingPage from "@src/pages/LoadingPage.tsx";
 const AuthRouter = lazy(() => import("./authRouter.tsx"));
 const PublicRouter = lazy(() => import("./publicRouter.tsx"));
 
+/**
+ * @description Router is a router that contains all the routes in the application.
+ */
 const Router: React.FC = () => {
   const currentUser = useSelector((state: any) => state.user.currentUser);
 

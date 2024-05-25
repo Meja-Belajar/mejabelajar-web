@@ -7,7 +7,6 @@ import {
   UpdateUserRequest,
 } from "@src/models/requests/userRequest";
 import {
-  Example,
   GetUserByIdResponse,
   LoginUserResponse,
   RegisterUserResponse,
@@ -39,8 +38,9 @@ export class UserService {
 
       return userDTO;
     } catch (e) {
-      if (e instanceof Error)
+      if (e instanceof Error) {
         console.error(`Error registering user: ${e.name} - ${e.message}`);
+      }
       throw new Error(`Failed to register user. Please try again.`);
     }
   }
@@ -68,32 +68,34 @@ export class UserService {
 
       return userDTO;
     } catch (e) {
-      if (e instanceof Error)
+      if (e instanceof Error) {
         console.error(`Error logging in: ${e.name} - ${e.message}`);
+      }
       throw new Error("Failed to login. Please try again.");
     }
   }
 
+  /**
+   * Check if user is logged in or not
+   * @returns {UserDTO | null} - UserDTO if user is logged in, null otherwise
+   */
   static async isLogged(): Promise<UserDTO | null> {
     if (localStorage.getItem("user")) {
       // get user from local storage to check if user is already logged in or not
       const user = JSON.parse(localStorage.getItem("user")!);
 
       try {
-        // fetch user from server to get the latest data
         const response = await UserService.getUserById({
           userId: user.user_id,
         });
 
-        // update user in local storage
         localStorage.setItem("user", JSON.stringify(response));
 
         return response;
       } catch (e) {
-        if (e instanceof Error)
-          console.error(
-            `Error fetching latest user data: ${e.name} - ${e.message}`,
-          );
+        if (e instanceof Error) {
+          console.error(`Error fetching latest user data: ${e.name} - ${e.message}`);
+        }
         return user;
       }
     } else {
@@ -128,8 +130,9 @@ export class UserService {
 
       return toUserDTO(updateResponse);
     } catch (e) {
-      if (e instanceof Error)
+      if (e instanceof Error) {
         console.error(`Error updating user: ${e.name} - ${e.message}`);
+      }
       throw new Error("Failed to update user. Please try again.");
     }
   }
@@ -152,8 +155,9 @@ export class UserService {
 
       return toUserDTO(userResponse);
     } catch (e) {
-      if (e instanceof Error)
+      if (e instanceof Error) {
         console.error(`Error fetching user: ${e.name} - ${e.message}`);
+      }
       throw new Error("Failed to fetch user");
     }
   }

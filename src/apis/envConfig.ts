@@ -1,3 +1,7 @@
+/**
+ * @description: This file contains all the environment variables for the application
+ */
+
 export const baseUrl: string = import.meta.env.VITE_API_BASE_URL;
 
 export const userServiceApi = {
@@ -20,23 +24,36 @@ export const mentorServiceApi = {
 
 // bookingService
 export const bookingServiceApi = {
+  getAllBookings: `${baseUrl}/auth/bookings`,
   getBookingsByUserId: `${baseUrl}/auth/bookings/user`,
+  getBookingByBookingId: `${baseUrl}/auth/booking`,
   getBookingsByMentorId: `${baseUrl}/auth/bookings/mentor`,
   deleteBooking: `${baseUrl}/auth/booking`,
   createBooking: `${baseUrl}/auth/booking`,
-  getAllBookings: `${baseUrl}/auth/bookings`,
-
-  getBooking: `${baseUrl}/booking/getBooking`,
-  bookMentor: `${baseUrl}/booking/bookMentor`,
-  cancelBooking: `${baseUrl}/booking/cancelBooking`,
 };
+
+// mentor review
+export const mentorReviewServiceApi = {
+  getMentorReviewsByMentorId: `${baseUrl}/auth/mentor-review`,
+  createMentorReview: `${baseUrl}/auth/mentor-review/create`,
+  updateMentorReview: `${baseUrl}/auth/mentor-review/update`,
+};
+
+// course 
+export const courseServiceApi = {
+  getCourseByMentorId: `${baseUrl}/auth/courses`,
+  createCourse: `${baseUrl}/auth/courses/create`,
+  updateCourse: `${baseUrl}/auth/courses/update`,
+}
 
 // admin
 export const adminServiceApi = {
   verify: `${baseUrl}/admin/verify`,
-  getAllBookings: `${baseUrl}/admin/getAllBookings`,
 };
 
+// notification
 export const notificationServiceApi = {
   getAllNotificationsByUserId: `${baseUrl}/auth/bookings/notification`,
 };
+
+

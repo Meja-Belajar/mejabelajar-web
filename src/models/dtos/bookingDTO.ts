@@ -6,6 +6,9 @@ import {
   UpdateBookingResponse,
 } from "../responses/bookingReponse";
 
+/**
+ * @description BookingDTO is a data transfer object that represents the data of a booking.
+ */
 export interface BookingDTO {
   id: string;
   user: {

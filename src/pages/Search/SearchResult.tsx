@@ -21,7 +21,7 @@ const SearchResult = () => {
 
   const queryResult = useFetch<SearchRequest, MentorDTO[]>({
     fetchProps: { query: query as string },
-    fetchCallback: MentorService.getMentorByName,
+    fetchCallback: MentorService.getMentorQuery,
   });
 
   return (

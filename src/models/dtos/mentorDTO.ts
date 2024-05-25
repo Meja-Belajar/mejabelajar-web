@@ -1,11 +1,11 @@
 import {
-  GetAllMentorApplicationResponse,
   GetAllMentorsResponse,
+  GetAllRegisterMentorResponse,
   GetMentorByMentorIdResponse,
   GetMentorByUserIdResponse,
   GetMentorQueryResponse,
   GetPopularMentorsResponse,
-  MentorApplicationResponse,
+  RegisterMentorResponse,
   UpdateMentorResponse,
 } from "../responses/mentorResponse";
 import { CourseDTO } from "./courseDTO";
@@ -13,6 +13,9 @@ import { ReviewDTO } from "./reviewDTO";
 
 import { ImageUrl } from "@src/assets/imageUrl";
 
+/**
+ * @description MentorDTO is a data transfer object that represents the data of a mentor.
+ */
 export interface MentorDTO {
   username: string;
   university: string;
@@ -35,8 +38,9 @@ export interface MentorDTO {
 export const toMentorsDTO = (
   data:
     | GetAllMentorsResponse
-    | GetAllMentorApplicationResponse
-    | GetMentorQueryResponse,
+    | GetAllRegisterMentorResponse
+    | GetMentorQueryResponse
+    | GetPopularMentorsResponse,
 ): MentorDTO[] => {
   return data.data.map((mentor) => ({
     mentor_id: mentor.mentor_id,
@@ -62,39 +66,6 @@ export const toMentorsDTO = (
       course_end_time: course.course_end_time,
     })),
     reviews: mentor.reviews.map((review) => ({
-      review_id: review.review_id,
-      description: review.description,
-    })),
-  }));
-};
-
-export const fromGetPopularMentors = (
-  data: GetPopularMentorsResponse,
-): MentorDTO[] => {
-  return data.data.map((mentor) => ({
-    mentor_id: mentor.mentor_id,
-    username: mentor.username,
-    university: mentor.university,
-    email: mentor.email,
-    phone_number: mentor.phone,
-    description: mentor.description || "Hi, I'm a mentor!",
-    profile_picture: mentor.profile_picture || ImageUrl.NO_PROFILE_IMAGE,
-    bod: mentor.bod,
-    revenue: mentor.revenue,
-    rating: mentor.rating,
-    total_teaching_hours: mentor.total_teaching_hours,
-    teaching_frequency: mentor.teaching_frequency,
-    isActive: true,
-    courses: mentor?.courses?.map((course) => ({
-      course_id: course.course_id,
-      name: course.name,
-      detail: course.detail,
-      rating: course.rating,
-      hourly_rate: course.hourly_rate,
-      course_start_time: course.course_start_time,
-      course_end_time: course.course_end_time,
-    })),
-    reviews: mentor?.reviews?.map((review) => ({
       review_id: review.review_id,
       description: review.description,
     })),
@@ -167,9 +138,7 @@ export const fromGetMentorByUserId = (
   };
 };
 
-export const fromMentorApplication = (
-  data: MentorApplicationResponse,
-): MentorDTO => {
+export const fromRegisterMentor = (data: RegisterMentorResponse): MentorDTO => {
   return {
     mentor_id: data.data.mentor_id,
     username: data.data.username,

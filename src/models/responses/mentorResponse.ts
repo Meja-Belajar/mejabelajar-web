@@ -195,7 +195,7 @@ export interface GetMentorByUserIdResponse extends BaseResponse {
   };
 }
 
-export interface MentorApplicationResponse extends BaseResponse {
+export interface RegisterMentorResponse extends BaseResponse {
   data: {
     username: string;
     university: string;
@@ -227,7 +227,7 @@ export interface MentorApplicationResponse extends BaseResponse {
   };
 }
 
-export interface GetAllMentorApplicationResponse extends BaseResponse {
+export interface GetAllRegisterMentorResponse extends BaseResponse {
   data: [
     {
       username: string;
@@ -488,7 +488,7 @@ export class Example {
     },
   };
 
-  static MentorApplicationResponse: MentorApplicationResponse = {
+  static RegisterMentorResponse: RegisterMentorResponse = {
     code: 201,
     message: "Success",
     data: {
@@ -511,7 +511,7 @@ export class Example {
     },
   };
 
-  static GetAllMentorApplicationResponse: GetAllMentorApplicationResponse = {
+  static GetAllRegisterMentorResponse: GetAllRegisterMentorResponse = {
     code: 200,
     message: "Success",
     data: [

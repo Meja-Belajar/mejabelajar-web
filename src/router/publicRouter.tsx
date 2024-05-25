@@ -9,6 +9,9 @@ import GuestLanding from "@src/pages/Landing/GuestLandingPage.tsx";
 import LoginPage from "@src/pages/LoginPage.tsx";
 import Register from "@src/pages/RegisterPage.tsx";
 
+/**
+ * @description PublicRouter is a router that contains all the routes that don't require user to login.
+ */
 const PublicRouter = () => {
   return (
     <Routes key="public-routes">

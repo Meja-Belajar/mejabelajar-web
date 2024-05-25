@@ -27,16 +27,13 @@ export class BookingService {
     user_id,
   }: GetAllBookingsByUserIdRequest): Promise<BookingDTO[]> {
     try {
-      const response = await fetch(
-        `${bookingServiceApi.getBookingsByUserId}/${user_id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
+      const response = await fetch(`${bookingServiceApi.getBookingsByUserId}/${user_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        credentials: "include",
+      });
 
       const bookings: GetBookingsByUserIdResponse = await response.json();
 
@@ -46,8 +43,9 @@ export class BookingService {
 
       return toBookingsDTO(bookings);
     } catch (e) {
-      if (e instanceof Error)
+      if (e instanceof Error) {
         console.error(`Error fetching bookings: ${e.name} - ${e.message}`);
+      }
 
       throw new Error("Failed to fetch bookings");
     }
@@ -57,16 +55,13 @@ export class BookingService {
     mentor_id,
   }: GetAllBookingsByMentorIdRequest): Promise<BookingDTO[]> {
     try {
-      const response = await fetch(
-        `${bookingServiceApi.getBookingsByMentorId}/${mentor_id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
+      const response = await fetch(`${bookingServiceApi.getBookingsByMentorId}/${mentor_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        credentials: "include",
+      });
 
       const bookings: GetBookingsByMentorIdResponse = await response.json();
 
@@ -76,8 +71,9 @@ export class BookingService {
 
       return toBookingsDTO(bookings);
     } catch (e) {
-      if (e instanceof Error)
+      if (e instanceof Error) {
         console.error(`Error fetching bookings: ${e.name} - ${e.message}`);
+      }
 
       throw new Error("Failed to fetch bookings");
     }
@@ -87,18 +83,25 @@ export class BookingService {
     id,
   }: GetBookingByIdRequest): Promise<BookingDTO> {
     try {
-      // const response = await fetch(`${bookingServiceApi.getBooking}/${id}`);
+      const response = await fetch(`${bookingServiceApi.getBookingByBookingId}/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
-      const booking: GetBookingByIdResponse = Example.GetBookingByIdResponse;
-      
+      const booking: GetBookingByIdResponse = await response.json();
+
       if (booking.code !== 200) {
         throw new Error(booking.message);
       }
 
       return toBookingDTO(booking);
     } catch (e) {
-      if (e instanceof Error)
+      if (e instanceof Error) {
         console.error(`Error fetching booking: ${e.name} - ${e.message}`);
+      }
       throw new Error("Failed to fetch booking");
     }
   }
@@ -118,12 +121,12 @@ export class BookingService {
       if (bookings.data.length === 0) {
         throw new Error("No bookings found");
       }
-      console.log(bookings);
 
       return toBookingsDTO(bookings);
     } catch (e) {
-      if (e instanceof Error)
+      if (e instanceof Error) {
         console.error(`Error fetching bookings: ${e.name} - ${e.message}`);
+      }
       throw new Error("Failed to fetch bookings");
     }
   }
@@ -143,16 +146,15 @@ export class BookingService {
 
       const createdBooking: CreateBookingResponse = await response.json();
 
-      console.log(createdBooking);
-
       if (createdBooking.code !== 201) {
         throw new Error(createdBooking.message);
       }
 
       return toBookingDTO(createdBooking);
     } catch (e) {
-      if (e instanceof Error)
+      if (e instanceof Error) {
         console.error(`Error creating booking: ${e.name} - ${e.message}`);
+      }
       throw new Error("Failed to create booking");
     }
   }
@@ -171,14 +173,11 @@ export class BookingService {
 
       const deletedBooking: DeleteBookingResponse = await response.json();
 
-      if (deletedBooking.code !== 200) {
-        throw new Error(deletedBooking.message);
-      }
-
       return deletedBooking;
     } catch (e) {
-      if (e instanceof Error)
+      if (e instanceof Error) {
         console.error(`Error deleting booking: ${e.name} - ${e.message}`);
+      }
       throw new Error("Failed to delete booking");
     }
   }

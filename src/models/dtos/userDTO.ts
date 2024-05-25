@@ -7,6 +7,9 @@ import {
 
 import { ImageUrl } from "@src/assets/imageUrl";
 
+/**
+ * @description UserDTO is a data transfer object that represents the data of a user.
+ */
 export interface UserDTO {
   user_id: string;
   username: string;

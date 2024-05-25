@@ -1,6 +1,6 @@
 import { MentorDTO } from "../dtos/mentorDTO";
 
-export interface MentorApplicationRequest {
+export interface RegisterMentorRequest {
   user_id: string;
   user_name: string;
   university: string;

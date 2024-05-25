@@ -12,16 +12,13 @@ export class NotificationService {
     user_id,
   }: GetAllNotificationsByUserIdRequest): Promise<NotificationDTO[]> {
     try {
-      const response = await fetch(
-        `${notificationServiceApi.getAllNotificationsByUserId}/${user_id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
+      const response = await fetch(`${notificationServiceApi.getAllNotificationsByUserId}/${user_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        credentials: "include",
+      });
 
       const notifications: GetNotificationByIdResponse = await response.json();
 
@@ -31,8 +28,9 @@ export class NotificationService {
 
       return toNotificationDTO(notifications);
     } catch (e) {
-      if (e instanceof Error)
+      if (e instanceof Error) {
         console.error(`Error fetching notifications: ${e.name} - ${e.message}`);
+      }
 
       throw new Error("Failed to fetch notifications");
     }

@@ -53,12 +53,18 @@ const AdminOverview = () => {
   const [isMentorsView, setIsMentorView] = useState<boolean>(false);
 
   const renderAvailableMentor = () => {
-    if(availableMentors.isLoading || availableMentors.error || !availableMentors.data) {
+    if (
+      availableMentors.isLoading ||
+      availableMentors.error ||
+      !availableMentors.data
+    ) {
       return (
         <div className="mt-20 flex items-center justify-center px-7">
-          {availableMentors.error && <h1 className="text-3xl text-red-500">Failed to fetch data</h1>}
+          {availableMentors.error && (
+            <h1 className="text-3xl text-red-500">Failed to fetch data</h1>
+          )}
         </div>
-      )
+      );
     }
 
     return (
@@ -81,9 +87,7 @@ const AdminOverview = () => {
                   </div>
                   <div className="text-lg text-gray-700">
                     <FontAwesomeIcon icon={faPhone} className="mr-1" />
-                    <span className="text-md ml-3">
-                      {mentor.phone_number}
-                    </span>
+                    <span className="text-md ml-3">{mentor.phone_number}</span>
                   </div>
                   <div className="text-lg text-gray-700">
                     <FontAwesomeIcon icon={faMoneyBill} className="mr-1" />
@@ -110,32 +114,38 @@ const AdminOverview = () => {
             </div>
           ))}
       </div>
-    )
+    );
+  };
 
-    
-  }
-  
   const renderAllBookings = () => {
-    
-    if(allBookings.isLoading || allBookings.error || !allBookings.data) {
+    if (allBookings.isLoading || allBookings.error || !allBookings.data) {
       return (
         <div className="mt-20 flex items-center justify-center px-7">
-          {allBookings.error && <h1 className="text-3xl text-red-500">Failed to fetch data</h1>}
+          {allBookings.error && (
+            <h1 className="text-3xl text-red-500">Failed to fetch data</h1>
+          )}
         </div>
-      )
+      );
     }
 
-    const handleRemove = (id: string) => {
-      if(!allBookings.data) return;
+    const handleRemove = async (id: string) => {
+      if (!allBookings.data) return;
 
-      const newBookings = allBookings.data.filter((booking) => booking.id !== id);
-      allBookings.setData(newBookings);
-    }
+      try {
+        const response = await BookingService.delete({ id: id });
+
+        if (response) alert("Booking session has been canceled");
+
+        allBookings.refresh();
+      } catch (e) {
+        alert("Failed to cancel booking session");
+      }
+    };
 
     const handleApprove = () => {
       return alert("Booking session has been accepted");
-    }
-    
+    };
+
     return (
       <Table
         removeWrapper
@@ -167,14 +177,20 @@ const AdminOverview = () => {
                   ? "Expired"
                   : "On Going"}
               </TableCell>
-              <TableCell className="flex flex-row pr-4 items-center justify-center">
+              <TableCell className="flex flex-row items-center justify-center pr-4">
                 <Tooltip content="Approve Booking">
-                  <span className="cursor-pointer text-lg text-default-400 active:opacity-50" onClick={handleApprove}>
+                  <span
+                    className="cursor-pointer text-lg text-default-400 active:opacity-50"
+                    onClick={handleApprove}
+                  >
                     <FontAwesomeIcon icon={faCheck} className="ml-3" />
                   </span>
                 </Tooltip>
-                <Tooltip color="danger" content="Cancel Booking" >
-                  <span className="cursor-pointer text-lg text-danger active:opacity-50" onClick={() => handleRemove(booking.id)}>
+                <Tooltip color="danger" content="Cancel Booking">
+                  <span
+                    className="cursor-pointer text-lg text-danger active:opacity-50"
+                    onClick={() => handleRemove(booking.id)}
+                  >
                     <FontAwesomeIcon icon={faX} className="ml-3" />
                   </span>
                 </Tooltip>
@@ -183,8 +199,8 @@ const AdminOverview = () => {
           ))}
         </TableBody>
       </Table>
-    )
-  }
+    );
+  };
 
   return (
     <>

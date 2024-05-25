@@ -164,24 +164,30 @@ const BookingsWrapper = (props: BookingsWrapperProps) => {
 
       const today = DateUtil.getToday();
 
-      const futureItems = response.filter(item => {
+      const futureItems = response.filter((item) => {
         const itemDate = DateUtil.fromISO(item.date);
         return DateUtil.compareDate(itemDate, today);
       });
 
-      const expiredItems = response.filter(item => {
+      const expiredItems = response.filter((item) => {
         const itemDate = DateUtil.fromISO(item.date);
         return !DateUtil.compareDate(itemDate, today);
       });
 
       const sortedFutureItems = futureItems.sort((a, b) => {
-        return DateUtil.compareDate(DateUtil.fromISO(a.date), DateUtil.fromISO(b.date))
+        return DateUtil.compareDate(
+          DateUtil.fromISO(a.date),
+          DateUtil.fromISO(b.date),
+        )
           ? 1
           : -1;
       });
 
       const sortedExpiredItems = expiredItems.sort((a, b) => {
-        return DateUtil.compareDate(DateUtil.fromISO(a.date), DateUtil.fromISO(b.date))
+        return DateUtil.compareDate(
+          DateUtil.fromISO(a.date),
+          DateUtil.fromISO(b.date),
+        )
           ? -1
           : 1;
       });

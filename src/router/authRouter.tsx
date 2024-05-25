@@ -17,6 +17,9 @@ import SearchDefault from "@src/pages/Search/SearchDefault.tsx";
 import Search from "@src/pages/Search/SearchPage.tsx";
 import SearchResult from "@src/pages/Search/SearchResult.tsx";
 
+/**
+ * @description AuthRouter is a router that contains all the routes that require user to login.
+ */
 const AuthRouter = () => {
   return (
     <Routes key="auth-routes">
