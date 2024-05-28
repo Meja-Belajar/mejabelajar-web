@@ -14,8 +14,6 @@ import {
 export class AdminService {
   static async verify({ id }: { id: string }): Promise<AdminDTO> {
     try {
-      // const response = await fetch(`${adminServiceApi.verifyAdmin}${id}`);
-
       const admin: ValidateAdminResponse = Example.ValidateAdminResponse;
 
       if (admin.code !== 200) {
@@ -37,14 +35,6 @@ export class AdminService {
     mentor_id: string;
   }): Promise<MentorDTO> {
     try {
-      // const response = await fetch(adminServiceApi.approveMentor, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ mentor_id }),
-      // });
-
       const mentor: RegisterMentorResponse =
         ExampleMentor.RegisterMentorResponse;
 
@@ -63,14 +53,6 @@ export class AdminService {
     mentor_id: string;
   }): Promise<MentorDTO> {
     try {
-      // const response = await fetch(adminServiceApi.rejectMentor, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ mentor_id }),
-      // });
-
       const mentor: RegisterMentorResponse =
         ExampleMentor.RegisterMentorResponse;
 

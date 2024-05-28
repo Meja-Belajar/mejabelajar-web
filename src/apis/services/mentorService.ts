@@ -160,8 +160,6 @@ export class MentorService {
 
   static async getAllMentorApplications(): Promise<MentorDTO[]> {
     try {
-      // const response = await fetch(`${mentorServiceApi.registerMentor}`);
-
       const mentor: GetAllRegisterMentorResponse =
         Example.GetAllRegisterMentorResponse;
 
@@ -183,13 +181,6 @@ export class MentorService {
     requestData: UpdateMentorRequest,
   ): Promise<MentorDTO> {
     try {
-      // const response = await fetch(`${mentorServiceApi.updateMentor}`, {
-      //   method: "PUT",
-      //   body: JSON.stringify(requestData),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
 
       const mentor: UpdateMentorResponse = Example.UpdateMentorResponse;
 
@@ -209,15 +200,16 @@ export class MentorService {
     requestData: SearchRequest,
   ): Promise<MentorDTO[]> {
     try {
-      // const response = await fetch(`${mentorServiceApi.getMentorByName}`, {
-      //   method: "POST",
-      //   body: JSON.stringify(requestData),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
+      const { query } = requestData;
+      const response = await fetch(`${mentorServiceApi.search}/${query}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
-      const mentor: GetMentorQueryResponse = Example.GetMentorQueryResponse;
+      const mentor: GetMentorQueryResponse = await response.json();
 
       if (mentor.data.length === 0) {
         throw new Error("No mentors found");

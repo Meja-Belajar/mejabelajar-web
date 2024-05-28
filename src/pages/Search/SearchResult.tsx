@@ -24,6 +24,15 @@ const SearchResult = () => {
     fetchCallback: MentorService.getMentorQuery,
   });
 
+  if(queryResult.isLoading || queryResult.error) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <FontAwesomeIcon icon={faSpinner} spin size="3x" />
+        {queryResult.error && <p className="ml-3">{queryResult.error}</p>}
+      </div>
+    );
+  }
+
   return (
     <>
       <motion.div
@@ -34,7 +43,7 @@ const SearchResult = () => {
       >
         <h1 className="open-sans-600 mb-10 text-xl sm:ml-2">{`Search result for ${query || "..."}`}</h1>
 
-        {!queryResult.isLoading && (
+        {!queryResult.isLoading && queryResult.data && (
           <SearchMentorWrapper data={queryResult.data!} />
         )}
       </motion.div>

@@ -8,9 +8,9 @@ export const userServiceApi = {
   login: `${baseUrl}/users/login`,
   register: `${baseUrl}/users/register`,
   getUserById: `${baseUrl}/auth/users`,
+  update: `${baseUrl}/auth/users/update`,
 
   logout: `${baseUrl}/user/logout`,
-  update: `${baseUrl}/user/update`,
 };
 
 // mentorService
@@ -20,6 +20,7 @@ export const mentorServiceApi = {
   getMentorByMentorId: `${baseUrl}/auth/mentors`,
   getMentorByUserId: `${baseUrl}/auth/mentors/by-user`,
   registerMentor: `${baseUrl}/auth/mentors/register`,
+  search: `${baseUrl}/search`,
 };
 
 // bookingService

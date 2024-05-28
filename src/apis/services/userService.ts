@@ -113,8 +113,9 @@ export class UserService {
 
   static async update(requestData: UpdateUserRequest): Promise<UserDTO> {
     try {
+
       const response = await fetch(userServiceApi.update, {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -127,7 +128,6 @@ export class UserService {
       if (updateResponse.code !== 200) {
         throw new Error(updateResponse.message);
       }
-
       return toUserDTO(updateResponse);
     } catch (e) {
       if (e instanceof Error) {
