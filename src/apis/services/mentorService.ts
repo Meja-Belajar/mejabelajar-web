@@ -67,7 +67,6 @@ export class MentorService {
       if (mentors.data.length === 0) {
         throw new Error("No mentors found");
       }
-
       return toMentorsDTO(mentors);
     } catch (e) {
       if (e instanceof Error) {

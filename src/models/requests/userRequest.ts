@@ -23,6 +23,7 @@ export interface UpdateUserRequest {
   profile_picture?: string;
   university: string;
   bod: string;
+  is_mentor: boolean;
 }
 
 export interface GetUserByIdRequest {

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import { faSave, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "@nextui-org/react";
-import { useFetch, useForm } from "@src/hooks";
+import { Button, Tooltip } from "@nextui-org/react";
+import { useForm } from "@src/hooks";
 import { motion } from "framer-motion";
 
 import { UserService } from "@src/apis/services/userService";
@@ -15,9 +15,7 @@ import {
   setUserLoading,
 } from "@src/redux/user/userSelectors";
 
-import { UserDTO } from "@src/models/dtos/userDTO";
 import {
-  GetUserByIdRequest,
   UpdateUserRequest,
 } from "@src/models/requests/userRequest";
 import { UpdateProfileSchema } from "@src/models/zod/userZod";
@@ -41,6 +39,7 @@ const PublicPage = () => {
       profile_picture: currentUser.profile_picture,
       university: currentUser.university,
       bod: currentUser.bod,
+      is_mentor: currentUser.is_mentor,
     } as UpdateUserRequest,
     validationSchema: UpdateProfileSchema,
     onSubmit: async () => {
@@ -176,26 +175,28 @@ const PublicPage = () => {
                     </p>
                   )}
                 </div>
-
-                <div className="mb-2 sm:mb-6">
-                  <input
-                    name="bod"
-                    type="date"
-                    id="bod"
-                    className="block w-full rounded-lg border border-indigo-300 bg-gray-100 p-2.5 text-sm text-indigo-900 focus:border-indigo-500 focus:ring-indigo-500 "
-                    placeholder="Your Birthday"
-                    value={
-                      new Date(former.values.bod).toISOString().split("T")[0]
-                    }
-                    onChange={former.onChangeHandler}
-                    required
-                  />
-                  {former.errorMessages.bod && (
-                    <p className="mt-2 text-xs italic text-red-500">
-                      {former.errorMessages.bod.toString()}
-                    </p>
-                  )}
-                </div>
+              
+                <Tooltip key="danger" content="You are not allowed to change the date of birth" color="danger">
+                  <div className="mb-2 sm:mb-6">
+                    <input
+                      name="bod"
+                      type="date"
+                      id="bod"
+                      className="cursor-not-allowed block w-full rounded-lg border border-indigo-300 bg-gray-100 p-2.5 text-sm text-indigo-900 focus:border-indigo-500 focus:ring-indigo-500 "
+                      placeholder="Your Birthday"
+                      value={
+                        new Date(former.values.bod).toISOString().split("T")[0]
+                      }
+                      onChange={former.onChangeHandler}
+                      disabled
+                    />
+                    {former.errorMessages.bod && (
+                      <p className="mt-2 text-xs italic text-red-500">
+                        {former.errorMessages.bod.toString()}
+                      </p>
+                    )}
+                  </div>
+                </Tooltip>
 
                 <div className="mb-6">
                   <textarea

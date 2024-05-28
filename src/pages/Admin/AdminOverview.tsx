@@ -61,7 +61,7 @@ const AdminOverview = () => {
       return (
         <div className="mt-20 flex items-center justify-center px-7">
           {availableMentors.error && (
-            <h1 className="text-3xl text-red-500">Failed to fetch data</h1>
+            <h1 className="text-3xl text-red-500">Failed to fetch available mentors</h1>
           )}
         </div>
       );
@@ -122,7 +122,9 @@ const AdminOverview = () => {
       return (
         <div className="mt-20 flex items-center justify-center px-7">
           {allBookings.error && (
-            <h1 className="text-3xl text-red-500">Failed to fetch data</h1>
+            <h1 className="text-3xl text-red-500">
+              Failed to fetch data
+            </h1>
           )}
         </div>
       );
