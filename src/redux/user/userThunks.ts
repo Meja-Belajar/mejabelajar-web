@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -12,8 +11,7 @@ import { UserDTO } from "@src/models/dtos/userDTO";
 //   return response;
 // });
 
-export const isUserAlreadyLogin = async () => {
+export const isUserAlreadyLogin = createAsyncThunk('user/initializeUser', async () => {
   const response = await UserService.isLogged();
-
-  return response;
-};
+  return response as UserDTO;
+});

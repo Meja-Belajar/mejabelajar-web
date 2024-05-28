@@ -9,7 +9,7 @@ type InitialState = {
 };
 
 const initialState = <InitialState>{
-  currentUser: await isUserAlreadyLogin(),
+  currentUser: null,
   isUserLoading: false,
   userError: "",
 };
@@ -28,6 +28,19 @@ const userSlice = createSlice({
       state.userError = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(isUserAlreadyLogin.pending, (state) => {
+      state.isUserLoading = true;
+    });
+    builder.addCase(isUserAlreadyLogin.fulfilled, (state, action: PayloadAction<UserDTO>) => {
+      state.currentUser = action.payload;
+      state.isUserLoading = false;
+    });
+    builder.addCase(isUserAlreadyLogin.rejected, (state) => {
+      state.isUserLoading = false;
+      state.userError = 'Failed to initialize user';
+    });
+  }
 });
 
 export { userSlice };
