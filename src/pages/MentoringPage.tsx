@@ -184,7 +184,7 @@ const MentoringPage = () => {
       date: {
         year: year,
         month: month,
-        day: day + 1,
+        day: day,
       },
     });
   };
@@ -210,8 +210,11 @@ const MentoringPage = () => {
         course_id: selectedCourse.course_id,
         scheduled_at: DateUtil.toISOString(
           DateUtil.fromUniversalDate({
-            ...schedule.date,
-            ...schedule.from,
+            year: schedule.date.year,
+            month: schedule.date.month,
+            day: schedule.date.day + 1,
+            hour: schedule.from.hour,
+            minute: schedule.from.minute,
           }),
         ),
         scheduled_location: "Based on discussion with mentor",
@@ -450,7 +453,7 @@ const MentoringPage = () => {
             You are about to book{" "}
             <span className="font-semibold">{selectedCourse.name} </span>
             with <span className="font-semibold">{mentor.data?.username} </span>
-            {/* on{" "}
+            on{" "}
             <span className="font-semibold">
               {DateUtil.toLocalString(
                 DateUtil.fromUniversalDate({
@@ -467,7 +470,7 @@ const MentoringPage = () => {
                   ...schedule.to,
                 }),
               )}{" "}
-            </span> */}
+            </span>
           </p>
           <p className="text-md mt-5">
             Total price:{" "}
