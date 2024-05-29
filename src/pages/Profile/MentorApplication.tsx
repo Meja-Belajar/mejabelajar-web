@@ -60,6 +60,8 @@ const MentorApplication = () => {
         profile_picture: currentUser?.profile_picture,
         bod: currentUser?.bod,
         courses: selectedCourse,
+        created_by: currentUser?.user_id,
+        updated_by: currentUser?.user_id
       });
 
       if (response.mentor_id) {

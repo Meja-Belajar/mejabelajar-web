@@ -184,7 +184,7 @@ const MentoringPage = () => {
       date: {
         year: year,
         month: month,
-        day: day,
+        day: day + 1,
       },
     });
   };
@@ -450,7 +450,7 @@ const MentoringPage = () => {
             You are about to book{" "}
             <span className="font-semibold">{selectedCourse.name} </span>
             with <span className="font-semibold">{mentor.data?.username} </span>
-            on{" "}
+            {/* on{" "}
             <span className="font-semibold">
               {DateUtil.toLocalString(
                 DateUtil.fromUniversalDate({
@@ -467,7 +467,7 @@ const MentoringPage = () => {
                   ...schedule.to,
                 }),
               )}{" "}
-            </span>
+            </span> */}
           </p>
           <p className="text-md mt-5">
             Total price:{" "}

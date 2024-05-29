@@ -10,6 +10,8 @@ export interface RegisterMentorRequest {
   profile_picture: string;
   bod: string;
   courses: string[];
+  created_by: string;
+  updated_by: string;
 }
 
 export interface GetMentorByMentorIdRequest {

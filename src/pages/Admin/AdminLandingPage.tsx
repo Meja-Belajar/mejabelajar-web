@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,10 +26,8 @@ import screenProblem from "@src/assets/lotties/screen-problem.json";
 import { animate, exit, initial } from "@src/assets/pageTransitions";
 
 const AdminLandingPage = () => {
-  const currentPath = window.location.pathname.split("/")[2]
-    ? window.location.pathname.split("/")[2]
-    : "Dashboard";
 
+  const location = useLocation();
   const [admin, setAdmin] = useState<AdminDTO>({} as AdminDTO);
   const [id, setId] = useState<string>("");
 
@@ -117,6 +115,7 @@ const AdminLandingPage = () => {
     return renderAdminForm();
   }
 
+
   return (
     <>
       <motion.div
@@ -137,12 +136,12 @@ const AdminLandingPage = () => {
                     <NavLink
                       to="/admin"
                       className="open-sans-600 rounded-md  px-3 py-2 text-sm font-medium"
-                      style={() => {
+                      style={({ isActive }) => {
                         return {
                           backgroundColor:
-                            currentPath === "Dashboard" ? "#B46EFB" : "white",
+                            location.pathname === '/admin' ? "#B46EFB" : "white",
                           color:
-                            currentPath === "Dashboard" ? "white" : "black",
+                            location.pathname === '/admin' ? "white" : "black",
                         };
                       }}
                       aria-current="page"
@@ -200,7 +199,7 @@ const AdminLandingPage = () => {
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <h1 className="open-sans-600 text-3xl font-bold tracking-tight text-gray-900">
-              {currentPath}
+              Admin Page
             </h1>
           </div>
         </header>

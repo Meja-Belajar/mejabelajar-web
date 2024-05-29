@@ -144,7 +144,7 @@ export class MentorService {
       });
 
       const mentor: RegisterMentorResponse = await response.json();
-
+      console.log(mentor);
       if (mentor.code != 201) {
         throw new Error("Failed to register mentor");
       }
@@ -160,14 +160,11 @@ export class MentorService {
 
   static async getAllMentorApplications(): Promise<MentorDTO[]> {
     try {
-      const mentor: GetAllRegisterMentorResponse =
-        Example.GetAllRegisterMentorResponse;
+      const mentor: MentorDTO[] = await MentorService.getAllMentors();
 
-      if (mentor.code != 200) {
-        throw new Error("Failed to register mentor");
-      }
+      const filteredMentor = mentor.filter((mentor) => mentor.rating === 0);
 
-      return toMentorsDTO(mentor);
+      return filteredMentor;
     } catch (e) {
       if (e instanceof Error) {
         console.error(`Error registering mentor: ${e.name} - ${e.message}`);

@@ -60,7 +60,7 @@ const AdminNewMentor = () => {
     }
   };
 
-  if (newMentorsApp.isLoading) {
+  if (newMentorsApp.isLoading || !newMentorsApp.data) {
     return (
       <>
         <div className="mt-20 flex items-center justify-center px-7">
